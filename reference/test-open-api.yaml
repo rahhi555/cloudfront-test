@@ -1,0 +1,155 @@
+openapi: 3.1.0
+x-stoplight:
+  id: oyf2pt1k0zz67
+info:
+  title: test-open-api
+  version: '1.0'
+  summary: ほげほげサマリー
+  description: ほげほげ説明
+  contact:
+    name: 平林直樹
+    url: 'https://example.com'
+    email: test@example.com
+  termsOfService: hogehoge
+  license:
+    name: MIT
+    url: 'https://example.com'
+servers:
+  - url: 'http://localhost:3000'
+    description: 平林直樹
+paths:
+  /blogs:
+    get:
+      summary: ブログ一覧取得
+      tags:
+        - blogs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Blog'
+              examples:
+                example-1:
+                  value:
+                    - id: 1
+                      title: Rubyについて
+                      contents: Rubyというプログラミング言語は、1995年にまつもとゆきひろ氏によって作成されました。
+                      created_at: '2022-07-05T00:09:40.705+09:00'
+                      updated_at: '2022-07-05T00:09:40.705+09:00'
+                    - id: 2
+                      title: Railsについて
+                      contents: 'Ruby on Railsは,DHHという作者によって作成された、Rubyを使用したフレームワークです。'
+                      created_at: '2022-07-05T00:15:40.705+09:00'
+                      updated_at: '2022-07-05T00:15:40.705+09:00'
+      operationId: get-blogs
+      description: ブログ一覧を取得します
+    post:
+      summary: ブログ作成
+      operationId: post-blogs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+      tags:
+        - blogs
+      description: ブログを作成します
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: title
+          description: ブログタイトル
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: contents
+          description: ブログ本文
+          required: true
+  /health_check:
+    get:
+      summary: ヘルスチェック
+      tags:
+        - health_check
+      responses:
+        '200':
+          description: OK
+          headers: {}
+      operationId: get-health_check
+      description: ヘルスチェック用のエンドポイントです
+  '/blogs/{id}':
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        description: ブログid
+        required: true
+    get:
+      summary: ブログ詳細
+      tags:
+        - blogs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+              examples:
+                example-1:
+                  value:
+                    id: 1
+                    title: Rubyについて
+                    contents: Rubyというプログラミング言語は、1995年にまつもとゆきひろ氏によって作成されました。
+                    created_at: '2022-07-05T00:09:40.705+09:00'
+                    updated_at: '2022-07-05T00:09:40.705+09:00'
+      operationId: get-blogs-id
+      description: ブログ詳細を取得します
+components:
+  schemas:
+    Blog:
+      type: object
+      title: Blog
+      x-stoplight:
+        id: apwigsxqboanc
+      examples:
+        - id: 1
+          title: Rubyについて
+          contents: Rubyというプログラミング言語は、1995年にまつもとゆきひろ氏によって作成されました。
+          created_at: '2022-07-05T00:09:40.705+09:00'
+          updated_at: '2022-07-05T00:09:40.705+09:00'
+      properties:
+        id:
+          type: integer
+          example: 1
+          readOnly: true
+        title:
+          type: string
+          example: Rubyについて
+        contents:
+          type: string
+          example: Rubyというプログラミング言語は、1995年にまつもとゆきひろ氏によって作成されました。
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-07-05T00:09:40.705+09:00'
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2022-07-05T00:09:40.705+09:00'
+          readOnly: true
+      x-internal: false
+tags:
+  - name: blogs
+    description: blogsテーブル関連
+  - name: health_check
+    description: ヘルスチェック関連
