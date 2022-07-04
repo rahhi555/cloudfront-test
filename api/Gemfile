@@ -49,5 +49,6 @@ group :development do
   gem "sorbet"
   gem "sorbet-rails"
   gem "tapioca", require: false
+  gem "committee-rails"
 end
 
