@@ -1,0 +1,15 @@
+<script setup lang="ts">
+import { RouterLink } from "vue-router"
+</script>
+
+<template>
+  <div style="margin: auto; width: 1000px">
+    <h1>ブログ作成画面</h1>
+    <div>
+      <RouterLink to="/">TOP</RouterLink>
+    </div>
+    <div>
+      <RouterLink to="blogs">記事一覧画面</RouterLink>
+    </div>
+  </div>
+</template>
