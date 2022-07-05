@@ -50,8 +50,8 @@ paths:
       summary: ブログ作成
       operationId: post-blogs
       responses:
-        '200':
-          description: OK
+        '201':
+          description: Created
           content:
             application/json:
               schema:
