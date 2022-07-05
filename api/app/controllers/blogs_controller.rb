@@ -1,3 +1,5 @@
+# typed: true
+
 class BlogsController < ApplicationController
   def index
     blogs = Blog.all
@@ -10,13 +12,13 @@ class BlogsController < ApplicationController
   end
 
   def create
-    Blog.create(blog_params)
-    head :created
+    blog = Blog.create(blog_params)
+    render json: blog, status: :created
   end
 
   private
 
   def blog_params
-    params.require(:blog).permit(:title, :contains)
+    params.require(:blog).permit(:title, :contents)
   end
 end
