@@ -48,7 +48,7 @@ paths:
       description: ブログ一覧を取得します
     post:
       summary: ブログ作成
-      operationId: post-blogs
+      operationId: create-blog
       responses:
         '201':
           description: Created
@@ -81,7 +81,7 @@ paths:
         '200':
           description: OK
           headers: {}
-      operationId: get-health_check
+      operationId: get-health-check
       description: ヘルスチェック用のエンドポイントです
   '/blogs/{id}':
     parameters:
@@ -110,7 +110,7 @@ paths:
                     contents: Rubyというプログラミング言語は、1995年にまつもとゆきひろ氏によって作成されました。
                     created_at: '2022-07-05T00:09:40.705+09:00'
                     updated_at: '2022-07-05T00:09:40.705+09:00'
-      operationId: get-blogs-id
+      operationId: get-blog
       description: ブログ詳細を取得します
 components:
   schemas:
