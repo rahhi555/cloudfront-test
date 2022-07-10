@@ -9,10 +9,10 @@ import { RouterLink } from 'vue-router';
       <RouterLink to="/">TOP</RouterLink>
     </div>
     <div>
-      <RouterLink to="/create">記事作成画面</RouterLink>
+      <RouterLink to="/create" data-testid="create-link">記事作成画面</RouterLink>
     </div>
     <div>
       <RouterLink to="/blogs">記事一覧画面</RouterLink>
-    </div>      
+    </div> 
   </div>
 </template>

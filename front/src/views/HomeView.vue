@@ -3,7 +3,8 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <main>    
+  <main> 
+    <h1>ホーム</h1>   
     <div>
       <RouterLink to="/create">記事作成画面</RouterLink>
     </div>

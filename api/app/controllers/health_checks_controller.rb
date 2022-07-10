@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 class HealthChecksController < ApplicationController
   def index
     head :ok
