@@ -1,36 +1,40 @@
 services:
   db:
-    image: postgres:14
-    container_name: prum-postgres
+    image: postgres:14.4
+    container_name: home-care-navi-second-db-container
     environment:
-      POSTGRES_PASSWORD: password
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PORT=5432
+      - TZ=Asia/Tokyo
     ports:
       - "5432:5432"
-
+  
   api:
     build:
       context: ./api
-    container_name: cloud-front-api
+    container_name: home-care-navi-second-api-container
     volumes:
       - ./api:/api
     depends_on:
       - db
     ports:
       - "3000:3000"
-    tty: true
     command: rails s -b 0.0.0.0
 
   front:
     build:
       context: ./front
-    container_name: cloud-front-front
+    container_name: home-care-navi-second-front-container
     volumes:
       - ./front:/front
-    ports:
-      - "80:80"
+      - node-modules-volume:/front/node_modules
     depends_on:
       - api
+    ports:
+      - "8080:8080"
+      - "24678:24678"
     command: npm run dev
-    tty: true
-      
-    
+
+volumes:
+  node-modules-volume:

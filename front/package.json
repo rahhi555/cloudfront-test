@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 8080 --host '0.0.0.0'",
     "build": "run-p build-only",
     "preview": "vite preview --port 4173",
     "test:unit": "vitest --environment jsdom",
@@ -14,10 +14,10 @@
     "generate-typescript-fetch": "openapi-generator-cli generate -g typescript-fetch -i ../reference/test-open-api.yaml -o ./types/fetch"
   },
   "dependencies": {
-    "pinia": "^2.0.14",
+    "pinia": "^2.0.16",
     "sass": "^1.53.0",
     "vue": "^3.2.37",
-    "vue-router": "^4.1.1"
+    "vue-router": "^4.1.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.3.0",
@@ -25,19 +25,19 @@
     "@testing-library/vue": "^6.6.0",
     "@types/jsdom": "^16.2.14",
     "@types/node": "^18.0.3",
-    "@vitejs/plugin-vue": "^2.3.3",
+    "@vitejs/plugin-vue": "^3.0.0",
     "@vue/tsconfig": "^0.1.3",
     "c8": "^7.11.3",
     "cypress": "^10.3.0",
     "jsdom": "^20.0.0",
-    "msw": "^0.43.1",
+    "msw": "^0.44.0",
     "msw-auto-mock": "^0.8.0",
     "npm-run-all": "^4.1.5",
     "start-server-and-test": "^1.14.0",
     "typescript": "~4.7.4",
-    "vite": "^2.9.14",
+    "vite": "^3.0.0",
     "vitest": "^0.18.0",
-    "vue-tsc": "^0.38.3",
+    "vue-tsc": "^0.38.5",
     "whatwg-fetch": "^3.6.2"
   },
   "msw": {
