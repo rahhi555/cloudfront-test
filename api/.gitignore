@@ -29,3 +29,5 @@
 /config/master.key
 
 sorbet
+.irb_history
+.ash_history

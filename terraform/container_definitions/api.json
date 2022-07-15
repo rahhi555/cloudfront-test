@@ -19,7 +19,7 @@
       }
     },
     "command": [
-      "rake", "cmd:start"
+      "rake", "production:start"
     ],
     "environment": [
       {

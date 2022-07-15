@@ -68,7 +68,7 @@ resource "aws_lb_target_group" "home_care_navi_second_api" {
   deregistration_delay = 300
 
   health_check {
-    path = "/health-check"
+    path = "/health_check"
     # 正常のしきい値 この回数分連続でヘルスチェックに成功すれば正常とみなされる
     healthy_threshold = 5
     # 非正常のしきい値　この回数分連続でヘルスチェックに失敗すると異常とみなされる

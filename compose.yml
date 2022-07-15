@@ -20,7 +20,8 @@ services:
       - db
     ports:
       - "3000:3000"
-    command: rails s -b 0.0.0.0
+    # command: rails s -b 0.0.0.0
+    tty: true
 
   front:
     build:
