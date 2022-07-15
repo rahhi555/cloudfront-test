@@ -1,6 +1,6 @@
 # ssl証明書のリクエスト
 resource "aws_acm_certificate" "home_care_navi_second" {
-  domain_name = "www.home-care-navi.com"
+  domain_name = "www.home-care-navi-second.work"
   # domain_nameとは別に追加したいドメイン名がある場合は記入する。なければ空配列。
   subject_alternative_names = []
   validation_method = "DNS"
@@ -32,7 +32,6 @@ resource "aws_route53_record" "home_care_navi_second_certificate" {
   records = [each.value.record]
   ttl = 60
   type = each.value.type
-  # hirabayahsi.workのホストゾーンID(ブラウザのRoute53から確認)
   zone_id = aws_route53_zone.home_care_navi_second_route53_zone.zone_id
 }
 
