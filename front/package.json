@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite --port 8080 --host '0.0.0.0'",
     "build": "run-p build-only",
-    "preview": "vite preview --port 4173",
+    "preview": "vite preview --port 4173 --host '0.0.0.0'",
     "test:unit": "vitest --environment jsdom",
     "test:run": "vitest run --environment jsdom",
     "test:e2e": "start-server-and-test preview http://127.0.0.1:4173/ 'cypress open --e2e'",

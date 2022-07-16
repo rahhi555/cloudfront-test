@@ -20,8 +20,7 @@ services:
       - db
     ports:
       - "3000:3000"
-    # command: rails s -b 0.0.0.0
-    tty: true
+    command: rails s -b 0.0.0.0
 
   front:
     build:
@@ -35,7 +34,8 @@ services:
     ports:
       - "8080:8080"
       - "24678:24678"
-    command: npm run dev
+      - "4173:4173"
+    command: npm run preview
 
 volumes:
   node-modules-volume:

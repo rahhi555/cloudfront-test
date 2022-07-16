@@ -1,31 +1,25 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router';
-import { BlogsApi } from '@/../types/fetch/apis'
+import { BlogsApi, HealthCheckApi } from '@/../types/fetch/apis'
 import type { Blog } from '@/../types/fetch/models'
 import { DefaultConfig, Configuration } from '../../types/fetch/runtime'
 
 DefaultConfig.config = new Configuration({
-  basePath: import.meta.env.PROD ? "https://www.example.com" : "http://localhost:3000",
+  basePath: import.meta.env.PROD ? "https://api.home-care-navi-second.work:3000" : "http://localhost:3000",
 })
 
 const blogs = ref<Blog[]>()
 new BlogsApi().getBlogs().then(res => blogs.value = res)
 
-// const getBlogs = async () => {
-//   blogs.value = await new BlogsApi().getBlogs()
-//   console.log("file")
-// }
-</script>
+const getBlogs = async () => {
+  const data = await new BlogsApi().getBlogs()
+  console.log(data)
+}
 
-<script lang="ts">
-export default {
-  methods: {
-    async getBlogs() {
-      const data = await new BlogsApi().getBlogs()
-      console.log(data)
-    }
-  }
+const healthCheck = async () => {
+  const data = await new HealthCheckApi().getHealthCheck()
+  console.log(data)
 }
 </script>
 
@@ -41,5 +35,6 @@ export default {
     </div>
 
     <button id="get-blogs" @click="getBlogs">ブログ取得</button>
+    <button id="get-health-check" @click="healthCheck">ヘルスチェック</button>
   </div>
 </template>

@@ -44,7 +44,7 @@ resource "aws_lb_listener" "api" {
   load_balancer_arn = aws_lb.home_care_navi_second.arn
   port = "3000"
   protocol = "HTTPS"
-  certificate_arn = aws_acm_certificate.home_care_navi_second.arn
+  certificate_arn = aws_acm_certificate.home_care_navi_second_api.arn
   ssl_policy = "ELBSecurityPolicy-2016-08"
 
   default_action {
