@@ -59,19 +59,25 @@ paths:
       tags:
         - blogs
       description: ブログを作成します
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: title
-          description: ブログタイトル
-          required: true
-        - schema:
-            type: string
-          in: query
-          name: contents
-          description: ブログ本文
-          required: true
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                contents:
+                  type: string
+              required:
+                - title
+            examples:
+              example-1:
+                value:
+                  title: リーダブルコード
+                  contents: より良いコードを書くためのシンプルで実践的なテクニック
+        description: ブログ作成内容
   /health_check:
     get:
       summary: ヘルスチェック
