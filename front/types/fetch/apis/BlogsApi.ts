@@ -16,15 +16,17 @@
 import * as runtime from '../runtime';
 import type {
   Blog,
+  CreateBlogRequest,
 } from '../models';
 import {
     BlogFromJSON,
     BlogToJSON,
+    CreateBlogRequestFromJSON,
+    CreateBlogRequestToJSON,
 } from '../models';
 
-export interface CreateBlogRequest {
-    title: string;
-    contents: string;
+export interface CreateBlogOperationRequest {
+    createBlogRequest?: CreateBlogRequest;
 }
 
 export interface GetBlogRequest {
@@ -40,32 +42,19 @@ export class BlogsApi extends runtime.BaseAPI {
      * ブログを作成します
      * ブログ作成
      */
-    async createBlogRaw(requestParameters: CreateBlogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blog>> {
-        if (requestParameters.title === null || requestParameters.title === undefined) {
-            throw new runtime.RequiredError('title','Required parameter requestParameters.title was null or undefined when calling createBlog.');
-        }
-
-        if (requestParameters.contents === null || requestParameters.contents === undefined) {
-            throw new runtime.RequiredError('contents','Required parameter requestParameters.contents was null or undefined when calling createBlog.');
-        }
-
+    async createBlogRaw(requestParameters: CreateBlogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blog>> {
         const queryParameters: any = {};
 
-        if (requestParameters.title !== undefined) {
-            queryParameters['title'] = requestParameters.title;
-        }
-
-        if (requestParameters.contents !== undefined) {
-            queryParameters['contents'] = requestParameters.contents;
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/blogs`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: CreateBlogRequestToJSON(requestParameters.createBlogRequest),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BlogFromJSON(jsonValue));
@@ -75,7 +64,7 @@ export class BlogsApi extends runtime.BaseAPI {
      * ブログを作成します
      * ブログ作成
      */
-    async createBlog(requestParameters: CreateBlogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blog> {
+    async createBlog(requestParameters: CreateBlogOperationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blog> {
         const response = await this.createBlogRaw(requestParameters, initOverrides);
         return await response.value();
     }

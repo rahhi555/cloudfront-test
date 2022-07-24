@@ -1,8 +1,8 @@
-.openapi-generator-ignore
 apis/BlogsApi.ts
 apis/HealthCheckApi.ts
 apis/index.ts
 index.ts
 models/Blog.ts
+models/CreateBlogRequest.ts
 models/index.ts
 runtime.ts

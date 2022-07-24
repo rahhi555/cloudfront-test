@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { RouterLink } from 'vue-router';
-import { BlogsApi, HealthCheckApi } from '@/../types/fetch/apis'
+import { BlogsApi } from '@/../types/fetch/apis'
 import type { Blog } from '@/../types/fetch/models'
 import { DefaultConfig, Configuration } from '../../types/fetch/runtime'
 
@@ -12,29 +12,34 @@ DefaultConfig.config = new Configuration({
 const blogs = ref<Blog[]>()
 new BlogsApi().getBlogs().then(res => blogs.value = res)
 
-const getBlogs = async () => {
-  const data = await new BlogsApi().getBlogs()
-  console.log(data)
-}
+const blogParams = reactive({
+  title: '',
+  contents: '',
+})
 
-const healthCheck = async () => {
-  const data = await new HealthCheckApi().getHealthCheck()
-  console.log(data)
+const createBlog = async () => {
+  const data = await new BlogsApi().createBlog({
+    createBlogRequest: {
+      title: blogParams.title,
+      contents: blogParams.contents,
+    },
+  })
+  
+  blogs.value?.push(data)
 }
 </script>
 
 <template>
   <div style="margin: auto; width: 1000px">
-    <h1>ブログ一覧画面</h1>
-      <p v-for="blog in blogs">{{blog.title}}</p>
+    <h2>テスト投稿</h2>
     <div>
       <RouterLink to="/">TOP</RouterLink>
     </div>
-    <div>
-      <RouterLink to="/create">記事作成画面</RouterLink>
-    </div>
+    <ul>
+      <li v-for="blog in blogs">{{blog.title}}</li>
+    </ul>
 
-    <button id="get-blogs" @click="getBlogs">ブログ取得</button>
-    <button id="get-health-check" @click="healthCheck">ヘルスチェック</button>
+    <input type="test" v-model="blogParams.title" />
+    <button @click="createBlog">テスト投稿</button>
   </div>
 </template>
