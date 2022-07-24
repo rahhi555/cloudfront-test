@@ -118,6 +118,67 @@ paths:
                     updated_at: '2022-07-05T00:09:40.705+09:00'
       operationId: get-blog
       description: ブログ詳細を取得します
+  /auth:
+    post:
+      summary: ''
+      operationId: signup
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - auth
+      description: ユーザー新規登録
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: テスト太郎
+                  description: ユーザー名
+                email:
+                  type: string
+                  format: email
+                  example: test1@example.com
+                  description: メールアドレス
+                password:
+                  type: string
+                  format: password
+                  example: password
+                  description: パスワード
+                tel:
+                  type: string
+                  example: 000-1111-2222
+                  pattern: '^0[-0-9]{11,12}$'
+                  description: 電話番号
+                post_code:
+                  type: string
+                  pattern: '^\d{3}-\d{4}$'
+                  description: 郵便番号
+                address:
+                  type: string
+                  example: 東京都新宿区市ヶ谷本村町5番1号
+                  description: 住所
+                confirm_success_url:
+                  type: string
+                  format: uri
+                  example: 'http://localhost:8080'
+                  description: 確認メールリダイレクト先url
+              required:
+                - name
+                - email
+                - password
+                - tel
+                - post_code
+                - address
+                - confirm_success_url
+        description: ''
 components:
   schemas:
     Blog:
@@ -148,6 +209,59 @@ components:
           readOnly: true
       additionalProperties: false
       x-internal: false
+    User:
+      title: User
+      x-stoplight:
+        id: ygtg1gffnd7xu
+      type: object
+      description: 事業所利用者または事業所
+      properties:
+        id:
+          type: integer
+          example: 1
+          description: id
+        name:
+          type: string
+          description: 名前
+        email:
+          type: string
+          format: email
+          example: test@example.com
+          description: メールアドレス
+        tel:
+          type: string
+          description: 電話番号
+          example: 090-1111-2222
+          pattern: '^0[-0-9]{11,12}$'
+        post_code:
+          type: string
+          example: 123-4567
+          pattern: '^\d{3}-\d{4}$'
+          description: 郵便番号
+        address:
+          type: string
+          example: 東京都新宿区市ヶ谷本村町5番1号
+          description: 住所
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-07-05T00:09:40.705+09:00'
+          description: 作成日時
+        updated_at:
+          type: string
+          format: date-time
+          example: '2022-07-05T00:09:40.705+09:00'
+          description: 更新日時
+      required:
+        - id
+        - name
+        - email
+        - tel
+        - post_code
+        - address
+        - created_at
+        - updated_at
+      additionalProperties: false
 tags:
   - name: blogs
     description: blogsテーブル関連
