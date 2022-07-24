@@ -35,6 +35,13 @@ resource "aws_cloudfront_distribution" "home_care_navi_second_distribution" {
     ssl_support_method = "sni-only"
   }
 
+  custom_error_response {
+    error_code = 403
+    error_caching_min_ttl = 300
+    response_code = 200
+    response_page_path = "/index.html"
+  }
+
   enabled = true
   is_ipv6_enabled = true
   default_root_object = "index.html"

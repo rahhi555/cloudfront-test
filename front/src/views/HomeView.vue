@@ -4,12 +4,9 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <main> 
-    <h1>ホーム</h1>   
+    <h2>ホーム</h2>   
     <div>
-      <RouterLink to="/create">記事作成画面</RouterLink>
-    </div>
-    <div>
-      <RouterLink to="/blogs">記事一覧画面</RouterLink>
+      <RouterLink to="/blogs">テスト投稿</RouterLink>
     </div>
   </main>
 </template>

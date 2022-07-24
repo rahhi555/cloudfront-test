@@ -1,6 +1,6 @@
 FROM ruby:3.1.2-alpine3.16
 
-ENV RUNTIME_PACKAGES="tzdata postgresql-client libpq-dev vips" \
+ENV RUNTIME_PACKAGES="tzdata postgresql-client libpq-dev vips git" \
     DEV_PACKAGES="build-base" \
     HOME=/api \
     LANG=C.UTF-8 \
