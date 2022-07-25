@@ -129,6 +129,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      id: 1
+                      name: string
+                      email: test@example.com
+                      tel: 090-1111-2222
+                      post_code: 123-4567
+                      address: 東京都新宿区市ヶ谷本村町5番1号
+                      created_at: '2022-07-05T00:09:40.705+09:00'
+                      updated_at: '2022-07-05T00:09:40.705+09:00'
       tags:
         - auth
       description: ユーザー新規登録
@@ -138,41 +156,38 @@ paths:
             schema:
               type: object
               properties:
-                data:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      example: テスト太郎
-                      description: ユーザー名
-                    email:
-                      type: string
-                      format: email
-                      example: test1@example.com
-                      description: メールアドレス
-                    password:
-                      type: string
-                      format: password
-                      example: password
-                      description: パスワード
-                    tel:
-                      type: string
-                      example: 000-1111-2222
-                      pattern: '^0[-0-9]{11,12}$'
-                      description: 電話番号
-                    post_code:
-                      type: string
-                      pattern: '^\d{3}-\d{4}$'
-                      description: 郵便番号
-                    address:
-                      type: string
-                      example: 東京都新宿区市ヶ谷本村町5番1号
-                      description: 住所
-                    confirm_success_url:
-                      type: string
-                      format: uri
-                      example: 'http://localhost:8080'
-                      description: 確認メールリダイレクト先url
+                name:
+                  type: string
+                  example: テスト太郎
+                  description: ユーザー名
+                email:
+                  type: string
+                  format: email
+                  example: test1@example.com
+                  description: メールアドレス
+                password:
+                  type: string
+                  format: password
+                  example: password
+                  description: パスワード
+                tel:
+                  type: string
+                  example: 000-1111-2222
+                  pattern: '^0[-0-9]{11,12}$'
+                  description: 電話番号
+                post_code:
+                  type: string
+                  pattern: '^\d{3}-\d{4}$'
+                  description: 郵便番号
+                address:
+                  type: string
+                  example: 東京都新宿区市ヶ谷本村町5番1号
+                  description: 住所
+                confirm_success_url:
+                  type: string
+                  format: uri
+                  example: 'http://localhost:8080'
+                  description: 確認メールリダイレクト先url
               required:
                 - name
                 - email
@@ -226,33 +241,36 @@ paths:
                     post_code: 111-2222
                     address: hogefuga
                 properties:
-                  provider:
-                    type: string
-                    example: email
-                    description: プロパイダ
-                  email:
-                    type: string
-                    format: email
-                    example: test6@example.com
-                    description: メールアドレス
-                  uid:
-                    type: string
-                    example: test6@example.com
-                    description: ユーザー識別子
-                  id:
-                    type: integer
-                    example: 1
-                    description: ユーザーID
-                  allow_password_change:
-                    type: boolean
-                  name:
-                    type: string
-                  tel:
-                    type: string
-                  post_code:
-                    type: string
-                  address:
-                    type: string
+                  data:
+                    type: object
+                    properties:
+                      provider:
+                        type: string
+                        example: email
+                        description: プロパイダ
+                      email:
+                        type: string
+                        format: email
+                        example: test6@example.com
+                        description: メールアドレス
+                      uid:
+                        type: string
+                        example: test6@example.com
+                        description: ユーザー識別子
+                      id:
+                        type: integer
+                        example: 1
+                        description: ユーザーID
+                      allow_password_change:
+                        type: boolean
+                      name:
+                        type: string
+                      tel:
+                        type: string
+                      post_code:
+                        type: string
+                      address:
+                        type: string
                 required:
                   - provider
                   - email
@@ -272,19 +290,16 @@ paths:
             schema:
               type: object
               properties:
-                data:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-                      format: email
-                      example: test1@example.com
-                      description: メールアドレス
-                    password:
-                      type: string
-                      format: password
-                      example: password
-                      description: パスワード
+                email:
+                  type: string
+                  format: email
+                  example: test1@example.com
+                  description: メールアドレス
+                password:
+                  type: string
+                  format: password
+                  example: password
+                  description: パスワード
               required:
                 - email
                 - password
