@@ -120,7 +120,7 @@ paths:
       description: ブログ詳細を取得します
   /auth:
     post:
-      summary: ''
+      summary: ユーザー新規作成
       operationId: signup
       responses:
         '200':
@@ -179,6 +179,113 @@ paths:
                 - address
                 - confirm_success_url
         description: ''
+  /auth/sign_in:
+    post:
+      summary: ログイン
+      operationId: sign_in
+      responses:
+        '200':
+          description: OK
+          headers:
+            access-token:
+              schema:
+                type: string
+                example: 3zWZXg88YvKkrxi7lw02aA
+              description: アクセストークン
+            client:
+              schema:
+                type: string
+                example: 5_-ibKAF-ouUdv40HU84lQ
+              description: クライアント
+            uid:
+              schema:
+                type: string
+                example: test1@example.com
+              description: ユーザー識別子
+            expiry:
+              schema:
+                type: string
+                example: '1659964156'
+              description: 有効期限
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  example-1:
+                    email: test6@example.com
+                    provider: email
+                    uid: test6@example.com
+                    id: 5
+                    allow_password_change: false
+                    name: テスト太郎
+                    tel: 000-1111-2222
+                    post_code: 111-2222
+                    address: hogefuga
+                properties:
+                  provider:
+                    type: string
+                    example: email
+                    description: プロパイダ
+                  email:
+                    type: string
+                    format: email
+                    example: test6@example.com
+                    description: メールアドレス
+                  uid:
+                    type: string
+                    example: test6@example.com
+                    description: ユーザー識別子
+                  id:
+                    type: integer
+                    example: 1
+                    description: ユーザーID
+                  allow_password_change:
+                    type: boolean
+                  name:
+                    type: string
+                  tel:
+                    type: string
+                  post_code:
+                    type: string
+                  address:
+                    type: string
+                required:
+                  - provider
+                  - email
+                  - uid
+                  - id
+                  - allow_password_change
+                  - name
+                  - tel
+                  - post_code
+                  - address
+      tags:
+        - auth
+      description: ログイン
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: test1@example.com
+                  description: メールアドレス
+                password:
+                  type: string
+                  format: password
+                  example: password
+                  description: パスワード
+              required:
+                - email
+                - password
+          application/xml:
+            schema:
+              type: object
+              properties: {}
 components:
   schemas:
     Blog:
