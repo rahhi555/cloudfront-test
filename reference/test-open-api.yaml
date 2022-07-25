@@ -138,38 +138,41 @@ paths:
             schema:
               type: object
               properties:
-                name:
-                  type: string
-                  example: テスト太郎
-                  description: ユーザー名
-                email:
-                  type: string
-                  format: email
-                  example: test1@example.com
-                  description: メールアドレス
-                password:
-                  type: string
-                  format: password
-                  example: password
-                  description: パスワード
-                tel:
-                  type: string
-                  example: 000-1111-2222
-                  pattern: '^0[-0-9]{11,12}$'
-                  description: 電話番号
-                post_code:
-                  type: string
-                  pattern: '^\d{3}-\d{4}$'
-                  description: 郵便番号
-                address:
-                  type: string
-                  example: 東京都新宿区市ヶ谷本村町5番1号
-                  description: 住所
-                confirm_success_url:
-                  type: string
-                  format: uri
-                  example: 'http://localhost:8080'
-                  description: 確認メールリダイレクト先url
+                data:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: テスト太郎
+                      description: ユーザー名
+                    email:
+                      type: string
+                      format: email
+                      example: test1@example.com
+                      description: メールアドレス
+                    password:
+                      type: string
+                      format: password
+                      example: password
+                      description: パスワード
+                    tel:
+                      type: string
+                      example: 000-1111-2222
+                      pattern: '^0[-0-9]{11,12}$'
+                      description: 電話番号
+                    post_code:
+                      type: string
+                      pattern: '^\d{3}-\d{4}$'
+                      description: 郵便番号
+                    address:
+                      type: string
+                      example: 東京都新宿区市ヶ谷本村町5番1号
+                      description: 住所
+                    confirm_success_url:
+                      type: string
+                      format: uri
+                      example: 'http://localhost:8080'
+                      description: 確認メールリダイレクト先url
               required:
                 - name
                 - email
@@ -269,16 +272,19 @@ paths:
             schema:
               type: object
               properties:
-                email:
-                  type: string
-                  format: email
-                  example: test1@example.com
-                  description: メールアドレス
-                password:
-                  type: string
-                  format: password
-                  example: password
-                  description: パスワード
+                data:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                      example: test1@example.com
+                      description: メールアドレス
+                    password:
+                      type: string
+                      format: password
+                      example: password
+                      description: パスワード
               required:
                 - email
                 - password
