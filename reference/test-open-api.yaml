@@ -121,7 +121,7 @@ paths:
   /auth:
     post:
       summary: ユーザー新規作成
-      operationId: signup
+      operationId: sign_up
       responses:
         '200':
           description: OK
