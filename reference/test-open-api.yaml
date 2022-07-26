@@ -134,15 +134,6 @@ paths:
                     $ref: '#/components/schemas/User'
                 required:
                   - data
-            application/xml:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      '':
-                        type: string
               examples:
                 example-1:
                   value:
@@ -153,8 +144,9 @@ paths:
                       tel: 090-1111-2222
                       post_code: 123-4567
                       address: 東京都新宿区市ヶ谷本村町5番1号
-                      created_at: '2022-07-05T00:09:40.705+09:00'
-                      updated_at: '2022-07-05T00:09:40.705+09:00'
+                      provider: email
+                      uid: test@example.com
+                      allow_password_change: false
       tags:
         - auth
       description: ユーザー新規登録
