@@ -131,10 +131,9 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: object
-                    properties:
-                      '':
-                        type: string
+                    $ref: '#/components/schemas/User'
+                required:
+                  - data
             application/xml:
               schema:
                 type: object
@@ -251,45 +250,9 @@ paths:
                     address: hogefuga
                 properties:
                   data:
-                    type: object
-                    properties:
-                      provider:
-                        type: string
-                        example: email
-                        description: プロパイダ
-                      email:
-                        type: string
-                        format: email
-                        example: test6@example.com
-                        description: メールアドレス
-                      uid:
-                        type: string
-                        example: test6@example.com
-                        description: ユーザー識別子
-                      id:
-                        type: integer
-                        example: 1
-                        description: ユーザーID
-                      allow_password_change:
-                        type: boolean
-                      name:
-                        type: string
-                      tel:
-                        type: string
-                      post_code:
-                        type: string
-                      address:
-                        type: string
+                    $ref: '#/components/schemas/User'
                 required:
-                  - provider
-                  - email
-                  - uid
-                  - id
-                  - allow_password_change
-                  - name
-                  - tel
-                  - post_code
-                  - address
+                  - data
       tags:
         - auth
       description: ログイン
@@ -352,14 +315,17 @@ components:
         id: ygtg1gffnd7xu
       type: object
       description: 事業所利用者または事業所
+      additionalProperties: false
       properties:
         id:
-          type: integer
+          type: number
           example: 1
-          description: id
+          description: ID
+          readOnly: true
         name:
           type: string
           description: 名前
+          example: テスト 太郎
         email:
           type: string
           format: email
@@ -379,16 +345,21 @@ components:
           type: string
           example: 東京都新宿区市ヶ谷本村町5番1号
           description: 住所
-        created_at:
+        provider:
           type: string
-          format: date-time
-          example: '2022-07-05T00:09:40.705+09:00'
-          description: 作成日時
-        updated_at:
+          example: email
+          description: プロバイダ
+          readOnly: true
+        uid:
           type: string
-          format: date-time
-          example: '2022-07-05T00:09:40.705+09:00'
-          description: 更新日時
+          example: test1@example.com
+          description: ユーザー識別子
+          readOnly: true
+        allow_password_change:
+          type: boolean
+          default: false
+          description: パスワード変更中
+          readOnly: true
       required:
         - id
         - name
@@ -396,10 +367,12 @@ components:
         - tel
         - post_code
         - address
-        - created_at
-        - updated_at
-      additionalProperties: false
+        - provider
+        - uid
+        - allow_password_change
 tags:
+  - name: auth
+    description: 認証関連
   - name: blogs
     description: blogsテーブル関連
   - name: health_check
