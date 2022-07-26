@@ -188,6 +188,9 @@ paths:
                   type: string
                   example: Client
                   description: 単一テーブル継承。Client=事業所利用者、Office=事業所
+                  enum:
+                    - Client
+                    - Office
                 confirm_success_url:
                   type: string
                   format: uri
@@ -347,6 +350,9 @@ components:
           type: string
           example: Client
           description: '単一テーブル継承のタイプ。事業所利用者がClient,事業所がOffice。'
+          enum:
+            - Client
+            - Office
         provider:
           type: string
           example: email
