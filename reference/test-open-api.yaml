@@ -337,6 +337,10 @@ components:
           type: string
           example: 東京都新宿区市ヶ谷本村町5番1号
           description: 住所
+        type:
+          type: string
+          example: Client
+          description: '単一テーブル継承のタイプ。事業所利用者がClient,事業所がOffice。'
         provider:
           type: string
           example: email
@@ -359,6 +363,7 @@ components:
         - tel
         - post_code
         - address
+        - type
         - provider
         - uid
         - allow_password_change
