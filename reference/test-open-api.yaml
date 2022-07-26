@@ -145,6 +145,7 @@ paths:
                       post_code: 123-4567
                       address: 東京都新宿区市ヶ谷本村町5番1号
                       provider: email
+                      type: Client
                       uid: test@example.com
                       allow_password_change: false
       tags:
@@ -183,6 +184,10 @@ paths:
                   type: string
                   example: 東京都新宿区市ヶ谷本村町5番1号
                   description: 住所
+                type:
+                  type: string
+                  example: Client
+                  description: 単一テーブル継承。Client=事業所利用者、Office=事業所
                 confirm_success_url:
                   type: string
                   format: uri
@@ -195,6 +200,7 @@ paths:
                 - tel
                 - post_code
                 - address
+                - type
                 - confirm_success_url
         description: ''
   /auth/sign_in:
@@ -367,6 +373,8 @@ components:
         - provider
         - uid
         - allow_password_change
+  responses: {}
+  requestBodies: {}
 tags:
   - name: auth
     description: 認証関連
