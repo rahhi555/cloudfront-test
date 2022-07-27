@@ -118,6 +118,39 @@ paths:
                     updated_at: '2022-07-05T00:09:40.705+09:00'
       operationId: get-blog
       description: ブログ詳細を取得します
+  /auth/validate_token:
+    get:
+      summary: トークン検証
+      tags:
+        - auth
+      operationId: validate_token
+      description: 'ヘッダー内のaccess-token,client,expiry,uidを検証する'
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+      security:
+        - access-token: []
+        - client: []
+        - expiry: []
+        - uid: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            access-token:
+              $ref: '#/components/parameters/access-token'
+            client:
+              $ref: '#/components/parameters/client'
+            expiry:
+              $ref: '#/components/parameters/expiry'
+            uid:
+              $ref: '#/components/parameters/uid'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
   /auth:
     post:
       summary: ユーザー新規作成
@@ -379,8 +412,98 @@ components:
         - provider
         - uid
         - allow_password_change
-  responses: {}
+  responses:
+    AuthSuccess:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                default: true
+                description: 成功
+                readOnly: true
+              data:
+                $ref: '#/components/schemas/User'
+            required:
+              - success
+              - data
+          examples:
+            example-1:
+              value:
+                success: true
+                data:
+                  id: 1
+                  name: テスト 太郎
+                  email: test@example.com
+                  tel: 090-1111-2222
+                  post_code: 123-4567
+                  address: 東京都新宿区市ヶ谷本村町5番1号
+                  type: Client
+                  provider: email
+                  uid: test1@example.com
+                  allow_password_change: false
+      headers:
+        header-0:
+          schema:
+            type: string
   requestBodies: {}
+  parameters:
+    access-token:
+      name: access-token
+      in: header
+      required: true
+      schema:
+        type: string
+        example: 7sbMLu90-fDnajzasuhOTQ
+      description: トークン認証に必要なヘッダー(1/4)
+    client:
+      name: client
+      in: header
+      required: true
+      schema:
+        type: string
+        example: xJ-BFLHzY_XNMX_cjsQnPw
+      description: トークン認証に必要なヘッダー(2/4)
+    expiry:
+      name: expiry
+      in: header
+      required: true
+      schema:
+        type: number
+        example: 1660145125
+      description: トークン認証に必要なヘッダー(3/4)
+    uid:
+      name: uid
+      in: header
+      required: true
+      schema:
+        type: string
+        example: test1@example.com
+      description: トークン認証に必要なヘッダー(4/4)
+  securitySchemes:
+    access-token:
+      name: access-token
+      type: apiKey
+      in: header
+      description: トークン認証に必要なヘッダー(1/4)
+    client:
+      name: client
+      type: apiKey
+      in: header
+      description: トークン認証に必要なヘッダー(2/4)
+    expiry:
+      name: expiry
+      type: apiKey
+      in: header
+      description: トークン認証に必要なヘッダー(3/4)
+    uid:
+      name: uid
+      type: apiKey
+      in: header
+      description: トークン認証に必要なヘッダー(4/4)
 tags:
   - name: auth
     description: 認証関連
