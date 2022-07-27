@@ -125,8 +125,7 @@ paths:
         - auth
       operationId: validate_token
       description: 'ヘッダー内のaccess-token,client,expiry,uidを検証する'
-      parameters:
-        - $ref: '#/components/parameters/access-token'
+      parameters: []
       security:
         - access-token: []
         - client: []
@@ -134,53 +133,11 @@ paths:
         - uid: []
       responses:
         '200':
-          description: OK
-          headers:
-            access-token:
-              $ref: '#/components/parameters/access-token'
-            client:
-              $ref: '#/components/parameters/client'
-            expiry:
-              $ref: '#/components/parameters/expiry'
-            uid:
-              $ref: '#/components/parameters/uid'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/User'
+          $ref: '#/components/responses/AuthSuccess'
   /auth:
     post:
       summary: ユーザー新規作成
       operationId: sign_up
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/User'
-                required:
-                  - data
-              examples:
-                example-1:
-                  value:
-                    data:
-                      id: 1
-                      name: string
-                      email: test@example.com
-                      tel: 090-1111-2222
-                      post_code: 123-4567
-                      address: 東京都新宿区市ヶ谷本村町5番1号
-                      provider: email
-                      type: Client
-                      uid: test@example.com
-                      allow_password_change: false
       tags:
         - auth
       description: ユーザー新規登録
@@ -239,54 +196,13 @@ paths:
                 - type
                 - confirm_success_url
         description: ''
+      responses:
+        '200':
+          $ref: '#/components/responses/AuthSuccess'
   /auth/sign_in:
     post:
       summary: ログイン
       operationId: sign_in
-      responses:
-        '200':
-          description: OK
-          headers:
-            access-token:
-              schema:
-                type: string
-                example: 3zWZXg88YvKkrxi7lw02aA
-              description: アクセストークン
-            client:
-              schema:
-                type: string
-                example: 5_-ibKAF-ouUdv40HU84lQ
-              description: クライアント
-            uid:
-              schema:
-                type: string
-                example: test1@example.com
-              description: ユーザー識別子
-            expiry:
-              schema:
-                type: string
-                example: '1659964156'
-              description: 有効期限
-          content:
-            application/json:
-              schema:
-                type: object
-                x-examples:
-                  example-1:
-                    email: test6@example.com
-                    provider: email
-                    uid: test6@example.com
-                    id: 5
-                    allow_password_change: false
-                    name: テスト太郎
-                    tel: 000-1111-2222
-                    post_code: 111-2222
-                    address: hogefuga
-                properties:
-                  data:
-                    $ref: '#/components/schemas/User'
-                required:
-                  - data
       tags:
         - auth
       description: ログイン
@@ -313,6 +229,9 @@ paths:
             schema:
               type: object
               properties: {}
+      responses:
+        '200':
+          $ref: '#/components/responses/AuthSuccess'
 components:
   schemas:
     Blog:
@@ -446,9 +365,26 @@ components:
                   uid: test1@example.com
                   allow_password_change: false
       headers:
-        header-0:
+        access-token:
           schema:
             type: string
+            example: 7sbMLu90-fDnajzasuhOTQ
+          description: トークン認証に必要なヘッダー(1/4)
+        client:
+          schema:
+            type: string
+            example: xJ-BFLHzY_XNMX_cjsQnPw
+          description: トークン認証に必要なヘッダー(2/4)
+        expiry:
+          schema:
+            type: number
+            example: 1660145125
+          description: トークン認証に必要なヘッダー(3/4)
+        uid:
+          schema:
+            type: string
+            example: test1@example.com
+          description: トークン認証に必要なヘッダー(4/4)
   requestBodies: {}
   parameters:
     access-token:
