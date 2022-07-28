@@ -232,6 +232,33 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/AuthSuccess'
+  /auth/sign_out:
+    delete:
+      summary: ログアウト
+      operationId: sign_out
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                    description: 成功判定
+                    readOnly: true
+                required:
+                  - success
+      tags:
+        - auth
+      description: 'ヘッダーに`access-token`,`uid`,`client`必須。ログアウトする。'
+      security:
+        - access-token: []
+        - client: []
+        - expiry: []
+        - uid: []
 components:
   schemas:
     Blog:
