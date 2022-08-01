@@ -3,11 +3,6 @@ import { ref, reactive } from 'vue'
 import { RouterLink } from 'vue-router';
 import { BlogsApi } from '@/../types/fetch/apis'
 import type { Blog } from '@/../types/fetch/models'
-import { DefaultConfig, Configuration } from '../../types/fetch/runtime'
-
-DefaultConfig.config = new Configuration({
-  basePath: import.meta.env.PROD ? "https://api.home-care-navi-second.work:3000" : "http://localhost:3000",
-})
 
 const blogs = ref<Blog[]>()
 new BlogsApi().getBlogs().then(res => blogs.value = res)

@@ -15,13 +15,13 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[7.0]
       t.boolean  :allow_password_change, :default => false
 
       ## Rememberable
-      t.datetime :remember_created_at
+      # t.datetime :remember_created_at
 
       ## Confirmable
       t.string   :confirmation_token
       t.datetime :confirmed_at
       t.datetime :confirmation_sent_at
-      t.string   :unconfirmed_email # Only if using reconfirmable
+      # t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## Lockable
       # t.integer  :failed_attempts, :default => 0, :null => false # Only if lock strategy is :failed_attempts
@@ -34,6 +34,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[7.0]
       t.string :tel, null: false
       t.string :post_code, null: false
       t.string :address, null: false
+      t.string :type, null: false
 
       ## Tokens
       t.json :tokens

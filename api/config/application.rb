@@ -39,8 +39,11 @@ module Api
 
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
+    config.i18n.default_locale = :ja
 
     # https://github.com/lynndylanhurley/devise_token_auth/issues/1536
     config.action_controller.raise_on_open_redirects = false
+
+    config.autoload_paths += %W[#{config.root}/app/models/user]
   end
 end

@@ -1,0 +1,379 @@
+openapi: 3.0.3
+x-stoplight:
+  id: oyf2pt1k0zz67
+info:
+  title: test-open-api
+  version: '1.0'
+  description: ほげほげ説明
+  contact:
+    name: 平林直樹
+    url: 'https://example.com'
+    email: test@example.com
+  termsOfService: hogehoge
+  license:
+    name: MIT
+    url: 'https://example.com'
+servers:
+  - url: 'http://localhost:3000'
+    description: 平林直樹
+paths:
+  /blogs:
+    get:
+      summary: ブログ一覧取得
+      tags:
+        - blogs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Blog'
+              examples:
+                example-1:
+                  value:
+                    - id: 1
+                      title: Rubyについて
+                      contents: Rubyというプログラミング言語は、1995年にまつもとゆきひろ氏によって作成されました。
+                      created_at: '2022-07-05T00:09:40.705+09:00'
+                      updated_at: '2022-07-05T00:09:40.705+09:00'
+                    - id: 2
+                      title: Railsについて
+                      contents: 'Ruby on Railsは,DHHという作者によって作成された、Rubyを使用したフレームワークです。'
+                      created_at: '2022-07-05T00:15:40.705+09:00'
+                      updated_at: '2022-07-05T00:15:40.705+09:00'
+      operationId: get-blogs
+      description: ブログ一覧を取得します
+    post:
+      summary: ブログ作成
+      operationId: create-blog
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+      tags:
+        - blogs
+      description: ブログを作成します
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                contents:
+                  type: string
+              required:
+                - title
+            examples:
+              example-1:
+                value:
+                  title: リーダブルコード
+                  contents: より良いコードを書くためのシンプルで実践的なテクニック
+        description: ブログ作成内容
+  /health_check:
+    get:
+      summary: ヘルスチェック
+      tags:
+        - health_check
+      responses:
+        '200':
+          description: OK
+          headers: {}
+      operationId: get-health-check
+      description: ヘルスチェック用のエンドポイントです
+  '/blogs/{id}':
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        description: ブログid
+        required: true
+    get:
+      summary: ブログ詳細
+      tags:
+        - blogs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+              examples:
+                example-1:
+                  value:
+                    id: 1
+                    title: Rubyについて
+                    contents: Rubyというプログラミング言語は、1995年にまつもとゆきひろ氏によって作成されました。
+                    created_at: '2022-07-05T00:09:40.705+09:00'
+                    updated_at: '2022-07-05T00:09:40.705+09:00'
+      operationId: get-blog
+      description: ブログ詳細を取得します
+  /auth:
+    post:
+      summary: ユーザー新規作成
+      operationId: sign_up
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+                required:
+                  - data
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      '':
+                        type: string
+              examples:
+                example-1:
+                  value:
+                    data:
+                      id: 1
+                      name: string
+                      email: test@example.com
+                      tel: 090-1111-2222
+                      post_code: 123-4567
+                      address: 東京都新宿区市ヶ谷本村町5番1号
+                      created_at: '2022-07-05T00:09:40.705+09:00'
+                      updated_at: '2022-07-05T00:09:40.705+09:00'
+      tags:
+        - auth
+      description: ユーザー新規登録
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: テスト太郎
+                  description: ユーザー名
+                email:
+                  type: string
+                  format: email
+                  example: test1@example.com
+                  description: メールアドレス
+                password:
+                  type: string
+                  format: password
+                  example: password
+                  description: パスワード
+                tel:
+                  type: string
+                  example: 000-1111-2222
+                  pattern: '^0[-0-9]{11,12}$'
+                  description: 電話番号
+                post_code:
+                  type: string
+                  pattern: '^\d{3}-\d{4}$'
+                  description: 郵便番号
+                address:
+                  type: string
+                  example: 東京都新宿区市ヶ谷本村町5番1号
+                  description: 住所
+                confirm_success_url:
+                  type: string
+                  format: uri
+                  example: 'http://localhost:8080'
+                  description: 確認メールリダイレクト先url
+              required:
+                - name
+                - email
+                - password
+                - tel
+                - post_code
+                - address
+                - confirm_success_url
+        description: ''
+  /auth/sign_in:
+    post:
+      summary: ログイン
+      operationId: sign_in
+      responses:
+        '200':
+          description: OK
+          headers:
+            access-token:
+              schema:
+                type: string
+                example: 3zWZXg88YvKkrxi7lw02aA
+              description: アクセストークン
+            client:
+              schema:
+                type: string
+                example: 5_-ibKAF-ouUdv40HU84lQ
+              description: クライアント
+            uid:
+              schema:
+                type: string
+                example: test1@example.com
+              description: ユーザー識別子
+            expiry:
+              schema:
+                type: string
+                example: '1659964156'
+              description: 有効期限
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  example-1:
+                    email: test6@example.com
+                    provider: email
+                    uid: test6@example.com
+                    id: 5
+                    allow_password_change: false
+                    name: テスト太郎
+                    tel: 000-1111-2222
+                    post_code: 111-2222
+                    address: hogefuga
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+                required:
+                  - data
+      tags:
+        - auth
+      description: ログイン
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: test1@example.com
+                  description: メールアドレス
+                password:
+                  type: string
+                  format: password
+                  example: password
+                  description: パスワード
+              required:
+                - email
+                - password
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+components:
+  schemas:
+    Blog:
+      type: object
+      title: Blog
+      x-stoplight:
+        id: apwigsxqboanc
+      properties:
+        id:
+          type: integer
+          example: 1
+          readOnly: true
+        title:
+          type: string
+          example: Rubyについて
+        contents:
+          type: string
+          example: Rubyというプログラミング言語は、1995年にまつもとゆきひろ氏によって作成されました。
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-07-05T00:09:40.705+09:00'
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2022-07-05T00:09:40.705+09:00'
+          readOnly: true
+      additionalProperties: false
+      x-internal: false
+    User:
+      title: User
+      x-stoplight:
+        id: ygtg1gffnd7xu
+      type: object
+      description: 事業所利用者または事業所
+      additionalProperties: false
+      properties:
+        id:
+          type: number
+          example: 1
+          description: ID
+          readOnly: true
+        name:
+          type: string
+          description: 名前
+          example: テスト 太郎
+        email:
+          type: string
+          format: email
+          example: test@example.com
+          description: メールアドレス
+        tel:
+          type: string
+          description: 電話番号
+          example: 090-1111-2222
+          pattern: '^0[-0-9]{11,12}$'
+        post_code:
+          type: string
+          example: 123-4567
+          pattern: '^\d{3}-\d{4}$'
+          description: 郵便番号
+        address:
+          type: string
+          example: 東京都新宿区市ヶ谷本村町5番1号
+          description: 住所
+        provider:
+          type: string
+          example: email
+          description: プロバイダ
+          readOnly: true
+        uid:
+          type: string
+          example: test1@example.com
+          description: ユーザー識別子
+          readOnly: true
+        allow_password_change:
+          type: boolean
+          default: false
+          description: パスワード変更中
+          readOnly: true
+      required:
+        - id
+        - name
+        - email
+        - tel
+        - post_code
+        - address
+        - provider
+        - uid
+        - allow_password_change
+tags:
+  - name: auth
+    description: 認証関連
+  - name: blogs
+    description: blogsテーブル関連
+  - name: health_check
+    description: ヘルスチェック関連

@@ -1,5 +1,10 @@
 # typed: false
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      resources
+    end
+  end
   # devise_token_auth: https://devise-token-auth.gitbook.io/devise-token-auth/usage/overrides
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
     registrations: 'overrides/registrations'
