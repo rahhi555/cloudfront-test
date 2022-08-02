@@ -132,7 +132,7 @@ paths:
         - expiry: []
         - uid: []
       tags:
-        - auth_client
+        - client_auth
     parameters: []
 components:
   schemas:
@@ -492,9 +492,7 @@ components:
       in: header
       description: トークン認証に必要なヘッダー(4/4)
 tags:
-  - name: auth
-    description: 認証関連
-  - name: blogs
-    description: blogsテーブル関連
+  - name: client_auth
+    description: 事業所利用者の認証
   - name: health_check
     description: ヘルスチェック関連
