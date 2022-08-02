@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
 module Overrides
   class RegistrationsController < DeviseTokenAuth::RegistrationsController
-    before_action :configure_permitted_parameters
+    private
 
-    protected
+    def sign_up_params
+      params.require(:registration).permit(:name, :email, :tel, :postal, :address, :password, :password_confirmation)
+    end
 
-    def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up, keys: %i(name tel post_code address type))
-      devise_parameter_sanitizer.permit(:account_update, keys: %i(name tel post_code address type))
+    def account_update_params
+      params.permit(:name, :email, :tel, :postal, :address)
     end
   end
 end

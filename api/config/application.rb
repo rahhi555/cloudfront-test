@@ -1,18 +1,20 @@
+# frozen_string_literal: true
 # typed: ignore
-require_relative "boot"
 
-require "rails"
+require_relative 'boot'
+
+require 'rails'
 # Pick the frameworks you want:
-require "active_model/railtie"
-require "active_job/railtie"
-require "active_record/railtie"
-require "active_storage/engine"
-require "action_controller/railtie"
-require "action_mailer/railtie"
+require 'active_model/railtie'
+require 'active_job/railtie'
+require 'active_record/railtie'
+require 'active_storage/engine'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
 # require "action_mailbox/engine"
 # require "action_text/engine"
-require "action_view/railtie"
-require "action_cable/engine"
+require 'action_view/railtie'
+require 'action_cable/engine'
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -44,6 +46,8 @@ module Api
     # https://github.com/lynndylanhurley/devise_token_auth/issues/1536
     config.action_controller.raise_on_open_redirects = false
 
-    config.autoload_paths += %W[#{config.root}/app/models/user]
+    config.generators do |g|
+      g.test_framework :rspec
+    end
   end
 end

@@ -1,2 +1,0 @@
-class Office < User
-end

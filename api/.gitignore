@@ -28,6 +28,6 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-sorbet
 .irb_history
 .ash_history
+.cache
