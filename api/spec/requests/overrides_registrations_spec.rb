@@ -5,7 +5,7 @@ RSpec.describe 'Overrides::Registrations', type: :request do
     context '有効な属性値の場合' do
       let(:client_params) { attributes_for(:client) }
 
-      it 'ユーザー作成・メール送信がされること' do
+      fit 'ユーザー作成・メール送信がされること' do
         expect(Client.count).to eq(0)
         expect(ActionMailer::Base.deliveries.count).to eq(0)
 
@@ -16,7 +16,7 @@ RSpec.describe 'Overrides::Registrations', type: :request do
 
         expect(Client.count).to eq(1)
         expect(ActionMailer::Base.deliveries.count).to eq(1)
-        expect(response).to have_http_status(:ok)
+        assert_response_schema_confirm(200)
       end
     end
 
@@ -30,6 +30,7 @@ RSpec.describe 'Overrides::Registrations', type: :request do
         }
         expect(Client.count).to eq(0)
         expect(ActionMailer::Base.deliveries.count).to eq(0)
+        assert_response_schema_confirm(422)
       end
     end
   end
