@@ -259,10 +259,10 @@ components:
             type: object
             additionalProperties: false
             properties:
-              success:
-                type: boolean
-                default: true
-                description: 成功
+              status:
+                type: string
+                example: success
+                description: successまたはerror
                 readOnly: true
               data:
                 allOf:
@@ -291,12 +291,12 @@ components:
                   - $ref: '#/components/schemas/User'
                 description: ユーザー及び認証情報
             required:
-              - success
+              - status
               - data
           examples:
             example-1:
               value:
-                success: true
+                status: success
                 data:
                   provider: email
                   uid: test1@example.com
