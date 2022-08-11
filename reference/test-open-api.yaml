@@ -28,9 +28,9 @@ paths:
           headers: {}
       operationId: get-health-check
       description: ヘルスチェック用のエンドポイントです
-  /v1/client_auth/validate_token:
+  /v1/auth/validate_token:
     get:
-      summary: 事業所利用者トークン検証
+      summary: トークン検証
       operationId: validate_token
       description: 'ヘッダー内のaccess-token,client,expiry,uidを検証する'
       parameters: []
@@ -45,13 +45,13 @@ paths:
         '422':
           $ref: '#/components/responses/Error'
       tags:
-        - client_auth
+        - auth
     parameters: []
-  /v1/client_auth:
+  /v1/auth:
     post:
-      summary: 事業所利用者新規作成
+      summary: ユーザー新規作成
       operationId: sign_up
-      description: 事業所利用者新規登録
+      description: ユーザーを新規登録する。typeの値によって、ユーザーの種別(事務所利用者等)が決定する。
       requestBody:
         $ref: '#/components/requestBodies/Registration'
       responses:
@@ -60,13 +60,13 @@ paths:
         '422':
           $ref: '#/components/responses/Error'
       tags:
-        - client_auth
+        - auth
     parameters: []
-  /v1/client_auth/sign_in:
+  /v1/auth/sign_in:
     post:
-      summary: 事業所利用者ログイン
+      summary: ユーザーログイン
       operationId: sign_in
-      description: 事業所利用者ログイン
+      description: ユーザーログイン
       requestBody:
         content:
           application/json:
@@ -104,9 +104,9 @@ paths:
           $ref: '#/components/responses/AuthSuccess'
           additionalProperties: false
       tags:
-        - client_auth
+        - auth
     parameters: []
-  /v1/auth_client/sign_out:
+  /v1/auth/sign_out:
     delete:
       summary: 事業所利用者ログアウト
       operationId: sign_out
@@ -132,7 +132,7 @@ paths:
         - expiry: []
         - uid: []
       tags:
-        - client_auth
+        - auth
     parameters: []
   /v1/offices:
     get:
@@ -147,7 +147,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Office'
+                  $ref: '#/components/schemas/User'
               examples:
                 example-1:
                   value:
@@ -198,12 +198,12 @@ paths:
           description: addressを前方一致検索する。OR検索は半角スペースで区切る。
 components:
   schemas:
-    Client:
-      title: Client
+    User:
+      title: User
       x-stoplight:
         id: ygtg1gffnd7xu
       type: object
-      description: 事業所利用者
+      description: 事業所利用者及び事業所代表者
       properties:
         id:
           type: number
@@ -234,6 +234,10 @@ components:
           type: string
           example: 東京都新宿区市ヶ谷本村町5番1号
           description: 住所
+        type:
+          type: string
+          example: Client
+          description: STIによるユーザー識別文字列
         created_at:
           type: string
           format: date-time
@@ -251,142 +255,7 @@ components:
         - tel
         - postal
         - address
-        - created_at
-        - updated_at
-    OfficeRepresentative:
-      title: OfficeRepresentative
-      x-stoplight:
-        id: ygtg1gffnd7xu
-      type: object
-      description: 事業所代表者
-      properties:
-        id:
-          type: number
-          example: 1
-          description: ID
-          readOnly: true
-        name:
-          type: string
-          description: 名前
-          example: テスト 太郎
-        email:
-          type: string
-          format: email
-          example: test@example.com
-          description: メールアドレス
-        tel:
-          type: string
-          description: 電話番号
-          example: 090-1111-2222
-          pattern: '^0[-0-9]{11,12}$'
-        postal:
-          type: string
-          example: '1234567'
-          pattern: '^\d{7}$'
-          description: 郵便番号
-          maxLength: 7
-        address:
-          type: string
-          example: 東京都新宿区市ヶ谷本村町5番1号
-          description: 住所
-        created_at:
-          type: string
-          format: date-time
-          example: '2022-08-03T00:06:06.514+09:00'
-          description: 作成日時
-        updated_at:
-          type: string
-          format: date-time
-          example: '2022-08-03T00:06:06.514+09:00'
-          description: 更新日時
-      required:
-        - id
-        - name
-        - email
-        - tel
-        - postal
-        - address
-        - created_at
-        - updated_at
-    Office:
-      type: object
-      x-examples:
-        example-1:
-          id: 6
-          office_representative_id: 8
-          name: ホームケアナビ事業所
-          feature_title: 楽しいホームケアを提供します
-          feature_detail: 色々なことをします。色々なことをします。色々なことをします。色々なことをします。色々なことをします。
-          business_weekday: 1
-          postal: '1234567'
-          address: 群馬県伊佐市七城町台
-          email: johnathon@mann.name
-          tel: 1111-11-1111
-          created_at: '2022-08-04T21:47:02.984+09:00'
-          updated_at: '2022-08-04T21:47:02.984+09:00'
-      properties:
-        id:
-          type: integer
-          example: 1
-          description: 主キー
-        office_representative_id:
-          type: integer
-          example: 1
-          description: 事業所代表の外部キー
-        feature_title:
-          type: string
-          example: 楽しいホームケアを提供します
-          description: 特徴タイトル
-        name:
-          type: string
-          example: ホームケアナビ事業所
-          description: 事業所の名前
-        feature_detail:
-          type: string
-          example: 色々なことをします。色々なことをします。色々なことをします。色々なことをします。色々なことをします。
-          description: 特徴テキスト
-        business_weekday:
-          type: integer
-          example: 1
-          description: 勤務曜日
-        postal:
-          type: string
-          example: '1234567'
-          description: 郵便番号
-        address:
-          type: string
-          example: 群馬県伊佐市七城町台
-          description: 住所
-        email:
-          type: string
-          example: johnathon@mann.name
-          description: メールアドレス
-          format: email
-        tel:
-          type: string
-          example: 1111-11-1111
-          description: 電話番号
-        created_at:
-          type: string
-          example: '2022-08-04T21:47:02.984+09:00'
-          description: 作成日時
-          format: date-time
-        updated_at:
-          type: string
-          example: '2022-08-04T21:47:02.984+09:00'
-          description: 更新日時
-          format: date-time
-      required:
-        - id
-        - office_representative_id
-        - feature_title
-        - name
-        - feature_detail
-        - business_weekday
-        - postal
-        - address
-        - email
-        - tel
+        - type
         - created_at
         - updated_at
   responses:
@@ -427,7 +296,7 @@ components:
                       - provider
                       - uid
                       - allow_password_change
-                  - $ref: '#/components/schemas/Client'
+                  - $ref: '#/components/schemas/User'
                 description: ユーザー及び認証情報
             required:
               - success
@@ -446,6 +315,7 @@ components:
                   tel: 090-1111-2222
                   postal: '1234567'
                   address: 東京都新宿区市ヶ谷本村町5番1号
+                  type: Client
                   created_at: '2022-08-03T00:06:06.514+09:00'
                   updated_at: '2022-08-03T00:06:06.514+09:00'
       headers:
@@ -523,6 +393,14 @@ components:
               - properties:
                   registration:
                     type: object
+                    required:
+                      - name
+                      - email
+                      - tel
+                      - postal
+                      - address
+                      - password
+                      - type
                     properties:
                       name:
                         type: string
@@ -552,13 +430,12 @@ components:
                         type: string
                         example: password
                         description: パスワード
-                    required:
-                      - name
-                      - email
-                      - tel
-                      - postal
-                      - address
-                      - password
+                      type:
+                        type: string
+                        example: Client
+                        description: STIによるユーザー識別文字列
+                required:
+                  - registration
               - properties:
                   confirm_success_url:
                     type: string
@@ -578,6 +455,7 @@ components:
                   postal: '1234567'
                   address: 東京都新宿区市ヶ谷本村町5番1号
                   password: password
+                  type: Client
                 confirm_success_url: 'https://www.home-care-navi-second'
       description: ''
   parameters:
@@ -635,7 +513,7 @@ components:
       in: header
       description: トークン認証に必要なヘッダー(4/4)
 tags:
-  - name: client_auth
-    description: 事業所利用者の認証
+  - name: auth
+    description: 認証
   - name: health_check
     description: ヘルスチェック関連
