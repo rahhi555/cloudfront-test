@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+
 
 DeviseTokenAuth.setup do |config|
   # By default the authorization headers will change after each request. The

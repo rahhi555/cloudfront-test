@@ -1,5 +1,5 @@
-# frozen_string_literal: true
-# typed: ignore
+
+
 
 require 'active_support/core_ext/integer/time'
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 FactoryBot.define do
   factory :client do
     name { Gimei.name.kanji }
@@ -8,5 +6,6 @@ FactoryBot.define do
     address { Gimei.address.kanji }
     postal { Faker::Address.postcode.delete('-') }
     password { Faker::Internet.password }
+    type { 'Client' }
   end
 end

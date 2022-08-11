@@ -1,5 +1,5 @@
-# frozen_string_literal: true
-# typed: false
+
+
 
 # Load the Rails application.
 require_relative 'application'

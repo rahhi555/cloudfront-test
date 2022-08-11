@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :production do
   desc '本番環境開始'
   task start: :environment do

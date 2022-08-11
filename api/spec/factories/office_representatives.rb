@@ -6,5 +6,6 @@ FactoryBot.define do
     address { Gimei.address.kanji }
     postal { Faker::Address.postcode.delete('-') }
     password { Faker::Internet.password }
+    type { 'OfficeRepresentative' }
   end
 end

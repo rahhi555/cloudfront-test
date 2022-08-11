@@ -1,5 +1,5 @@
-# frozen_string_literal: true
-# typed: ignore
+
+
 
 require_relative 'boot'
 
@@ -14,7 +14,7 @@ require 'action_mailer/railtie'
 # require "action_mailbox/engine"
 # require "action_text/engine"
 require 'action_view/railtie'
-require 'action_cable/engine'
+# require 'action_cable/engine'
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -23,20 +23,8 @@ Bundler.require(*Rails.groups)
 
 module Api
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
-
-    # Only loads a smaller set of middleware suitable for API only apps.
-    # Middleware like session, flash, cookies can be added back manually.
-    # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
     config.time_zone = 'Tokyo'
@@ -49,5 +37,11 @@ module Api
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    # userのSTI設定
+    config.autoload_paths += %W[#{config.root}/app/models/user]
+
+    # ストロングパラメータで許可しないパラメータが存在した場合、エラーを返す
+    config.action_controller.action_on_unpermitted_parameters = :raise
   end
 end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 RSpec.describe 'Overrides::Registrations', type: :request do
@@ -11,7 +9,7 @@ RSpec.describe 'Overrides::Registrations', type: :request do
         expect(Client.count).to eq(0)
         expect(ActionMailer::Base.deliveries.count).to eq(0)
 
-        post api_v1_client_registration_path, params: {
+        post api_v1_user_registration_path, params: {
           registration: client_params,
           confirm_success_url: 'test1@example.com'
         }
@@ -26,7 +24,7 @@ RSpec.describe 'Overrides::Registrations', type: :request do
       let(:client_params) { attributes_for(:client, name: nil) }
 
       it 'ユーザー作成・メール送信がされないこと' do
-        post api_v1_client_registration_path, params: {
+        post api_v1_user_registration_path, params: {
           registration: client_params,
           confirm_success_url: 'test1@example.com'
         }

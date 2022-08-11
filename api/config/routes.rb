@@ -1,13 +1,9 @@
-# frozen_string_literal: true
-# typed: false
+
 
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      mount_devise_token_auth_for 'Client', at: 'client_auth', controllers: {
-        registrations: 'overrides/registrations'
-      }
-      mount_devise_token_auth_for 'OfficeRepresentative', at: 'office_representative_auth', controllers: {
+      mount_devise_token_auth_for 'User', at: 'auth', controllers: {
         registrations: 'overrides/registrations'
       }
     end

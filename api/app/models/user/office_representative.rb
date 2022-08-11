@@ -1,0 +1,2 @@
+class OfficeRepresentative < User
+end

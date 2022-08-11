@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-# typed: ignore
-
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
@@ -67,7 +64,7 @@ RSpec.configure do |config|
   config.include Committee::Rails::Test::Methods
   config.add_setting :committee_options
   config.committee_options = {
-    schema_path: Rails.root.join('test-open-api.yaml').to_s,
+    schema_path: '/refe',
     query_hash_key: 'rack.request.query_hash',
     parse_response_by_content_type: false
   }
