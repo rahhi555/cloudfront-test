@@ -152,41 +152,32 @@ paths:
                 example-1:
                   value:
                     - id: 1
-                      office_representative_id: 3
-                      name: ホームケアナビ事業所
-                      feature_title: 楽しいホームケアを提供します
-                      feature_detail: 色々なことをします。色々なことをします。色々なことをします。色々なことをします。色々なことをします。
-                      business_weekday: 1
+                      name: 田中　太郎
+                      email: office1@example.com
+                      tel: 090-1111-2222
                       postal: '1234567'
-                      address: 大阪府五泉市窪田町藤泉
-                      email: cherrie.wyman@robel.com
-                      tel: 1111-11-1111
-                      created_at: '2022-08-04T21:47:01.364+09:00'
-                      updated_at: '2022-08-04T21:47:01.364+09:00'
+                      address: 東京都新宿区市ヶ谷本村町5番1号
+                      type: OfficeRepresentative
+                      created_at: '2022-08-03T00:06:06.514+09:00'
+                      updated_at: '2022-08-03T00:06:06.514+09:00'
                     - id: 2
-                      office_representative_id: 4
-                      name: ホームケアナビ事業所
-                      feature_title: 楽しいホームケアを提供します
-                      feature_detail: 色々なことをします。色々なことをします。色々なことをします。色々なことをします。色々なことをします。
-                      business_weekday: 1
-                      postal: '1234567'
-                      address: 高知県清須市住吉町
-                      email: cierra.leuschke@hilpert.name
-                      tel: 1111-11-1111
-                      created_at: '2022-08-04T21:47:01.697+09:00'
-                      updated_at: '2022-08-04T21:47:01.697+09:00'
+                      name: 鈴木　次郎
+                      email: office2@example.com
+                      tel: 080-1234-4444
+                      postal: '3210232'
+                      address: 栃木県下都賀郡壬生町中泉1-14-2
+                      type: OfficeRepresentative
+                      created_at: '2022-08-03T00:06:06.514+09:00'
+                      updated_at: '2022-08-03T00:06:06.514+09:00'
                     - id: 3
-                      office_representative_id: 5
-                      name: ホームケアナビ事業所
-                      feature_title: 楽しいホームケアを提供します
-                      feature_detail: 色々なことをします。色々なことをします。色々なことをします。色々なことをします。色々なことをします。
-                      business_weekday: 1
-                      postal: '1234567'
-                      address: 京都府高岡郡越知町米島
-                      email: owen_predovic@labadie.com
-                      tel: 1111-11-1111
-                      created_at: '2022-08-04T21:47:02.025+09:00'
-                      updated_at: '2022-08-04T21:47:02.025+09:00'
+                      name: 加藤　三郎
+                      email: office3@example.com
+                      tel: 070-1242-1296
+                      postal: '0850013'
+                      address: 北海道釧路市栄町4519
+                      type: OfficeRepresentative
+                      created_at: '2022-08-03T00:06:06.514+09:00'
+                      updated_at: '2022-08-03T00:06:06.514+09:00'
       operationId: getOffices
       description: 事業所一覧を取得する。
       parameters:
@@ -517,3 +508,5 @@ tags:
     description: 認証
   - name: health_check
     description: ヘルスチェック関連
+  - name: office
+    description: 事業所
