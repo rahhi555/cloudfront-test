@@ -242,13 +242,6 @@ paths:
           description: OK
       description: 予約を更新(連絡済み)にする
   /api/v1/thanks:
-    get:
-      summary: お礼投稿
-      tags:
-        - thanks
-      responses: {}
-      operationId: getThank
-      description: ''
     post:
       summary: お礼投稿
       operationId: addThanks
