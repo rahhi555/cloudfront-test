@@ -241,6 +241,8 @@ paths:
         '200':
           description: OK
       description: 予約を更新(連絡済み)にする
+      tags:
+        - appointment
   /api/v1/thanks:
     post:
       summary: お礼投稿
