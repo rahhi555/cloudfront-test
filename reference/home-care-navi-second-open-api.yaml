@@ -43,6 +43,24 @@ paths:
       tags:
         - auth
     parameters: []
+    patch:
+      summary: 登録者情報更新
+      operationId: updateAuth
+      responses:
+        '200':
+          description: OK
+      tags:
+        - auth
+      description: 登録者情報を更新する
+    delete:
+      summary: 退会
+      operationId: deleteAuth
+      responses:
+        '200':
+          description: OK
+      tags:
+        - auth
+      description: 退会する
   /api/v1/auth/validate_token:
     get:
       summary: トークン検証
@@ -205,7 +223,7 @@ paths:
     parameters: []
   '/api/v1/office/{id}':
     get:
-      summary: 事務所詳細
+      summary: 事務所詳細取得
       tags:
         - office
       responses: {}
@@ -219,14 +237,23 @@ paths:
         required: true
   /api/v1/appointments:
     post:
-      summary: 予約追加
-      operationId: addAppointment
+      summary: 予約作成
+      operationId: createAppointment
       responses:
         '200':
           description: OK
       tags:
         - appointment
       description: 事業所と事業所利用者のホームケアを予約する
+    get:
+      summary: 予約一覧取得
+      operationId: getAppointments
+      responses:
+        '200':
+          description: OK
+      description: 予約した事務所一覧を取得する
+      tags:
+        - appointment
   '/api/v1/appointment/{id}':
     parameters:
       - schema:
@@ -246,38 +273,73 @@ paths:
   /api/v1/thanks:
     post:
       summary: お礼投稿
-      operationId: addThanks
+      operationId: addThank
       responses:
         '200':
           description: OK
       tags:
         - thank
       description: お礼を投稿する
+    get:
+      summary: お礼一覧取得
+      operationId: getThanks
+      responses:
+        '200':
+          description: OK
+      description: 投稿したお礼一覧を取得する
+      tags:
+        - thank
+  '/api/v1/thank/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    delete:
+      summary: お礼削除
+      operationId: deleteThank
+      responses:
+        '200':
+          description: OK
+      description: 投稿したお礼を削除する
+      tags:
+        - thank
+    patch:
+      summary: お礼更新
+      operationId: updateThank
+      responses:
+        '200':
+          description: OK
+      tags:
+        - thank
+      description: 投稿したお礼の内容を更新する
   /api/v1/histories:
     get:
-      summary: 閲覧履歴一覧を取得
+      summary: 閲覧履歴一覧取得
       tags:
         - history
       responses: {}
       operationId: getHistories
       description: 事業所詳細の閲覧履歴を取得する
-  '/api/v1/book_mark/{id}':
+  /api/v1/bookmarks:
     get:
-      summary: ブックマーク一覧を取得
+      summary: ブックマーク一覧取得
       tags:
         - book_mark
       responses: {}
       operationId: getBookmarks
       description: ブックマークをつけた事業所一覧を取得する
     post:
-      summary: ブックマーク追加
-      operationId: addBookmark
+      summary: ブックマーク作成
+      operationId: createBookmark
       responses:
         '200':
           description: OK
       tags:
         - book_mark
-      description: ブックマークを追加する
+      description: ブックマークを作成する
+  '/api/v1/book_mark/{id}':
     delete:
       summary: ブックマーク削除
       operationId: deleteBookmark
@@ -293,6 +355,91 @@ paths:
         name: id
         in: path
         required: true
+  /api/v1/staffs:
+    get:
+      summary: スタッフ一覧取得
+      responses: {}
+      operationId: getStaffs
+      tags:
+        - staff
+      description: 事業所に所属しているスタッフ一覧を取得する
+    post:
+      summary: スタッフ作成
+      operationId: createStaff
+      responses:
+        '200':
+          description: OK
+      tags:
+        - staff
+      description: 事務所にスタッフを追加する
+  '/api/v1/staff/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    delete:
+      summary: スタッフ削除
+      operationId: deleteStaff
+      responses:
+        '200':
+          description: OK
+      tags:
+        - staff
+      description: 事務所に所属しているスタッフを削除する
+    patch:
+      summary: スタッフ更新
+      operationId: updateStaff
+      responses:
+        '200':
+          description: OK
+      tags:
+        - staff
+      description: 事務所に所属しているスタッフを更新する
+  /api/v1/office_clients:
+    get:
+      summary: 事業所管理の事業所利用者一覧取得
+      responses: {}
+      operationId: getOfficeClients
+      tags:
+        - office_client
+      description: 事業所で管理している事業所利用者一覧を取得する
+    parameters: []
+    post:
+      summary: 事業所管理の事業所利用者作成
+      operationId: createOfficeClient
+      responses:
+        '200':
+          description: OK
+      tags:
+        - office_client
+      description: 事業所で管理している事業所利用者を作成する
+  '/api/v1/office_client/{id}':
+    patch:
+      summary: 事業所管理の事業所利用者更新
+      operationId: updateOfficeClient
+      responses:
+        '200':
+          description: OK
+      tags:
+        - office_client
+      description: 事業所で管理している事業所利用者一覧を更新する
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    delete:
+      summary: 事業所管理の事業所利用者削除
+      operationId: deleteOfficeClient
+      responses:
+        '200':
+          description: OK
+      tags:
+        - office_client
+      description: 事業所で管理している事業所利用者一覧を削除する
 components:
   schemas:
     User:
@@ -610,17 +757,21 @@ components:
       in: header
       description: トークン認証に必要なヘッダー(4/4)
 tags:
-  - name: auth
-    description: 認証
-  - name: health_check
-    description: ヘルスチェック関連
-  - name: office
-    description: 事業所
   - name: appointment
     description: 予約
-  - name: thank
-    description: お礼
-  - name: history
-    description: 閲覧履歴
+  - name: auth
+    description: 認証
   - name: book_mark
     description: ブックマーク
+  - name: health_check
+    description: ヘルスチェック関連
+  - name: history
+    description: 閲覧履歴
+  - name: office
+    description: 事業所
+  - name: office_client
+    description: 事業所で管理しているクライアント
+  - name: staff
+    description: 事業所スタッフ
+  - name: thank
+    description: お礼
