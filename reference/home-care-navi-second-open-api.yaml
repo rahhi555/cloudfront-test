@@ -689,38 +689,6 @@ components:
                 confirm_success_url: 'https://www.home-care-navi-second'
       description: ''
   parameters:
-    access-token:
-      name: access-token
-      in: header
-      required: true
-      schema:
-        type: string
-        example: 7sbMLu90-fDnajzasuhOTQ
-      description: トークン認証に必要なヘッダー(1/4)
-    client:
-      name: client
-      in: header
-      required: true
-      schema:
-        type: string
-        example: xJ-BFLHzY_XNMX_cjsQnPw
-      description: トークン認証に必要なヘッダー(2/4)
-    expiry:
-      name: expiry
-      in: header
-      required: true
-      schema:
-        type: number
-        example: 1660145125
-      description: トークン認証に必要なヘッダー(3/4)
-    uid:
-      name: uid
-      in: header
-      required: true
-      schema:
-        type: string
-        example: test1@example.com
-      description: トークン認証に必要なヘッダー(4/4)
     path-param-id:
       name: id
       in: path
