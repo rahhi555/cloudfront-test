@@ -226,15 +226,13 @@ paths:
       summary: 事務所詳細取得
       tags:
         - office
-      responses: {}
+      responses:
+        '200':
+          description: OK
       operationId: getOffice
       description: 単一の事務所の詳細を取得する
     parameters:
-      - schema:
-          type: string
-        name: id
-        in: path
-        required: true
+      - $ref: '#/components/parameters/path-param-id'
   /api/v1/appointments:
     post:
       summary: 予約作成
@@ -256,11 +254,7 @@ paths:
         - appointment
   '/api/v1/appointment/{id}':
     parameters:
-      - schema:
-          type: string
-        name: id
-        in: path
-        required: true
+      - $ref: '#/components/parameters/path-param-id'
     patch:
       summary: 予約更新
       operationId: updateAppointment
@@ -291,11 +285,7 @@ paths:
         - thank
   '/api/v1/thank/{id}':
     parameters:
-      - schema:
-          type: string
-        name: id
-        in: path
-        required: true
+      - $ref: '#/components/parameters/path-param-id'
     delete:
       summary: お礼削除
       operationId: deleteThank
@@ -319,7 +309,9 @@ paths:
       summary: 閲覧履歴一覧取得
       tags:
         - history
-      responses: {}
+      responses:
+        '200':
+          description: OK
       operationId: getHistories
       description: 事業所詳細の閲覧履歴を取得する
   /api/v1/bookmarks:
@@ -327,7 +319,9 @@ paths:
       summary: ブックマーク一覧取得
       tags:
         - book_mark
-      responses: {}
+      responses:
+        '200':
+          description: OK
       operationId: getBookmarks
       description: ブックマークをつけた事業所一覧を取得する
     post:
@@ -350,15 +344,13 @@ paths:
         - book_mark
       description: ブックマークを削除する
     parameters:
-      - schema:
-          type: string
-        name: id
-        in: path
-        required: true
+      - $ref: '#/components/parameters/path-param-id'
   /api/v1/staffs:
     get:
       summary: スタッフ一覧取得
-      responses: {}
+      responses:
+        '200':
+          description: OK
       operationId: getStaffs
       tags:
         - staff
@@ -374,11 +366,7 @@ paths:
       description: 事務所にスタッフを追加する
   '/api/v1/staff/{id}':
     parameters:
-      - schema:
-          type: string
-        name: id
-        in: path
-        required: true
+      - $ref: '#/components/parameters/path-param-id'
     delete:
       summary: スタッフ削除
       operationId: deleteStaff
@@ -400,7 +388,9 @@ paths:
   /api/v1/office_clients:
     get:
       summary: 事業所管理の事業所利用者一覧取得
-      responses: {}
+      responses:
+        '200':
+          description: OK
       operationId: getOfficeClients
       tags:
         - office_client
@@ -426,11 +416,7 @@ paths:
         - office_client
       description: 事業所で管理している事業所利用者一覧を更新する
     parameters:
-      - schema:
-          type: string
-        name: id
-        in: path
-        required: true
+      - $ref: '#/components/parameters/path-param-id'
     delete:
       summary: 事業所管理の事業所利用者削除
       operationId: deleteOfficeClient
@@ -735,6 +721,15 @@ components:
         type: string
         example: test1@example.com
       description: トークン認証に必要なヘッダー(4/4)
+    path-param-id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        example: 1
+        format: int64
+      description: 対象のid
   securitySchemes:
     access-token:
       name: access-token
