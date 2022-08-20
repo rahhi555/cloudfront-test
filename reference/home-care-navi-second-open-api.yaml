@@ -233,6 +233,15 @@ paths:
       description: 単一の事務所の詳細を取得する
     parameters:
       - $ref: '#/components/parameters/path-param-id'
+    patch:
+      summary: ''
+      operationId: updateOffice
+      responses:
+        '200':
+          description: OK
+      tags:
+        - office
+      description: 単一の事務所を更新する
   /api/v1/appointments:
     post:
       summary: 予約作成
