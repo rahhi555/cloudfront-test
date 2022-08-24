@@ -164,10 +164,9 @@ paths:
         - auth
   /api/v1/client/offices:
     get:
-      summary: 事業所一覧取得
+      summary: 事業所一覧取得(事業所利用者)
       tags:
         - office
-        - client
       responses:
         '200':
           description: OK
@@ -207,7 +206,7 @@ paths:
                       type: OfficeRepresentative
                       created_at: '2022-08-03T00:06:06.514+09:00'
                       updated_at: '2022-08-03T00:06:06.514+09:00'
-      operationId: getOffices
+      operationId: getClientOffices
       description: 事業所一覧を取得する。
       parameters:
         - schema:
@@ -222,62 +221,107 @@ paths:
           name: page
           description: ページネーション
     parameters: []
-  '/api/v1/office/{id}':
+  '/api/v1/client/office/{id}':
     get:
-      summary: 事務所詳細取得
+      summary: 事業所詳細取得(事業所利用者)
       tags:
         - office
       responses:
         '200':
           description: OK
-      operationId: getOffice
+      operationId: getClientOffice
       description: 単一の事務所の詳細を取得する
     parameters:
-      - $ref: '#/components/parameters/path-param-id'
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
+  '/api/v1/manager/office/{id}':
+    get:
+      summary: 事業所詳細取得(ケアマネ)
+      tags:
+        - office
+      responses:
+        '200':
+          description: OK
+      operationId: getManagerOffice
+      description: 単一の事務所の詳細を取得する
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
     patch:
-      summary: 事務所更新
-      operationId: updateOffice
+      summary: 事業所更新(ケアマネ)
+      operationId: updateManagerOffice
       responses:
         '200':
           description: OK
       tags:
         - office
       description: 単一の事務所を更新する
-  /api/v1/appointments:
+  /api/v1/client/appointments:
     post:
-      summary: 予約作成
-      operationId: createAppointment
+      summary: 予約作成(事業所利用者)
+      operationId: createClientAppointment
       responses:
         '200':
           description: OK
       tags:
         - appointment
-      description: 事業所と事業所利用者のホームケアを予約する
+      description: ホームケアを予約する
     get:
-      summary: 予約一覧取得
-      operationId: getAppointments
+      summary: 予約一覧取得(事業所利用者)
+      operationId: getClientAppointments
       responses:
         '200':
           description: OK
-      description: 予約した事務所一覧を取得する
+      description: 予約一覧を取得する
       tags:
         - appointment
-  '/api/v1/appointment/{id}':
+    parameters: []
+  /api/v1/manager/appointments:
+    get:
+      summary: 予約一覧取得(ケアマネ)
+      operationId: getManagerAppointments
+      responses:
+        '200':
+          description: OK
+      description: 予約一覧を取得する
+      tags:
+        - appointment
+    parameters: []
+  '/api/v1/manager/appointment/{id}':
     parameters:
-      - $ref: '#/components/parameters/path-param-id'
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
     patch:
-      summary: 予約更新
-      operationId: updateAppointment
+      summary: 予約更新(ケアマネ)
+      operationId: updateManagerAppointment
       responses:
         '200':
           description: OK
-      description: 予約を更新(連絡済み)にする
+      description: 予約を更新する
       tags:
         - appointment
-  /api/v1/thanks:
+  /api/v1/client/thanks:
     post:
-      summary: お礼投稿
-      operationId: addThank
+      summary: お礼投稿(事業所利用者)
+      operationId: createClientThank
       responses:
         '200':
           description: OK
@@ -285,68 +329,108 @@ paths:
         - thank
       description: お礼を投稿する
     get:
-      summary: お礼一覧取得
-      operationId: getThanks
+      summary: お礼一覧取得(事業所利用者)
+      operationId: getClientThanks
       responses:
         '200':
           description: OK
-      description: 投稿したお礼一覧を取得する
+      description: お礼一覧を取得する
       tags:
         - thank
-  '/api/v1/thank/{id}':
-    parameters:
-      - $ref: '#/components/parameters/path-param-id'
-    delete:
-      summary: お礼削除
-      operationId: deleteThank
+    parameters: []
+  /api/v1/manager/thanks:
+    get:
+      summary: お礼一覧取得(ケアマネ)
+      operationId: getManagerThanks
       responses:
         '200':
           description: OK
-      description: 投稿したお礼を削除する
+      description: お礼一覧を取得する
+      tags:
+        - thank
+    parameters: []
+  '/api/v1/client/thank/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
+    delete:
+      summary: お礼削除(事業所利用者)
+      operationId: deleteClientThank
+      responses:
+        '200':
+          description: OK
+      description: お礼を削除する
       tags:
         - thank
     patch:
-      summary: お礼更新
-      operationId: updateThank
+      summary: お礼更新(事業所利用者)
+      operationId: updateClientThank
       responses:
         '200':
           description: OK
       tags:
         - thank
-      description: 投稿したお礼の内容を更新する
-  /api/v1/histories:
+      description: お礼を更新する
+  '/api/v1/manager/thank/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
+    delete:
+      summary: お礼削除(ケアマネ)
+      operationId: deleteManagerThank
+      responses:
+        '200':
+          description: OK
+      description: お礼を削除する
+      tags:
+        - thank
+  /api/v1/client/histories:
     get:
-      summary: 閲覧履歴一覧取得
+      summary: 閲覧履歴一覧取得(事業所利用者)
       tags:
         - history
       responses:
         '200':
           description: OK
-      operationId: getHistories
-      description: 事業所詳細の閲覧履歴を取得する
-  /api/v1/bookmarks:
+      operationId: getClientHistories
+      description: 事業所の閲覧履歴を取得する
+    parameters: []
+  /api/v1/client/bookmarks:
     get:
-      summary: ブックマーク一覧取得
+      summary: ブックマーク一覧取得(事業所利用者)
       tags:
         - book_mark
       responses:
         '200':
           description: OK
-      operationId: getBookmarks
+      operationId: getClientBookmarks
       description: ブックマークをつけた事業所一覧を取得する
     post:
-      summary: ブックマーク作成
-      operationId: createBookmark
+      summary: ブックマーク作成(事業所利用者)
+      operationId: createClientBookmark
       responses:
         '200':
           description: OK
       tags:
         - book_mark
       description: ブックマークを作成する
-  '/api/v1/book_mark/{id}':
+    parameters: []
+  '/api/v1/client/book_mark/{id}':
     delete:
-      summary: ブックマーク削除
-      operationId: deleteBookmark
+      summary: ブックマーク削除(事業所利用者)
+      operationId: deleteClientBookmark
       responses:
         '200':
           description: OK
@@ -354,71 +438,97 @@ paths:
         - book_mark
       description: ブックマークを削除する
     parameters:
-      - $ref: '#/components/parameters/path-param-id'
-  /api/v1/staffs:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
+  /api/v1/client/staffs:
     get:
-      summary: スタッフ一覧取得
+      summary: スタッフ一覧取得(事業所利用者)
       responses:
         '200':
           description: OK
-      operationId: getStaffs
+      operationId: getClientStaffs
       tags:
         - staff
-      description: 事業所に所属しているスタッフ一覧を取得する
+      description: スタッフ一覧を取得する
+    parameters: []
+  /api/v1/manager/staffs:
+    get:
+      summary: スタッフ一覧取得(ケアマネ)
+      responses:
+        '200':
+          description: OK
+      operationId: getManagerStaffs
+      tags:
+        - staff
+      description: スタッフ一覧を取得する
     post:
-      summary: スタッフ作成
-      operationId: createStaff
+      summary: スタッフ作成(ケアマネ)
+      operationId: createManagerStaff
       responses:
         '200':
           description: OK
       tags:
         - staff
-      description: 事務所にスタッフを追加する
-  '/api/v1/staff/{id}':
+      description: スタッフを追加する
+    parameters: []
+  '/api/v1/manager/staff/{id}':
     parameters:
-      - $ref: '#/components/parameters/path-param-id'
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
     delete:
-      summary: スタッフ削除
-      operationId: deleteStaff
+      summary: スタッフ削除(ケアマネ)
+      operationId: deleteManagerStaff
       responses:
         '200':
           description: OK
       tags:
         - staff
-      description: 事務所に所属しているスタッフを削除する
+      description: スタッフを削除する
     patch:
-      summary: スタッフ更新
-      operationId: updateStaff
+      summary: スタッフ更新(ケアマネ)
+      operationId: updateManagerStaff
       responses:
         '200':
           description: OK
       tags:
         - staff
-      description: 事務所に所属しているスタッフを更新する
-  /api/v1/office_clients:
+      description: スタッフを更新する
+  /api/v1/manager/office_clients:
     get:
-      summary: 事業所管理の事業所利用者一覧取得
+      summary: 事業所管理の事業所利用者一覧取得(ケアマネ)
       responses:
         '200':
           description: OK
-      operationId: getOfficeClients
+      operationId: getManagerOfficeClients
       tags:
         - office_client
       description: 事業所で管理している事業所利用者一覧を取得する
     parameters: []
     post:
-      summary: 事業所管理の事業所利用者作成
-      operationId: createOfficeClient
+      summary: 事業所管理の事業所利用者作成(ケアマネ)
+      operationId: createManagerOfficeClient
       responses:
         '200':
           description: OK
       tags:
         - office_client
       description: 事業所で管理している事業所利用者を作成する
-  '/api/v1/office_client/{id}':
+  '/api/v1/manager/office_client/{id}':
     patch:
-      summary: 事業所管理の事業所利用者更新
-      operationId: updateOfficeClient
+      summary: 事業所管理の事業所利用者更新(ケアマネ)
+      operationId: updateManagerOfficeClient
       responses:
         '200':
           description: OK
@@ -426,10 +536,17 @@ paths:
         - office_client
       description: 事業所で管理している事業所利用者一覧を更新する
     parameters:
-      - $ref: '#/components/parameters/path-param-id'
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
     delete:
-      summary: 事業所管理の事業所利用者削除
-      operationId: deleteOfficeClient
+      summary: 事業所管理の事業所利用者削除(ケアマネ)
+      operationId: deleteManagerOfficeClient
       responses:
         '200':
           description: OK
