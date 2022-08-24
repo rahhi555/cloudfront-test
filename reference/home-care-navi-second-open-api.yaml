@@ -162,11 +162,12 @@ paths:
       description: パスワードをリセットし、新しいパスワードをDBに保存する
       tags:
         - auth
-  /api/v1/offices:
+  /api/v1/client/offices:
     get:
       summary: 事業所一覧取得
       tags:
         - office
+        - client
       responses:
         '200':
           description: OK
@@ -735,6 +736,8 @@ tags:
     description: 認証
   - name: book_mark
     description: ブックマーク
+  - name: client
+    description: 事業所利用者が使用するエンドポイント
   - name: health_check
     description: ヘルスチェック関連
   - name: history
