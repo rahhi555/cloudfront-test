@@ -44,5 +44,6 @@ reference/.stoplight/*
 .github
 api
 front
+terraform
 .spectral.json
 compose.yml
