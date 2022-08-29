@@ -26,12 +26,45 @@ paths:
         '200':
           description: OK
           headers: {}
-      operationId: get-health-check
+      operationId: getHealthCheck
       description: ヘルスチェック用のエンドポイントです
+  /api/v1/auth:
+    post:
+      summary: ユーザー新規作成
+      operationId: signUp
+      description: ユーザーを新規登録する。typeの値によって、ユーザーの種別(事務所利用者等)が決定する。
+      requestBody:
+        $ref: '#/components/requestBodies/Registration'
+      responses:
+        '200':
+          $ref: '#/components/responses/AuthSuccess'
+        '422':
+          $ref: '#/components/responses/Error'
+      tags:
+        - auth
+    parameters: []
+    patch:
+      summary: 登録者情報更新
+      operationId: updateAuth
+      responses:
+        '200':
+          description: OK
+      tags:
+        - auth
+      description: 登録者情報を更新する
+    delete:
+      summary: 退会
+      operationId: deleteAuth
+      responses:
+        '200':
+          description: OK
+      tags:
+        - auth
+      description: 退会する
   /api/v1/auth/validate_token:
     get:
       summary: トークン検証
-      operationId: validate_token
+      operationId: validateToken
       description: 'ヘッダー内のaccess-token,client,expiry,uidを検証する'
       parameters: []
       security:
@@ -47,25 +80,10 @@ paths:
       tags:
         - auth
     parameters: []
-  /api/v1/auth:
-    post:
-      summary: ユーザー新規作成
-      operationId: sign_up
-      description: ユーザーを新規登録する。typeの値によって、ユーザーの種別(事務所利用者等)が決定する。
-      requestBody:
-        $ref: '#/components/requestBodies/Registration'
-      responses:
-        '200':
-          $ref: '#/components/responses/AuthSuccess'
-        '422':
-          $ref: '#/components/responses/Error'
-      tags:
-        - auth
-    parameters: []
   /api/v1/auth/sign_in:
     post:
       summary: ユーザーログイン
-      operationId: sign_in
+      operationId: signIn
       description: ユーザーログイン
       requestBody:
         content:
@@ -109,7 +127,7 @@ paths:
   /api/v1/auth/sign_out:
     delete:
       summary: 事業所利用者ログアウト
-      operationId: sign_out
+      operationId: signOut
       responses:
         '200':
           description: OK
@@ -134,9 +152,19 @@ paths:
       tags:
         - auth
     parameters: []
-  /api/v1/offices:
+  /api/v1/auth/password:
+    post:
+      summary: パスワード変更
+      operationId: passwordReset
+      responses:
+        '200':
+          description: OK
+      description: パスワードをリセットし、新しいパスワードをDBに保存する
+      tags:
+        - auth
+  /api/v1/client/offices:
     get:
-      summary: 事業所一覧取得
+      summary: 事業所一覧取得(事業所利用者)
       tags:
         - office
       responses:
@@ -178,7 +206,7 @@ paths:
                       type: OfficeRepresentative
                       created_at: '2022-08-03T00:06:06.514+09:00'
                       updated_at: '2022-08-03T00:06:06.514+09:00'
-      operationId: getOffices
+      operationId: getClientOffices
       description: 事業所一覧を取得する。
       parameters:
         - schema:
@@ -187,7 +215,344 @@ paths:
           in: query
           name: q
           description: addressを前方一致検索する。OR検索は半角スペースで区切る。
+        - schema:
+            type: string
+          in: query
+          name: page
+          description: ページネーション
     parameters: []
+  '/api/v1/client/office/{id}':
+    get:
+      summary: 事業所詳細取得(事業所利用者)
+      tags:
+        - office
+      responses:
+        '200':
+          description: OK
+      operationId: getClientOffice
+      description: 単一の事務所の詳細を取得する
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
+  '/api/v1/manager/office/{id}':
+    get:
+      summary: 事業所詳細取得(ケアマネ)
+      tags:
+        - office
+      responses:
+        '200':
+          description: OK
+      operationId: getManagerOffice
+      description: 単一の事務所の詳細を取得する
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
+    patch:
+      summary: 事業所更新(ケアマネ)
+      operationId: updateManagerOffice
+      responses:
+        '200':
+          description: OK
+      tags:
+        - office
+      description: 単一の事務所を更新する
+  /api/v1/client/appointments:
+    post:
+      summary: 予約作成(事業所利用者)
+      operationId: createClientAppointment
+      responses:
+        '200':
+          description: OK
+      tags:
+        - appointment
+      description: ホームケアを予約する
+    get:
+      summary: 予約一覧取得(事業所利用者)
+      operationId: getClientAppointments
+      responses:
+        '200':
+          description: OK
+      description: 予約一覧を取得する
+      tags:
+        - appointment
+    parameters: []
+  /api/v1/manager/appointments:
+    get:
+      summary: 予約一覧取得(ケアマネ)
+      operationId: getManagerAppointments
+      responses:
+        '200':
+          description: OK
+      description: 予約一覧を取得する
+      tags:
+        - appointment
+    parameters: []
+  '/api/v1/manager/appointment/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
+    patch:
+      summary: 予約更新(ケアマネ)
+      operationId: updateManagerAppointment
+      responses:
+        '200':
+          description: OK
+      description: 予約を更新する
+      tags:
+        - appointment
+  /api/v1/client/thanks:
+    post:
+      summary: お礼投稿(事業所利用者)
+      operationId: createClientThank
+      responses:
+        '200':
+          description: OK
+      tags:
+        - thank
+      description: お礼を投稿する
+    get:
+      summary: お礼一覧取得(事業所利用者)
+      operationId: getClientThanks
+      responses:
+        '200':
+          description: OK
+      description: お礼一覧を取得する
+      tags:
+        - thank
+    parameters: []
+  /api/v1/manager/thanks:
+    get:
+      summary: お礼一覧取得(ケアマネ)
+      operationId: getManagerThanks
+      responses:
+        '200':
+          description: OK
+      description: お礼一覧を取得する
+      tags:
+        - thank
+    parameters: []
+  '/api/v1/client/thank/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
+    delete:
+      summary: お礼削除(事業所利用者)
+      operationId: deleteClientThank
+      responses:
+        '200':
+          description: OK
+      description: お礼を削除する
+      tags:
+        - thank
+    patch:
+      summary: お礼更新(事業所利用者)
+      operationId: updateClientThank
+      responses:
+        '200':
+          description: OK
+      tags:
+        - thank
+      description: お礼を更新する
+  '/api/v1/manager/thank/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
+    delete:
+      summary: お礼削除(ケアマネ)
+      operationId: deleteManagerThank
+      responses:
+        '200':
+          description: OK
+      description: お礼を削除する
+      tags:
+        - thank
+  /api/v1/client/histories:
+    get:
+      summary: 閲覧履歴一覧取得(事業所利用者)
+      tags:
+        - history
+      responses:
+        '200':
+          description: OK
+      operationId: getClientHistories
+      description: 事業所の閲覧履歴を取得する
+    parameters: []
+  /api/v1/client/bookmarks:
+    get:
+      summary: ブックマーク一覧取得(事業所利用者)
+      tags:
+        - book_mark
+      responses:
+        '200':
+          description: OK
+      operationId: getClientBookmarks
+      description: ブックマークをつけた事業所一覧を取得する
+    post:
+      summary: ブックマーク作成(事業所利用者)
+      operationId: createClientBookmark
+      responses:
+        '200':
+          description: OK
+      tags:
+        - book_mark
+      description: ブックマークを作成する
+    parameters: []
+  '/api/v1/client/book_mark/{id}':
+    delete:
+      summary: ブックマーク削除(事業所利用者)
+      operationId: deleteClientBookmark
+      responses:
+        '200':
+          description: OK
+      tags:
+        - book_mark
+      description: ブックマークを削除する
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
+  /api/v1/client/staffs:
+    get:
+      summary: スタッフ一覧取得(事業所利用者)
+      responses:
+        '200':
+          description: OK
+      operationId: getClientStaffs
+      tags:
+        - staff
+      description: スタッフ一覧を取得する
+    parameters: []
+  /api/v1/manager/staffs:
+    get:
+      summary: スタッフ一覧取得(ケアマネ)
+      responses:
+        '200':
+          description: OK
+      operationId: getManagerStaffs
+      tags:
+        - staff
+      description: スタッフ一覧を取得する
+    post:
+      summary: スタッフ作成(ケアマネ)
+      operationId: createManagerStaff
+      responses:
+        '200':
+          description: OK
+      tags:
+        - staff
+      description: スタッフを追加する
+    parameters: []
+  '/api/v1/manager/staff/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
+    delete:
+      summary: スタッフ削除(ケアマネ)
+      operationId: deleteManagerStaff
+      responses:
+        '200':
+          description: OK
+      tags:
+        - staff
+      description: スタッフを削除する
+    patch:
+      summary: スタッフ更新(ケアマネ)
+      operationId: updateManagerStaff
+      responses:
+        '200':
+          description: OK
+      tags:
+        - staff
+      description: スタッフを更新する
+  /api/v1/manager/office_clients:
+    get:
+      summary: 事業所管理の事業所利用者一覧取得(ケアマネ)
+      responses:
+        '200':
+          description: OK
+      operationId: getManagerOfficeClients
+      tags:
+        - office_client
+      description: 事業所で管理している事業所利用者一覧を取得する
+    parameters: []
+    post:
+      summary: 事業所管理の事業所利用者作成(ケアマネ)
+      operationId: createManagerOfficeClient
+      responses:
+        '200':
+          description: OK
+      tags:
+        - office_client
+      description: 事業所で管理している事業所利用者を作成する
+  '/api/v1/manager/office_client/{id}':
+    patch:
+      summary: 事業所管理の事業所利用者更新(ケアマネ)
+      operationId: updateManagerOfficeClient
+      responses:
+        '200':
+          description: OK
+      tags:
+        - office_client
+      description: 事業所で管理している事業所利用者一覧を更新する
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+          format: int64
+        description: 対象のid
+    delete:
+      summary: 事業所管理の事業所利用者削除(ケアマネ)
+      operationId: deleteManagerOfficeClient
+      responses:
+        '200':
+          description: OK
+      tags:
+        - office_client
+      description: 事業所で管理している事業所利用者一覧を削除する
 components:
   schemas:
     User:
@@ -451,38 +816,15 @@ components:
                 confirm_success_url: 'https://www.home-care-navi-second'
       description: ''
   parameters:
-    access-token:
-      name: access-token
-      in: header
+    path-param-id:
+      name: id
+      in: path
       required: true
       schema:
-        type: string
-        example: 7sbMLu90-fDnajzasuhOTQ
-      description: トークン認証に必要なヘッダー(1/4)
-    client:
-      name: client
-      in: header
-      required: true
-      schema:
-        type: string
-        example: xJ-BFLHzY_XNMX_cjsQnPw
-      description: トークン認証に必要なヘッダー(2/4)
-    expiry:
-      name: expiry
-      in: header
-      required: true
-      schema:
-        type: number
-        example: 1660145125
-      description: トークン認証に必要なヘッダー(3/4)
-    uid:
-      name: uid
-      in: header
-      required: true
-      schema:
-        type: string
-        example: test1@example.com
-      description: トークン認証に必要なヘッダー(4/4)
+        type: integer
+        example: 1
+        format: int64
+      description: 対象のid
   securitySchemes:
     access-token:
       name: access-token
@@ -505,9 +847,23 @@ components:
       in: header
       description: トークン認証に必要なヘッダー(4/4)
 tags:
+  - name: appointment
+    description: 予約
   - name: auth
     description: 認証
+  - name: book_mark
+    description: ブックマーク
+  - name: client
+    description: 事業所利用者が使用するエンドポイント
   - name: health_check
     description: ヘルスチェック関連
+  - name: history
+    description: 閲覧履歴
   - name: office
     description: 事業所
+  - name: office_client
+    description: 事業所で管理しているクライアント
+  - name: staff
+    description: 事業所スタッフ
+  - name: thank
+    description: お礼
