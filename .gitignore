@@ -40,3 +40,9 @@ reference/.spectral.json
 reference/.stoplight/*
 .stoplight/custom-functions/*
 .stoplight
+
+.github
+api
+front
+.spectral.json
+compose.yml

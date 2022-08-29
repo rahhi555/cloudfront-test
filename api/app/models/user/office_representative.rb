@@ -1,2 +1,0 @@
-class OfficeRepresentative < User
-end
