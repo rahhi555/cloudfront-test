@@ -4,15 +4,15 @@ x-stoplight:
 info:
   title: home-care-navi-second
   version: '1.0'
-  description: ②期のホームケアナビのAPI仕様書
+  description: 2期のホームケアナビのAPI仕様書
   contact:
     name: 平林直樹
     url: 'https://example.com'
     email: test@example.com
-  termsOfService: hogehoge
   license:
     name: MIT
     url: 'https://example.com'
+  termsOfService: hogehgoe@example.com
 servers:
   - url: 'http://localhost:3000'
     description: 平林直樹
@@ -25,9 +25,20 @@ paths:
       responses:
         '200':
           description: OK
-          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  message:
+                    type: string
+                    example: API Health Check OK
+                    description: メッセージに意味は無し
+                required:
+                  - message
       operationId: getHealthCheck
-      description: ヘルスチェック用のエンドポイントです
+      description: ECSのヘルスチェック用エンドポイント
   /api/v1/auth:
     post:
       summary: ユーザー新規作成
@@ -90,9 +101,11 @@ paths:
           application/json:
             schema:
               type: object
+              additionalProperties: false
               properties:
                 session:
                   type: object
+                  additionalProperties: false
                   properties:
                     email:
                       type: string
@@ -106,7 +119,6 @@ paths:
                   required:
                     - email
                     - password
-                  additionalProperties: false
             examples:
               example-1:
                 value:
@@ -556,10 +568,10 @@ paths:
 components:
   schemas:
     User:
+      type: object
       title: User
       x-stoplight:
         id: ygtg1gffnd7xu
-      type: object
       description: 事業所利用者及び事業所代表者
       properties:
         id:
@@ -815,16 +827,7 @@ components:
                   type: Client
                 confirm_success_url: 'https://www.home-care-navi-second'
       description: ''
-  parameters:
-    path-param-id:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-        example: 1
-        format: int64
-      description: 対象のid
+  parameters: {}
   securitySchemes:
     access-token:
       name: access-token
