@@ -634,39 +634,65 @@ components:
         application/json:
           schema:
             type: object
-            additionalProperties: false
+            x-examples:
+              example-1:
+                status: success
+                data:
+                  provider: email
+                  uid: test1@example.com
+                  allow_password_change: false
+                  id: 1
+                  name: テスト 太郎
+                  email: test@example.com
+                  tel: 090-1111-2222
+                  postal: '1234567'
+                  address: 東京都新宿区市ヶ谷本村町5番1号
+                  type: Client
+                  created_at: '2022-08-03T00:06:06.514+09:00'
+                  updated_at: '2022-08-03T00:06:06.514+09:00'
             properties:
               status:
                 type: string
-                example: success
-                description: successまたはerror
-                readOnly: true
               data:
-                allOf:
-                  - type: object
-                    description: 認証情報
-                    properties:
-                      provider:
-                        type: string
-                        example: email
-                        default: email
-                        description: emailやOmniauth等の認証方式
-                      uid:
-                        type: string
-                        format: email
-                        example: test1@example.com
-                        description: ユーザー識別子
-                      allow_password_change:
-                        type: boolean
-                        default: false
-                        description: パスワード変更中判定
-                        readOnly: true
-                    required:
-                      - provider
-                      - uid
-                      - allow_password_change
-                  - $ref: '#/components/schemas/User'
-                description: ユーザー及び認証情報
+                type: object
+                required:
+                  - provider
+                  - uid
+                  - allow_password_change
+                  - id
+                  - name
+                  - email
+                  - tel
+                  - postal
+                  - address
+                  - type
+                  - created_at
+                  - updated_at
+                properties:
+                  provider:
+                    type: string
+                  uid:
+                    type: string
+                  allow_password_change:
+                    type: boolean
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  tel:
+                    type: string
+                  postal:
+                    type: string
+                  address:
+                    type: string
+                  type:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
             required:
               - status
               - data
