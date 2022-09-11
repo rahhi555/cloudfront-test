@@ -103,28 +103,23 @@ paths:
               type: object
               additionalProperties: false
               properties:
-                session:
-                  type: object
-                  additionalProperties: false
-                  properties:
-                    email:
-                      type: string
-                      format: email
-                      example: test1@example.com
-                      description: メールアドレス
-                    password:
-                      type: string
-                      example: password
-                      description: パスワード
-                  required:
-                    - email
-                    - password
+                email:
+                  type: string
+                  format: email
+                  example: test1@example.com
+                  description: メールアドレス
+                password:
+                  type: string
+                  example: password
+                  description: パスワード
+              required:
+                - email
+                - password
             examples:
               example-1:
                 value:
-                  session:
-                    email: test1@example.com
-                    password: password
+                  email: test1@example.com
+                  password: password
           application/xml:
             schema:
               type: object
