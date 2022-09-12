@@ -44,8 +44,6 @@ paths:
       summary: ユーザー新規作成
       operationId: signUp
       description: ユーザーを新規登録する。typeの値によって、ユーザーの種別(事務所利用者等)が決定する。
-      requestBody:
-        $ref: '#/components/requestBodies/Registration'
       responses:
         '200':
           $ref: '#/components/responses/AuthSuccess'
@@ -53,6 +51,69 @@ paths:
           $ref: '#/components/responses/Error'
       tags:
         - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - tel
+                - postal
+                - address
+                - password
+                - type
+                - confirm_success_url
+              properties:
+                name:
+                  type: string
+                  description: 名前
+                  example: テスト 太郎
+                email:
+                  type: string
+                  format: email
+                  example: test@example.com
+                  description: メールアドレス
+                tel:
+                  type: string
+                  description: 電話番号
+                  example: 090-1111-2222
+                  pattern: '^0[-0-9]{11,12}$'
+                postal:
+                  type: string
+                  example: '1234567'
+                  pattern: '^\d{7}$'
+                  description: 郵便番号
+                  maxLength: 7
+                address:
+                  type: string
+                  example: 東京都新宿区市ヶ谷本村町5番1号
+                  description: 住所
+                password:
+                  type: string
+                  example: password
+                  description: パスワード
+                type:
+                  type: string
+                  example: Client
+                  description: STIによるユーザー識別文字列
+                confirm_success_url:
+                  type: string
+                  format: uri
+                  example: 'https://www.home-care-navi-second'
+                  description: アカウント登録メールに記載されるURL
+            examples:
+              example-1:
+                value:
+                  name: テスト 太郎
+                  email: test@example.com
+                  tel: 090-1111-2222
+                  postal: '1234567'
+                  address: 東京都新宿区市ヶ谷本村町5番1号
+                  password: password
+                  type: Client
+                  confirm_success_url: 'https://www.home-care-navi-second'
     parameters: []
     patch:
       summary: 登録者情報更新
@@ -749,80 +810,7 @@ components:
                 errors:
                   full_messages:
                     - メールアドレスはすでに存在します
-  requestBodies:
-    Registration:
-      content:
-        application/json:
-          schema:
-            allOf:
-              - properties:
-                  registration:
-                    type: object
-                    required:
-                      - name
-                      - email
-                      - tel
-                      - postal
-                      - address
-                      - password
-                      - type
-                    properties:
-                      name:
-                        type: string
-                        description: 名前
-                        example: テスト 太郎
-                      email:
-                        type: string
-                        format: email
-                        example: test@example.com
-                        description: メールアドレス
-                      tel:
-                        type: string
-                        description: 電話番号
-                        example: 090-1111-2222
-                        pattern: '^0[-0-9]{11,12}$'
-                      postal:
-                        type: string
-                        example: '1234567'
-                        pattern: '^\d{7}$'
-                        description: 郵便番号
-                        maxLength: 7
-                      address:
-                        type: string
-                        example: 東京都新宿区市ヶ谷本村町5番1号
-                        description: 住所
-                      password:
-                        type: string
-                        example: password
-                        description: パスワード
-                      type:
-                        type: string
-                        example: Client
-                        description: STIによるユーザー識別文字列
-                required:
-                  - registration
-              - properties:
-                  confirm_success_url:
-                    type: string
-                    format: uri
-                    example: 'https://www.home-care-navi-second'
-                    description: アカウント登録メールに記載されるURL
-                required:
-                  - confirm_success_url
-            type: object
-          examples:
-            example-1:
-              value:
-                registration:
-                  name: テスト 太郎
-                  email: test@example.com
-                  tel: 090-1111-2222
-                  postal: '1234567'
-                  address: 東京都新宿区市ヶ谷本村町5番1号
-                  password: password
-                  type: Client
-                confirm_success_url: 'https://www.home-care-navi-second'
-      description: ''
+  requestBodies: {}
   parameters: {}
   securitySchemes:
     access-token:
