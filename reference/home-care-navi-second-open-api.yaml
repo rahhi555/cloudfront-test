@@ -664,16 +664,6 @@ components:
           type: string
           example: Client
           description: STIによるユーザー識別文字列
-        created_at:
-          type: string
-          format: date-time
-          example: '2022-08-03T00:06:06.514+09:00'
-          description: 作成日時
-        updated_at:
-          type: string
-          format: date-time
-          example: '2022-08-03T00:06:06.514+09:00'
-          description: 更新日時
       required:
         - id
         - name
@@ -682,8 +672,6 @@ components:
         - postal
         - address
         - type
-        - created_at
-        - updated_at
   responses:
     AuthSuccess:
       description: ''
