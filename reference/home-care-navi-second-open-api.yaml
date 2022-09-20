@@ -745,8 +745,8 @@ components:
           description: トークン認証に必要なヘッダー(2/4)
         expiry:
           schema:
-            type: number
-            example: 1660145125
+            type: string
+            example: "1660145125"
           description: トークン認証に必要なヘッダー(3/4)
         uid:
           schema:
