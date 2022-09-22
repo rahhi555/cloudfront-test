@@ -733,13 +733,24 @@ components:
       x-stoplight:
         id: ygtg1gffnd7xu
       description: 事業所利用者及び事業所代表者
+      x-examples:
+        example-1:
+          id: 1
+          name: テスト 太郎
+          email: test@example.com
+          tel: 090-1111-2222
+          postal: '1234567'
+          address: 東京都新宿区市ヶ谷本村町5番1号
+          type: Client
+          provider: email
+          uid: test1@example.com
+          allow_password_change: false
       additionalProperties: false
       properties:
         id:
           type: number
           example: 1
           description: ID
-          readOnly: true
         name:
           type: string
           description: 名前
@@ -782,7 +793,16 @@ components:
           type: boolean
           default: false
           description: パスワード変更中判定
-          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-09-23T00:33:53.961+09:00'
+          description: 作成日時(新規作成時のみ返ってくる)
+        updated_at:
+          type: string
+          example: '2022-09-23T00:33:53.961+09:00'
+          format: date-time
+          description: 更新日時(新規作成時のみ返ってくる)
       required:
         - id
         - name
@@ -794,18 +814,6 @@ components:
         - provider
         - uid
         - allow_password_change
-      x-examples:
-        example-1:
-          id: 1
-          name: テスト 太郎
-          email: test@example.com
-          tel: 090-1111-2222
-          postal: '1234567'
-          address: 東京都新宿区市ヶ谷本村町5番1号
-          type: Client
-          provider: email
-          uid: test1@example.com
-          allow_password_change: false
   responses:
     AuthSuccess:
       description: ''
