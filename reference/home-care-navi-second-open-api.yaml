@@ -713,7 +713,6 @@ components:
                   - $ref: '#/components/schemas/User'
                 description: ユーザー及び認証情報
             required:
-              - status
               - data
           examples:
             example-1:
@@ -746,7 +745,7 @@ components:
         expiry:
           schema:
             type: string
-            example: "1660145125"
+            example: '1660145125'
           description: トークン認証に必要なヘッダー(3/4)
         uid:
           schema:
