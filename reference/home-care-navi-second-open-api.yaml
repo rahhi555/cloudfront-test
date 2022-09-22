@@ -48,7 +48,97 @@ paths:
         '200':
           $ref: '#/components/responses/AuthSuccess'
         '422':
-          $ref: '#/components/responses/Error'
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  data:
+                    type: object
+                    required:
+                      - id
+                      - provider
+                      - uid
+                      - allow_password_change
+                      - name
+                      - email
+                      - tel
+                      - address
+                      - postal
+                      - created_at
+                      - updated_at
+                      - type
+                    properties:
+                      id:
+                        nullable: true
+                      provider:
+                        type: string
+                        example: email
+                      uid:
+                        type: string
+                      allow_password_change:
+                        type: boolean
+                        default: false
+                      name:
+                        type: string
+                        example: テスト　太郎
+                      email:
+                        type: string
+                        example: test@example.com
+                      tel:
+                        type: string
+                        example: 000-1111-2222
+                      address:
+                        type: string
+                        example: 東京都新宿区市ヶ谷本村町5番1号
+                      postal:
+                        type: string
+                        example: '1234567'
+                      created_at:
+                        nullable: true
+                      updated_at:
+                        nullable: true
+                      type:
+                        type: string
+                        example: Client
+                  errors:
+                    type: object
+                    required:
+                      - full_messages
+                    properties:
+                      full_messages:
+                        type: array
+                        items:
+                          type: string
+                          example: メールアドレスはすでに存在します
+                required:
+                  - status
+                  - data
+                  - errors
+              examples:
+                example-1:
+                  value:
+                    status: error
+                    data:
+                      id: null
+                      provider: email
+                      uid: string
+                      allow_password_change: false
+                      name: テスト　太郎
+                      email: test@example.com
+                      tel: 000-1111-2222
+                      address: 東京都新宿区市ヶ谷本村町5番1号
+                      postal: '1234567'
+                      created_at: null
+                      updated_at: null
+                      type: Client
+                    errors:
+                      full_messages:
+                        - メールアドレスはすでに存在します
       tags:
         - auth
       requestBody:
@@ -147,8 +237,30 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/AuthSuccess'
-        '422':
-          $ref: '#/components/responses/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                      example: ログイン用の認証情報が正しくありません。
+                required:
+                  - success
+                  - errors
+              examples:
+                example-1:
+                  value:
+                    success: false
+                    errors:
+                      - ログイン用の認証情報が正しくありません。
       tags:
         - auth
     parameters: []
@@ -189,6 +301,30 @@ paths:
         '200':
           $ref: '#/components/responses/AuthSuccess'
           additionalProperties: false
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                      example: ログイン用の認証情報が正しくありません。再度お試しください
+                required:
+                  - success
+                  - errors
+              examples:
+                example-1:
+                  value:
+                    success: false
+                    errors:
+                      - ログイン用の認証情報が正しくありません。再度お試しください
       tags:
         - auth
     parameters: []
@@ -630,6 +766,7 @@ components:
       x-stoplight:
         id: ygtg1gffnd7xu
       description: 事業所利用者及び事業所代表者
+      additionalProperties: false
       properties:
         id:
           type: number
@@ -664,6 +801,21 @@ components:
           type: string
           example: Client
           description: STIによるユーザー識別文字列
+        provider:
+          type: string
+          example: email
+          default: email
+          description: emailやOmniauth等の認証方式
+        uid:
+          type: string
+          format: email
+          example: test1@example.com
+          description: ユーザー識別子
+        allow_password_change:
+          type: boolean
+          default: false
+          description: パスワード変更中判定
+          readOnly: true
       required:
         - id
         - name
@@ -672,6 +824,21 @@ components:
         - postal
         - address
         - type
+        - provider
+        - uid
+        - allow_password_change
+      x-examples:
+        example-1:
+          id: 1
+          name: テスト 太郎
+          email: test@example.com
+          tel: 090-1111-2222
+          postal: '1234567'
+          address: 東京都新宿区市ヶ谷本村町5番1号
+          type: Client
+          provider: email
+          uid: test1@example.com
+          allow_password_change: false
   responses:
     AuthSuccess:
       description: ''
@@ -679,7 +846,6 @@ components:
         application/json:
           schema:
             type: object
-            additionalProperties: false
             properties:
               status:
                 type: string
@@ -687,31 +853,7 @@ components:
                 description: successまたはerror
                 readOnly: true
               data:
-                allOf:
-                  - type: object
-                    description: 認証情報
-                    properties:
-                      provider:
-                        type: string
-                        example: email
-                        default: email
-                        description: emailやOmniauth等の認証方式
-                      uid:
-                        type: string
-                        format: email
-                        example: test1@example.com
-                        description: ユーザー識別子
-                      allow_password_change:
-                        type: boolean
-                        default: false
-                        description: パスワード変更中判定
-                        readOnly: true
-                    required:
-                      - provider
-                      - uid
-                      - allow_password_change
-                  - $ref: '#/components/schemas/User'
-                description: ユーザー及び認証情報
+                $ref: '#/components/schemas/User'
             required:
               - data
           examples:
@@ -752,51 +894,6 @@ components:
             type: string
             example: test1@example.com
           description: トークン認証に必要なヘッダー(4/4)
-    Error:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            allOf:
-              - properties:
-                  status:
-                    type: string
-                    default: error
-                    example: error
-                    description: エラーステータス
-                    readOnly: true
-                required:
-                  - status
-              - properties:
-                  data:
-                    type: object
-                    description: レスポンスによって異なる
-                required:
-                  - data
-              - properties:
-                  errors:
-                    type: object
-                    required:
-                      - full_messages
-                    description: エラー情報
-                    properties:
-                      full_messages:
-                        type: array
-                        description: すべてのエラーメッセージ
-                        items:
-                          type: string
-                          example: メールアドレスはすでに存在します
-                required:
-                  - errors
-            type: object
-          examples:
-            example-1:
-              value:
-                status: error
-                data: {}
-                errors:
-                  full_messages:
-                    - メールアドレスはすでに存在します
   requestBodies: {}
   parameters: {}
   securitySchemes:
