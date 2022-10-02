@@ -739,7 +739,7 @@ paths:
       description: 事業所で管理している事業所利用者一覧を削除する
   /json?method=searchByPostal:
     servers:
-      - url: 'https://geoapi.heartrails.com/api/json'
+      - url: 'https://geoapi.heartrails.com/api'
     get:
       summary: ご指定の郵便番号に合致する町域の情報の一覧を取得する API です。
       tags:
