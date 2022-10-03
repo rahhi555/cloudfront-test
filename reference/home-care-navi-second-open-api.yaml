@@ -161,15 +161,6 @@ paths:
           application/json:
             schema:
               type: object
-              required:
-                - name
-                - email
-                - tel
-                - postal
-                - address
-                - password
-                - type
-                - confirm_success_url
               properties:
                 name:
                   type: string
@@ -208,6 +199,33 @@ paths:
                   format: uri
                   example: 'https://www.home-care-navi-second'
                   description: アカウント登録メールに記載されるURL
+                office_attributes:
+                  description: 'type: Managerの際はOfficeも同時に作成するため、この項目が必須になる。'
+                  type: object
+                  properties:
+                    lat:
+                      type: number
+                      format: double
+                      description: 緯度
+                      example: 35.681382
+                    lng:
+                      type: number
+                      format: double
+                      description: 経度
+                      example: 139.766084
+                    nearest_station:
+                      type: string
+                      example: 祖師谷大蔵駅　徒歩5分
+                      description: 最寄り駅及び徒歩○分
+              required:
+                - name
+                - email
+                - tel
+                - postal
+                - address
+                - password
+                - type
+                - confirm_success_url
             examples:
               example-1:
                 value:
@@ -737,83 +755,6 @@ paths:
       tags:
         - office_client
       description: 事業所で管理している事業所利用者一覧を削除する
-  /json?method=searchByPostal:
-    servers:
-      - url: 'https://geoapi.heartrails.com/api'
-    get:
-      summary: ご指定の郵便番号に合致する町域の情報の一覧を取得する API です。
-      tags:
-        - HeartRailsGeoAPI
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    oneOf:
-                      - description: 成功時レスポンス
-                        properties:
-                          location:
-                            type: array
-                            description: 郵便番号がヒットした場合のレスポンス
-                            items:
-                              type: object
-                              properties:
-                                city:
-                                  type: string
-                                  example: 札幌市北区
-                                city_kana:
-                                  type: string
-                                  example: さっぽろしきたく
-                                town:
-                                  type: string
-                                  example: 北十条西
-                                town_kana:
-                                  type: string
-                                  example: きた10じょうにし
-                                x:
-                                  type: number
-                                  example: 141.350427
-                                  format: double
-                                'y':
-                                  type: number
-                                  format: double
-                                  example: 43.073211
-                                prefecture:
-                                  type: string
-                                  example: 北海道
-                                postal:
-                                  type: string
-                                  example: '0010010'
-                      - properties:
-                          error:
-                            type: string
-                            description: エラー時に返ってくる。ステータスコードは200なので注意
-                            example: 'Cities of postal code:''aaa'' do not exist.'
-                        description: エラー時レスポンス
-                    type: object
-                required:
-                  - response
-              examples: {}
-      operationId: searchByPostal
-      description: 'http://geoapi.heartrails.com/api.html#postal'
-      parameters:
-        - schema:
-            type: string
-            example: '0010010'
-          in: query
-          name: postal
-          description: URL エンコード （UTF-8） された郵便番号 7 桁の半角数字を入力してください
-          required: true
-        - schema:
-            type: string
-          in: query
-          name: jsonp
-          description: JSON 形式のデータを受け取るためのコールバック関数名。JSON 形式のリクエスト URL にのみ対応
-    parameters: []
 components:
   schemas:
     User:
