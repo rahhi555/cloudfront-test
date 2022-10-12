@@ -199,24 +199,6 @@ paths:
                   format: uri
                   example: 'https://www.home-care-navi-second'
                   description: アカウント登録メールに記載されるURL
-                office_attributes:
-                  description: 'type: Managerの際はOfficeも同時に作成するため、この項目が必須になる。'
-                  type: object
-                  properties:
-                    lat:
-                      type: number
-                      format: double
-                      description: 緯度
-                      example: 35.681382
-                    lng:
-                      type: number
-                      format: double
-                      description: 経度
-                      example: 139.766084
-                    nearest_station:
-                      type: string
-                      example: 祖師谷大蔵駅　徒歩5分
-                      description: 最寄り駅及び徒歩○分
               required:
                 - name
                 - email
@@ -243,7 +225,39 @@ paths:
       operationId: updateAuth
       responses:
         '200':
-          description: OK
+          $ref: '#/components/responses/AuthSuccess'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                    description: 成功判定
+                  errors:
+                    type: array
+                    description: エラーメッセージ
+                    items:
+                      type: string
+                      example: ユーザーが見つかりません。
+                  status:
+                    type: string
+                    example: error
+                    description: エラー表示
+                required:
+                  - success
+                  - errors
+                  - status
+              examples:
+                example-1:
+                  value:
+                    success: false
+                    errors:
+                      - ユーザーが見つかりません。
+                    status: error
       tags:
         - auth
       description: 登録者情報を更新する
