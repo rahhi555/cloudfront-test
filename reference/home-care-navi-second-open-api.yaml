@@ -267,6 +267,56 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: succss
+                    description: ステータス
+                  message:
+                    type: string
+                    example: von.heaney@example.org' のアカウントは削除されました。
+                    description: メッセージ
+                required:
+                  - status
+                  - message
+              examples:
+                example-1:
+                  value:
+                    status: succss
+                    message: von.heaney@example.org' のアカウントは削除されました。
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                      example: 削除するアカウントが見つかりません
+                  status:
+                    type: string
+                    example: error
+                required:
+                  - success
+                  - errors
+                  - status
+              examples:
+                example-1:
+                  value:
+                    success: false
+                    errors:
+                      - 削除するアカウントが見つかりません
+                    status: error
       tags:
         - auth
       description: 退会する
