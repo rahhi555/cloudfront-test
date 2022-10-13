@@ -271,30 +271,20 @@ paths:
                   errors:
                     type: object
                     required:
-                      - current_password
+                      - full_messages
                     properties:
-                      current_password:
-                        example: [を入力してください]
-                        type: array
-                        items:
-                          type: string
-                  full_messages:
-                    type: array
-                    items:
-                      type: string
-                      example: 現在のパスワードを入力してください
+                      full_messages:
+                        type: string
+                        example: '[現在のパスワードを入力してください]'
                 required:
                   - status
                   - errors
-                  - full_messages
               examples:
                 example-1:
                   value:
                     status: error
                     errors:
-                      current_password: [を入力してください]
-                    full_messages:
-                      - 現在のパスワードを入力してください
+                      full_messages: '[現在のパスワードを入力してください]'
       tags:
         - auth
       description: 登録者情報を更新する
