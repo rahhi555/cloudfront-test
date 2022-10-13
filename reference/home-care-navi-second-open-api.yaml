@@ -268,6 +268,12 @@ paths:
                   status:
                     type: string
                     example: error
+                  errors:
+                    type: object
+                    properties:
+                      current_password:
+                        type: string
+                        example: を入力してください
                   full_messages:
                     type: array
                     items:
@@ -275,6 +281,7 @@ paths:
                       example: 現在のパスワードを入力してください
                 required:
                   - status
+                  - errors
                   - full_messages
       tags:
         - auth
