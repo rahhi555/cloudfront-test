@@ -274,7 +274,7 @@ paths:
                       - current_password
                     properties:
                       current_password:
-                        example: を入力してください
+                        example: [を入力してください]
                         type: array
                         items:
                           type: string
@@ -292,7 +292,7 @@ paths:
                   value:
                     status: error
                     errors:
-                      current_password: を入力してください
+                      current_password: [を入力してください]
                     full_messages:
                       - 現在のパスワードを入力してください
       tags:
