@@ -460,6 +460,49 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+                  message:
+                    type: string
+                    example: '''venita@example.org'' にパスワードリセットの案内が送信されました。'
+                required:
+                  - success
+                  - message
+              examples:
+                example-1:
+                  value:
+                    success: true
+                    message: '''venita@example.org'' にパスワードリセットの案内が送信されました。'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                      example: メールアドレス 'invalid@example.com' のユーザーが見つかりません。
+                required:
+                  - success
+                  - errors
+              examples:
+                example-1:
+                  value:
+                    success: false
+                    errors:
+                      - メールアドレス 'invalid@example.com' のユーザーが見つかりません。
       description: パスワードをリセットし、新しいパスワードをDBに保存する
       tags:
         - auth
