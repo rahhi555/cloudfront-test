@@ -240,9 +240,9 @@ paths:
                   errors:
                     type: array
                     description: エラーメッセージ
+                    example: [ユーザーが見つかりません]
                     items:
                       type: string
-                      example: ユーザーが見つかりません。
                   status:
                     type: string
                     example: error
@@ -251,13 +251,6 @@ paths:
                   - success
                   - errors
                   - status
-              examples:
-                example-1:
-                  value:
-                    success: false
-                    errors:
-                      - ユーザーが見つかりません。
-                    status: error
         '422':
           description: Unprocessable Entity (WebDAV)
           content:
@@ -274,8 +267,11 @@ paths:
                       - full_messages
                     properties:
                       full_messages:
-                        type: string
-                        example: '[現在のパスワードを入力してください]'
+                        example:
+                          - 現在のパスワードを入力してください
+                        type: array
+                        items:
+                          type: string
                 required:
                   - status
                   - errors
@@ -284,7 +280,8 @@ paths:
                   value:
                     status: error
                     errors:
-                      full_messages: '[現在のパスワードを入力してください]'
+                      full_messages:
+                        - 現在のパスワードを入力してください
       tags:
         - auth
       description: 登録者情報を更新する
