@@ -16,9 +16,9 @@ info:
 servers:
   - url: 'http://localhost:3000'
     description: ローカル開発環境
-  - url: 'https://api.home-care-navi-second.work:4000'
+  - url: 'https://api.home-care-navi-second-api.fun:4000'
     description: AWS開発環境
-  - url: 'https://api.home-care-navi-second.work:3000'
+  - url: 'https://api.home-care-navi-second-api.fun:3000'
     description: AWS本番環境
 paths:
   /health_check:
@@ -240,7 +240,8 @@ paths:
                   errors:
                     type: array
                     description: エラーメッセージ
-                    example: [ユーザーが見つかりません]
+                    example:
+                      - ユーザーが見つかりません
                     items:
                       type: string
                   status:
