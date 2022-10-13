@@ -261,6 +261,49 @@ paths:
       tags:
         - auth
       description: 登録者情報を更新する
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 新規　名前
+                email:
+                  type: string
+                  example: new@example.com
+                tel:
+                  type: string
+                  example: 111-2222-3333
+                postal:
+                  type: string
+                  example: '1112222'
+                address:
+                  type: string
+                  example: 東京都新宿区市ヶ谷本村町5番1号
+                password:
+                  type: string
+                  example: new-password
+                current_password:
+                  type: string
+                  example: password
+            examples:
+              example-1:
+                value:
+                  name: 新規　名前
+                  email: new@example.com
+                  tel: 111-2222-3333
+                  postal: '1112222'
+                  address: 東京都新宿区市ヶ谷本村町5番1号
+                  password: new-password
+                  current_password: password
+      security:
+        - access-token: []
+        - client: []
+        - expiry: []
+        - uid: []
+      parameters: []
     delete:
       summary: 退会
       operationId: deleteAuth
@@ -320,6 +363,11 @@ paths:
       tags:
         - auth
       description: 退会する
+      security:
+        - access-token: []
+        - client: []
+        - expiry: []
+        - uid: []
   /api/v1/auth/validate_token:
     get:
       summary: トークン検証
