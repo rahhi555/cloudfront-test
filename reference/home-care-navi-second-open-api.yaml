@@ -258,6 +258,24 @@ paths:
                     errors:
                       - ユーザーが見つかりません。
                     status: error
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  full_messages:
+                    type: array
+                    items:
+                      type: string
+                      example: 現在のパスワードを入力してください
+                required:
+                  - status
+                  - full_messages
       tags:
         - auth
       description: 登録者情報を更新する
