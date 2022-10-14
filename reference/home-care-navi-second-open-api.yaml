@@ -197,8 +197,8 @@ paths:
                 confirm_success_url:
                   type: string
                   format: uri
-                  example: 'https://www.home-care-navi-second'
-                  description: アカウント登録メールに記載されるURL
+                  example: 'http://localhost:8080'
+                  description: アカウント登録メールに記載されるURL。clientならトップページ、managerならスタッフ情報ページのURLとする。
               required:
                 - name
                 - email
@@ -218,7 +218,7 @@ paths:
                   address: 東京都新宿区市ヶ谷本村町5番1号
                   password: password
                   type: Client
-                  confirm_success_url: 'https://www.home-care-navi-second'
+                  confirm_success_url: 'http://localhost:8080'
     parameters: []
     patch:
       summary: 登録者情報更新
@@ -579,6 +579,19 @@ paths:
       description: パラメータのメールアドレスにパスワードリセットメールを送信する。
       tags:
         - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: myaddress@example.com
+                  format: email
+                  description: ユーザーがメールアドレスフォームに入力した値
+              required:
+                - email
     parameters: []
     patch:
       summary: パスワードリセット
@@ -666,7 +679,8 @@ paths:
                     properties:
                       full_messages:
                         type: array
-                        example: [パスワード（確認用）とパスワードの入力が一致しません]
+                        example:
+                          - パスワード（確認用）とパスワードの入力が一致しません
                         description: エラーメッセージ
                         items:
                           type: string
