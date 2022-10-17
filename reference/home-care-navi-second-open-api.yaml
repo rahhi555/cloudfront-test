@@ -639,6 +639,19 @@ paths:
               schema:
                 type: object
                 properties: {}
+          headers:
+            access-token:
+              schema:
+                type: string
+            uid:
+              schema:
+                type: string
+            client:
+              schema:
+                type: string
+            expiry:
+              schema:
+                type: string
         '401':
           description: Unauthorized
           content:
