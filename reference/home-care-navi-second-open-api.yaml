@@ -527,6 +527,10 @@ paths:
                     readOnly: true
                 required:
                   - success
+              examples:
+                example-1:
+                  value:
+                    success: true
       description: 'ヘッダーに`access-token`,`uid`,`client`必須。ログアウトする。'
       security:
         - access-token: []
