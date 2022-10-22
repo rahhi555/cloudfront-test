@@ -1039,15 +1039,6 @@ paths:
           format: int64
         description: 対象のid
   /api/v1/client/staffs:
-    get:
-      summary: スタッフ一覧取得(事業所利用者)
-      responses:
-        '200':
-          description: OK
-      operationId: getClientStaffs
-      tags:
-        - staff
-      description: スタッフ一覧を取得する
     parameters: []
   /api/v1/manager/staffs:
     get:
