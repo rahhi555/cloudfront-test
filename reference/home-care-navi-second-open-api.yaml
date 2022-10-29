@@ -838,7 +838,7 @@ paths:
           example: 1
           format: int64
         description: 対象のid
-  '/api/v1/manager/office/{id}':
+  /api/v1/manager/office:
     get:
       summary: 事業所詳細取得(ケアマネ)
       tags:
@@ -847,16 +847,8 @@ paths:
         '200':
           description: OK
       operationId: getManagerOffice
-      description: 単一の事務所の詳細を取得する
-    parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          example: 1
-          format: int64
-        description: 対象のid
+      description: Manager自身の事務所詳細を取得する
+    parameters: []
     patch:
       summary: 事業所更新(ケアマネ)
       operationId: updateManagerOffice
@@ -865,7 +857,7 @@ paths:
           description: OK
       tags:
         - office
-      description: 単一の事務所を更新する
+      description: Manager自身の事務所を更新する
   /api/v1/client/reserves:
     post:
       summary: 予約作成(事業所利用者)
