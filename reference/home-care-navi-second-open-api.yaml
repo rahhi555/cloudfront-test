@@ -879,9 +879,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OfficeOverview'
-      tags:
-        - office
       description: Manager自身の施設概要を取得する
+      tags:
+        - office_overview
   /api/v1/client/reserves:
     post:
       summary: 予約作成(事業所利用者)
@@ -1455,6 +1455,8 @@ tags:
     description: 事業所
   - name: office_client
     description: 事業所で管理しているクライアント
+  - name: office_overview
+    description: 施設概要
   - name: staff
     description: 事業所スタッフ
   - name: thank
