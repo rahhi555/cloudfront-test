@@ -866,9 +866,9 @@ paths:
       responses:
         '200':
           description: OK
-      tags:
-        - office
       description: Manager自身の施設概要を更新する
+      tags:
+        - office_overview
     get:
       summary: 施設概要取得（ケアマネ）
       operationId: getManagerOfficeOverview
