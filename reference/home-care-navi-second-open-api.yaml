@@ -866,7 +866,7 @@ paths:
       tags:
         - office
       description: 単一の事務所を更新する
-  /api/v1/client/appointments:
+  /api/v1/client/reserves:
     post:
       summary: 予約作成(事業所利用者)
       operationId: createClientAppointment
@@ -878,7 +878,7 @@ paths:
       description: ホームケアを予約する
     get:
       summary: 予約一覧取得(事業所利用者)
-      operationId: getClientAppointments
+      operationId: getClientReserves
       responses:
         '200':
           description: OK
@@ -886,10 +886,10 @@ paths:
       tags:
         - appointment
     parameters: []
-  /api/v1/manager/appointments:
+  /api/v1/manager/reserves:
     get:
       summary: 予約一覧取得(ケアマネ)
-      operationId: getManagerAppointments
+      operationId: getManagerReserves
       responses:
         '200':
           description: OK
@@ -897,7 +897,7 @@ paths:
       tags:
         - appointment
     parameters: []
-  '/api/v1/manager/appointment/{id}':
+  '/api/v1/manager/reserve/{id}':
     parameters:
       - name: id
         in: path
@@ -909,7 +909,7 @@ paths:
         description: 対象のid
     patch:
       summary: 予約更新(ケアマネ)
-      operationId: updateManagerAppointment
+      operationId: updateManagerReserve
       responses:
         '200':
           description: OK
