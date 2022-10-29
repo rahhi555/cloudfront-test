@@ -858,6 +858,17 @@ paths:
       tags:
         - office
       description: Manager自身の事務所を更新する
+  /api/v1/manager/office_overview:
+    parameters: []
+    patch:
+      summary: 事業所更新(ケアマネ)
+      operationId: updateManagerOfficeOverview
+      responses:
+        '200':
+          description: OK
+      tags:
+        - office
+      description: Manager自身の施設概要を更新する
   /api/v1/client/reserves:
     post:
       summary: 予約作成(事業所利用者)
