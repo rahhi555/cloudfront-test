@@ -861,7 +861,7 @@ paths:
   /api/v1/manager/office_overview:
     parameters: []
     patch:
-      summary: 事業所更新(ケアマネ)
+      summary: 施設概要更新(ケアマネ)
       operationId: updateManagerOfficeOverview
       responses:
         '200':
@@ -869,6 +869,19 @@ paths:
       tags:
         - office
       description: Manager自身の施設概要を更新する
+    get:
+      summary: 施設概要取得（ケアマネ）
+      operationId: getManagerOfficeOverview
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfficeOverview'
+      tags:
+        - office
+      description: Manager自身の施設概要を取得する
   /api/v1/client/reserves:
     post:
       summary: 予約作成(事業所利用者)
@@ -1234,6 +1247,119 @@ components:
         - provider
         - uid
         - allow_password_change
+    Office:
+      type: object
+      x-examples:
+        Example 1:
+          id: 1
+          manager_id: 5
+          name: ホームケア事務所_1
+          feature_title: 事業所紹介タイトル
+          feature_detail: ここに事業所の特徴テキストが入ります
+          workday:
+            - mon
+          workday_detail: 営業日時についてのテキストが入ります
+          lat: '43.073211'
+          lng: '141.350427'
+          fax: 111-2222-3333
+          nearest_station: 札幌市南北線 北12条駅
+          created_at: '2022-10-29T00:47:31.090+09:00'
+          updated_at: '2022-10-29T00:47:31.090+09:00'
+      title: Office
+      description: 事業所
+      properties:
+        id:
+          type: integer
+        manager_id:
+          type: integer
+        name:
+          type: string
+        feature_title:
+          type: string
+        feature_detail:
+          type: string
+        workday:
+          type: array
+          items:
+            type: string
+        workday_detail:
+          type: string
+        lat:
+          type: string
+        lng:
+          type: string
+        fax:
+          type: string
+        nearest_station:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+      required:
+        - id
+        - manager_id
+        - name
+        - feature_title
+        - feature_detail
+        - workday
+        - workday_detail
+        - lat
+        - lng
+        - fax
+        - nearest_station
+    OfficeOverview:
+      type: object
+      x-examples:
+        Example 1:
+          id: 3
+          office_id: 56
+          classify: 介護付きホーム（サービス付き高齢者向け住宅　特定施設）
+          opening_date: '2022-03-11'
+          room_count: 30
+          requirements: 満60歳以上の方、入居時自立・要支援・要介護
+          shared_facilities: エントランス、食堂兼機能訓練室、個浴、大浴場、特殊浴槽、和室、談話室、シアタールーム、屋上庭園
+          business_entity: 株式会社ユニマット　リタイアメント・コミュニティ
+          official_site_url: 'https://www.unimat-rc.co.jp/shisetsu/sosigaya_871/index.html'
+          created_at: '2022-10-29T18:22:43.829+09:00'
+          updated_at: '2022-10-29T18:22:43.829+09:00'
+      title: OfficeOverview
+      description: 施設概要
+      properties:
+        id:
+          type: integer
+          description: 主キー
+        office_id:
+          type: integer
+          description: 事業所外部キー
+        classify:
+          type: string
+          description: 類型
+        opening_date:
+          type: string
+          description: 開設年月
+        room_count:
+          type: integer
+          description: 居室数
+        requirements:
+          type: string
+          description: 入居時の要件
+        shared_facilities:
+          type: string
+          description: 共用設備
+        business_entity:
+          type: string
+          description: 経営・事業主体
+        official_site_url:
+          type: string
+          description: 公式サイトのURL
+        created_at:
+          type: string
+        updated_at:
+          type: string
+      required:
+        - id
+        - office_id
   responses:
     AuthSuccess:
       description: ''
