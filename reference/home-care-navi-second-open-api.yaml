@@ -956,6 +956,61 @@ paths:
       description: Manager自身の施設概要を取得する
       tags:
         - office_overview
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                classify:
+                  type: string
+                  description: 類型
+                  example: 介護付きホーム（サービス付き高齢者向け住宅　特定施設）
+                opening_date:
+                  type: string
+                  description: 開設年月
+                  example: '2022-03-11'
+                  format: date
+                room_count:
+                  type: integer
+                  description: 居室数
+                  example: 30
+                requirements:
+                  type: string
+                  description: 入居時の要件
+                  example: 満60歳以上の方、入居時自立・要支援・要介護
+                shared_facilities:
+                  type: string
+                  description: 共用設備
+                  example: エントランス、食堂兼機能訓練室、個浴、大浴場、特殊浴槽、和室、談話室、シアタールーム、屋上庭園
+                business_entity:
+                  type: string
+                  description: 経営・事業主体
+                  example: 株式会社ユニマット　リタイアメント・コミュニティ
+                official_site_url:
+                  type: string
+                  description: 公式サイトのURL
+                  example: 'https://www.unimat-rc.co.jp/shisetsu/sosigaya_871/index.html'
+                  format: uri
+              required:
+                - classify
+                - opening_date
+                - room_count
+                - requirements
+                - shared_facilities
+                - business_entity
+                - official_site_url
+            examples:
+              example-1:
+                value:
+                  classify: 介護付きホーム（サービス付き高齢者向け住宅　特定施設）
+                  opening_date: '2022-03-11'
+                  room_count: 30
+                  requirements: 満60歳以上の方、入居時自立・要支援・要介護
+                  shared_facilities: エントランス、食堂兼機能訓練室、個浴、大浴場、特殊浴槽、和室、談話室、シアタールーム、屋上庭園
+                  business_entity: 株式会社ユニマット　リタイアメント・コミュニティ
+                  official_site_url: 'https://www.unimat-rc.co.jp/shisetsu/sosigaya_871/index.html'
+        description: ''
   /api/v1/client/reserves:
     post:
       summary: 予約作成(事業所利用者)
