@@ -926,6 +926,8 @@ paths:
                     official_site_url: 'https://www.unimat-rc.co.jp/shisetsu/sosigaya_871/index.html'
                     created_at: '2022-10-29T18:22:43.829+09:00'
                     updated_at: '2022-10-29T18:22:43.829+09:00'
+        '400':
+          $ref: '#/components/responses/BadRequest'
       description: Manager自身の施設概要を更新する
       tags:
         - office_overview
@@ -1576,6 +1578,22 @@ components:
             type: string
             example: test1@example.com
           description: トークン認証に必要なヘッダー(4/4)
+    BadRequest:
+      description: 'バリデーションチェック失敗時。status: :bad_requestで返ってくるときの値。'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                description: エラーの値
+                items:
+                  type: string
+                example:
+                  - 類型は200文字以内で入力してください
+            required:
+              - errors
   requestBodies: {}
   parameters: {}
   securitySchemes:
