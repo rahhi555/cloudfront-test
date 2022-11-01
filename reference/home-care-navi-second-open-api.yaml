@@ -333,12 +333,11 @@ paths:
                   address: 東京都新宿区市ヶ谷本村町5番1号
                   password: new-password
                   current_password: password
-      security:
-        - access-token: []
-        - client: []
-        - expiry: []
-        - uid: []
-      parameters: []
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
     delete:
       summary: 退会
       operationId: deleteAuth
@@ -398,22 +397,21 @@ paths:
       tags:
         - auth
       description: 退会する
-      security:
-        - access-token: []
-        - client: []
-        - expiry: []
-        - uid: []
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
   /api/v1/auth/validate_token:
     get:
       summary: トークン検証
       operationId: validateToken
       description: 'ヘッダー内のaccess-token,client,expiry,uidを検証する'
-      parameters: []
-      security:
-        - access-token: []
-        - client: []
-        - expiry: []
-        - uid: []
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
       responses:
         '200':
           $ref: '#/components/responses/AuthSuccess'
@@ -538,13 +536,13 @@ paths:
                   value:
                     success: true
       description: 'ヘッダーに`access-token`,`uid`,`client`必須。ログアウトする。'
-      security:
-        - access-token: []
-        - client: []
-        - expiry: []
-        - uid: []
       tags:
         - auth
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
     parameters: []
   /api/v1/auth/password:
     post:
@@ -724,10 +722,6 @@ paths:
       tags:
         - auth
       description: パスワードリセットを確定する。
-      security:
-        - access-token: []
-        - client: []
-        - uid: []
       requestBody:
         content:
           application/json:
@@ -746,6 +740,10 @@ paths:
                 - password
                 - password_confirmation
         description: 'ヘッダーにclient,access-token,uid。ボディにpassword,password_confirmationが必須。'
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/uid'
   /api/v1/client/offices/area:
     get:
       summary: 事業所エリア検索(事業所利用者)
@@ -869,6 +867,8 @@ paths:
                     updated_at: string
       operationId: getManagerOffice
       description: Manager自身の事務所詳細を取得する
+      parameters:
+        - $ref: '#/components/parameters/uid'
     parameters: []
     patch:
       summary: 事業所更新(ケアマネ)
@@ -986,6 +986,11 @@ paths:
         description: ''
       tags:
         - office_overview
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
     get:
       summary: 施設概要取得（ケアマネ）
       operationId: getManagerOfficeOverview
@@ -1010,9 +1015,15 @@ paths:
                     official_site_url: 'https://www.unimat-rc.co.jp/shisetsu/sosigaya_871/index.html'
                     created_at: '2022-10-29T18:22:43.829+09:00'
                     updated_at: '2022-10-29T18:22:43.829+09:00'
+          headers: {}
       description: Manager自身の施設概要を取得する
       tags:
         - office_overview
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
   /api/v1/client/reserves:
     post:
       summary: 予約作成(事業所利用者)
@@ -1619,28 +1630,40 @@ components:
             required:
               - errors
   requestBodies: {}
-  parameters: {}
-  securitySchemes:
+  parameters:
     access-token:
       name: access-token
-      type: apiKey
       in: header
+      required: true
+      schema:
+        type: string
+        example: 7sbMLu90-fDnajzasuhOTQ
       description: トークン認証に必要なヘッダー(1/4)
     client:
       name: client
-      type: apiKey
       in: header
+      required: true
+      schema:
+        type: string
+        example: xJ-BFLHzY_XNMX_cjsQnPw
       description: トークン認証に必要なヘッダー(2/4)
     expiry:
       name: expiry
-      type: apiKey
       in: header
+      required: true
+      schema:
+        type: string
+        example: '1660145125'
       description: トークン認証に必要なヘッダー(3/4)
     uid:
       name: uid
-      type: apiKey
       in: header
+      required: true
+      schema:
+        type: string
+        example: test1@example.com
       description: トークン認証に必要なヘッダー(4/4)
+  securitySchemes: {}
 tags:
   - name: appointment
     description: 予約
