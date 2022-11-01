@@ -1557,11 +1557,20 @@ components:
         id: 6vrskiww5y6eu
       type: object
       description: 事業所画像
+      x-examples:
+        Example 1:
+          id: 1
+          office_id: 1
+          caption: 画像の説明テキストが入ります
+          role: thumbnail
+          url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhhRGgzZURGa2JEZHBZVFEyYzI5Mk5EaHhkWEpyYjNVeU9YY3pNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpUjJsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SW5SbGMzUmZhVzFoWjJVdWFuQm5JanNnWm1sc1pXNWhiV1VxUFZWVVJpMDRKeWQwWlhOMFgybHRZV2RsTG1wd1p3WTdCbFE2RVdOdmJuUmxiblJmZEhsd1pVa2lEMmx0WVdkbEwycHdaV2NHT3daVU9oRnpaWEoyYVdObFgyNWhiV1U2Q214dlkyRnMiLCJleHAiOiIyMDIyLTExLTAxVDE1OjU2OjEwLjU2NloiLCJwdXIiOiJibG9iX2tleSJ9fQ==--038762b401b1d05237727d72b9acfcd6ae833738/test_image.jpg'
+          created_at: '2019-08-24T14:15:22Z'
+          updated_at: '2019-08-24T14:15:22Z'
       properties:
         id:
           type: integer
-          example: 1
           description: 主キー
+          example: 1
         office_id:
           type: integer
           example: 1
@@ -1572,9 +1581,28 @@ components:
           description: 画像の見出しテキスト
         role:
           type: string
+          enum:
+            - thumbnail
+            - carousel
+            - feature
+          description: 役割
+          example: thumbnail
+        url:
+          type: string
+          description: 画像URL
+          format: uri
+          example: 'http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhhRGgzZURGa2JEZHBZVFEyYzI5Mk5EaHhkWEpyYjNVeU9YY3pNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpUjJsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SW5SbGMzUmZhVzFoWjJVdWFuQm5JanNnWm1sc1pXNWhiV1VxUFZWVVJpMDRKeWQwWlhOMFgybHRZV2RsTG1wd1p3WTdCbFE2RVdOdmJuUmxiblJmZEhsd1pVa2lEMmx0WVdkbEwycHdaV2NHT3daVU9oRnpaWEoyYVdObFgyNWhiV1U2Q214dlkyRnMiLCJleHAiOiIyMDIyLTExLTAxVDE1OjU2OjEwLjU2NloiLCJwdXIiOiJibG9iX2tleSJ9fQ==--038762b401b1d05237727d72b9acfcd6ae833738/test_image.jpg'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
       required:
         - id
         - office_id
+        - role
+        - url
   responses:
     AuthSuccess:
       description: ''
