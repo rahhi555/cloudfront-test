@@ -1525,6 +1525,30 @@ components:
         - official_site_url
         - created_at
         - updated_at
+    OfficeImage:
+      title: OfficeImage
+      x-stoplight:
+        id: 6vrskiww5y6eu
+      type: object
+      description: 事業所画像
+      properties:
+        id:
+          type: integer
+          example: 1
+          description: 主キー
+        office_id:
+          type: integer
+          example: 1
+          description: 事業所id
+        caption:
+          type: string
+          example: 画像の説明テキストが入ります
+          description: 画像の見出しテキスト
+        role:
+          type: string
+      required:
+        - id
+        - office_id
   responses:
     AuthSuccess:
       description: ''
