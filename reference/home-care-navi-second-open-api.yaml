@@ -209,16 +209,26 @@ paths:
                 - type
                 - confirm_success_url
             examples:
-              example-1:
+              client sign_up:
                 value:
                   name: テスト 太郎
-                  email: test@example.com
+                  email: client@example.com
                   tel: 090-1111-2222
                   postal: '1234567'
                   address: 東京都新宿区市ヶ谷本村町5番1号
                   password: password
                   type: Client
-                  confirm_success_url: 'http://localhost:8080'
+                  confirm_success_url: 'http://localhost:8080/client/login'
+              manager sign_up:
+                value:
+                  name: テスト 太郎
+                  email: manager@example.com
+                  tel: 090-1111-2222
+                  postal: '1234567'
+                  address: 東京都新宿区市ヶ谷本村町5番1号
+                  password: password
+                  type: Manager
+                  confirm_success_url: 'http://localhost:8080/manager/login'
     parameters: []
     patch:
       summary: 登録者情報更新
@@ -472,11 +482,16 @@ paths:
                 - password
                 - type
             examples:
-              example-1:
+              client login:
                 value:
-                  email: test1@example.com
+                  email: client@example.com
                   password: password
                   type: Client
+              manager login:
+                value:
+                  email: manager@example.com
+                  password: password
+                  type: Manager
           application/xml:
             schema:
               type: object
