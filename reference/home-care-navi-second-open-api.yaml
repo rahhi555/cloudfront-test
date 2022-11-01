@@ -862,24 +862,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Office'
-              examples:
-                example-1:
-                  value:
-                    id: 1
-                    manager_id: 5
-                    name: ホームケア事務所_1
-                    feature_title: 事業所紹介タイトル
-                    feature_detail: ここに事業所の特徴テキストが入ります
-                    workday:
-                      - mon
-                    workday_detail: 営業日時についてのテキストが入ります
-                    lat: '43.073211'
-                    lng: '41.350427'
-                    fax: 111-2222-3333
-                    nearest_station: 北12条駅 徒歩5分
-                    created_at: string
-                    updated_at: string
+                allOf:
+                  - $ref: '#/components/schemas/Office'
+                  - $ref: '#/components/schemas/OfficeImage'
+              examples: {}
       operationId: getManagerOffice
       description: Manager自身の事務所詳細を取得する
       parameters:
@@ -1603,6 +1589,64 @@ components:
         - office_id
         - role
         - url
+    OfficeStaff:
+      title: OfficeStaff
+      x-stoplight:
+        id: u0uhoxrkdpmpu
+      type: object
+      description: 事業所スタッフ
+      properties:
+        id:
+          type: integer
+          description: 主キー
+          example: '1'
+        office_id:
+          type: integer
+          description: 事業所詳細id
+          example: 1
+        name:
+          type: string
+          example: 田中　太郎
+          description: 名前
+        furigana:
+          type: string
+          example: たなか　たろう
+          description: ふりがな
+        introduction:
+          type: string
+          example: スタッフ紹介テキストが入ります
+          pattern: ''
+          description: スタッフ紹介文
+        role:
+          type: string
+          example: worker
+          enum:
+            - worker
+            - care_manager
+          description: スタッフロール
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - office_id
+        - name
+        - furigana
+        - introduction
+        - role
+      x-examples:
+        Example 1:
+          id: '1'
+          office_id: 1
+          name: 田中　太郎
+          furigana: たなか　たろう
+          introduction: スタッフ紹介テキストが入ります
+          role: worker
+          created_at: '2019-08-24T14:15:22Z'
+          updated_at: '2019-08-24T14:15:22Z'
   responses:
     AuthSuccess:
       description: ''
