@@ -868,6 +868,10 @@ paths:
                     feature_detail: ここに事業所の特徴テキストが入ります
                     workday:
                       - mon
+                      - tue
+                      - wed
+                      - thu
+                      - fri
                     workday_detail: 営業日時についてのテキストが入ります
                     lat: '43.073211'
                     lng: '41.350427'
@@ -1444,6 +1448,10 @@ components:
           feature_detail: ここに事業所の特徴テキストが入ります
           workday:
             - mon
+            - tue
+            - wed
+            - thu
+            - fri
           workday_detail: 営業日時についてのテキストが入ります
           lat: '43.073211'
           lng: '41.350427'
@@ -1466,10 +1474,22 @@ components:
           example: ここに事業所の特徴テキストが入ります
         workday:
           type: array
-          example:
-            - mon
           items:
             type: string
+            enum:
+              - sun
+              - mon
+              - tue
+              - wed
+              - thu
+              - fri
+              - sat
+          example:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
         workday_detail:
           type: string
           example: 営業日時についてのテキストが入ります
