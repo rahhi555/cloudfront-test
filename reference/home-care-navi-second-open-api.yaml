@@ -665,8 +665,6 @@ paths:
                       provider: email
                       uid: test1@example.com
                       allow_password_change: false
-                      created_at: '2022-09-23T00:33:53.961+09:00'
-                      updated_at: '2022-09-23T00:33:53.961+09:00'
                     message: パスワードの更新に成功しました
             application/xml:
               schema:
@@ -861,14 +859,70 @@ paths:
           description: OK
           content:
             application/json:
+              examples:
+                Example 1:
+                  value:
+                    id: 1
+                    name: ホームケア事務所_1
+                    feature_title: 事業所紹介タイトル
+                    feature_detail: ここに事業所の特徴テキストが入ります
+                    workday:
+                      - mon
+                    workday_detail: 営業日時についてのテキストが入ります
+                    lat: '43.073211'
+                    lng: '41.350427'
+                    fax: 111-2222-3333
+                    nearest_station: 北12条駅 徒歩5分
+                    thumbnail_image:
+                      id: 1
+                      role: thumbnail
+                      url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                    feature_images:
+                      - id: 2
+                        caption: 画像の特徴テキストが入ります1
+                        role: feature
+                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                      - id: 3
+                        caption: 画像の特徴テキストが入ります2
+                        role: feature
+                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                    carousel_images:
+                      - id: 4
+                        role: carousel
+                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                      - id: 5
+                        role: carousel
+                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                      - id: 6
+                        role: carousel
+                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                      - id: 7
+                        role: carousel
+                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                      - id: 8
+                        role: carousel
+                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
               schema:
                 allOf:
                   - $ref: '#/components/schemas/Office'
-                  - $ref: '#/components/schemas/OfficeImage'
-              examples: {}
+                  - type: object
+                    properties:
+                      thumbnail_image:
+                        $ref: '#/components/schemas/OfficeImage'
+                      feature_images:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/OfficeImage'
+                      carousel_images:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/OfficeImage'
       operationId: getManagerOffice
       description: Manager自身の事務所詳細を取得する
       parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
         - $ref: '#/components/parameters/uid'
     parameters: []
     patch:
@@ -1369,16 +1423,6 @@ components:
           type: boolean
           default: false
           description: パスワード変更中判定
-        created_at:
-          type: string
-          format: date-time
-          example: '2022-09-23T00:33:53.961+09:00'
-          description: 作成日時(新規作成時のみ返ってくる)
-        updated_at:
-          type: string
-          example: '2022-09-23T00:33:53.961+09:00'
-          format: date-time
-          description: 更新日時(新規作成時のみ返ってくる)
       required:
         - id
         - name
@@ -1395,7 +1439,6 @@ components:
       x-examples:
         Example 1:
           id: 1
-          manager_id: 5
           name: ホームケア事務所_1
           feature_title: 事業所紹介タイトル
           feature_detail: ここに事業所の特徴テキストが入ります
@@ -1403,20 +1446,15 @@ components:
             - mon
           workday_detail: 営業日時についてのテキストが入ります
           lat: '43.073211'
-          lng: '141.350427'
+          lng: '41.350427'
           fax: 111-2222-3333
           nearest_station: 北12条駅 徒歩5分
-          created_at: '2022-10-29T00:47:31.090+09:00'
-          updated_at: '2022-10-29T00:47:31.090+09:00'
       title: Office
       description: 事業所
       properties:
         id:
           type: integer
           example: 1
-        manager_id:
-          type: integer
-          example: 5
         name:
           type: string
           example: ホームケア事務所_1
@@ -1447,13 +1485,8 @@ components:
         nearest_station:
           type: string
           example: 北12条駅 徒歩5分
-        created_at:
-          type: string
-        updated_at:
-          type: string
       required:
         - id
-        - manager_id
         - name
         - feature_title
         - feature_detail
@@ -1467,8 +1500,7 @@ components:
       type: object
       x-examples:
         Example 1:
-          id: 3
-          office_id: 56
+          id: 1
           classify: 介護付きホーム（サービス付き高齢者向け住宅　特定施設）
           opening_date: '2022-03-11'
           room_count: 30
@@ -1476,8 +1508,6 @@ components:
           shared_facilities: エントランス、食堂兼機能訓練室、個浴、大浴場、特殊浴槽、和室、談話室、シアタールーム、屋上庭園
           business_entity: 株式会社ユニマット　リタイアメント・コミュニティ
           official_site_url: 'https://www.unimat-rc.co.jp/shisetsu/sosigaya_871/index.html'
-          created_at: '2022-10-29T18:22:43.829+09:00'
-          updated_at: '2022-10-29T18:22:43.829+09:00'
       title: OfficeOverview
       description: 施設概要
       properties:
@@ -1485,10 +1515,6 @@ components:
           type: integer
           description: 主キー
           example: 1
-        office_id:
-          type: integer
-          description: 事業所外部キー
-          example: 3
         classify:
           type: string
           description: 類型
@@ -1519,15 +1545,8 @@ components:
           description: 公式サイトのURL
           example: 'https://www.unimat-rc.co.jp/shisetsu/sosigaya_871/index.html'
           format: uri
-        created_at:
-          type: string
-          example: '2022-10-29T18:22:43.829+09:00'
-        updated_at:
-          type: string
-          example: '2022-10-29T18:22:43.829+09:00'
       required:
         - id
-        - office_id
         - classify
         - opening_date
         - room_count
@@ -1535,8 +1554,6 @@ components:
         - shared_facilities
         - business_entity
         - official_site_url
-        - created_at
-        - updated_at
     OfficeImage:
       title: OfficeImage
       x-stoplight:
@@ -1546,21 +1563,14 @@ components:
       x-examples:
         Example 1:
           id: 1
-          office_id: 1
           caption: 画像の説明テキストが入ります
           role: thumbnail
-          url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhhRGgzZURGa2JEZHBZVFEyYzI5Mk5EaHhkWEpyYjNVeU9YY3pNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpUjJsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SW5SbGMzUmZhVzFoWjJVdWFuQm5JanNnWm1sc1pXNWhiV1VxUFZWVVJpMDRKeWQwWlhOMFgybHRZV2RsTG1wd1p3WTdCbFE2RVdOdmJuUmxiblJmZEhsd1pVa2lEMmx0WVdkbEwycHdaV2NHT3daVU9oRnpaWEoyYVdObFgyNWhiV1U2Q214dlkyRnMiLCJleHAiOiIyMDIyLTExLTAxVDE1OjU2OjEwLjU2NloiLCJwdXIiOiJibG9iX2tleSJ9fQ==--038762b401b1d05237727d72b9acfcd6ae833738/test_image.jpg'
-          created_at: '2019-08-24T14:15:22Z'
-          updated_at: '2019-08-24T14:15:22Z'
+          url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
       properties:
         id:
           type: integer
           description: 主キー
           example: 1
-        office_id:
-          type: integer
-          example: 1
-          description: 事業所id
         caption:
           type: string
           example: 画像の説明テキストが入ります
@@ -1577,16 +1587,9 @@ components:
           type: string
           description: 画像URL
           format: uri
-          example: 'http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhhRGgzZURGa2JEZHBZVFEyYzI5Mk5EaHhkWEpyYjNVeU9YY3pNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpUjJsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SW5SbGMzUmZhVzFoWjJVdWFuQm5JanNnWm1sc1pXNWhiV1VxUFZWVVJpMDRKeWQwWlhOMFgybHRZV2RsTG1wd1p3WTdCbFE2RVdOdmJuUmxiblJmZEhsd1pVa2lEMmx0WVdkbEwycHdaV2NHT3daVU9oRnpaWEoyYVdObFgyNWhiV1U2Q214dlkyRnMiLCJleHAiOiIyMDIyLTExLTAxVDE1OjU2OjEwLjU2NloiLCJwdXIiOiJibG9iX2tleSJ9fQ==--038762b401b1d05237727d72b9acfcd6ae833738/test_image.jpg'
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
+          example: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
       required:
         - id
-        - office_id
         - role
         - url
     OfficeStaff:
@@ -1595,14 +1598,17 @@ components:
         id: u0uhoxrkdpmpu
       type: object
       description: 事業所スタッフ
+      x-examples:
+        Example 1:
+          id: 1
+          name: 田中　太郎
+          furigana: たなか　たろう
+          introduction: スタッフ紹介テキストが入ります
+          role: worker
       properties:
         id:
           type: integer
           description: 主キー
-          example: '1'
-        office_id:
-          type: integer
-          description: 事業所詳細id
           example: 1
         name:
           type: string
@@ -1624,29 +1630,12 @@ components:
             - worker
             - care_manager
           description: スタッフロール
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
       required:
         - id
-        - office_id
         - name
         - furigana
         - introduction
         - role
-      x-examples:
-        Example 1:
-          id: '1'
-          office_id: 1
-          name: 田中　太郎
-          furigana: たなか　たろう
-          introduction: スタッフ紹介テキストが入ります
-          role: worker
-          created_at: '2019-08-24T14:15:22Z'
-          updated_at: '2019-08-24T14:15:22Z'
   responses:
     AuthSuccess:
       description: ''
