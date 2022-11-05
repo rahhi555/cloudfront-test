@@ -1090,9 +1090,9 @@ paths:
       responses:
         '200':
           description: OK
-      tags:
-        - appointment
       description: ホームケアを予約する
+      tags:
+        - reserve
     get:
       summary: 予約一覧取得(事業所利用者)
       operationId: getClientReserves
@@ -1101,7 +1101,7 @@ paths:
           description: OK
       description: 予約一覧を取得する
       tags:
-        - appointment
+        - reserve
     parameters: []
   /api/v1/manager/reserves:
     get:
@@ -1112,7 +1112,7 @@ paths:
           description: OK
       description: 予約一覧を取得する
       tags:
-        - appointment
+        - reserve
     parameters: []
   '/api/v1/manager/reserve/{id}':
     parameters:
@@ -1132,7 +1132,7 @@ paths:
           description: OK
       description: 予約を更新する
       tags:
-        - appointment
+        - reserve
   /api/v1/client/thanks:
     post:
       summary: お礼投稿(事業所利用者)
@@ -1771,8 +1771,6 @@ components:
       description: トークン認証に必要なヘッダー(4/4)
   securitySchemes: {}
 tags:
-  - name: appointment
-    description: 予約
   - name: auth
     description: 認証
   - name: book_mark
@@ -1791,6 +1789,8 @@ tags:
     description: 事業所で管理しているクライアント
   - name: office_overview
     description: 施設概要
+  - name: reserve
+    description: 予約
   - name: staff
     description: 事業所スタッフ
   - name: thank
