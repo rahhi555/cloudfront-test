@@ -860,7 +860,7 @@ paths:
           content:
             application/json:
               examples:
-                Example 1:
+                全画像作成済みパターン:
                   value:
                     id: 1
                     name: ホームケア事務所_1
@@ -906,31 +906,53 @@ paths:
                       - id: 8
                         role: carousel
                         image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                全画像未作成パターン:
+                  value:
+                    id: 1
+                    name: ホームケア事務所_1
+                    feature_title: 事業所紹介タイトル
+                    feature_detail: ここに事業所の特徴テキストが入ります
+                    workday:
+                      - mon
+                      - tue
+                      - wed
+                      - thu
+                      - fri
+                    workday_detail: 営業日時についてのテキストが入ります
+                    lat: '43.073211'
+                    lng: '41.350427'
+                    fax: 111-2222-3333
+                    nearest_station: 北12条駅 徒歩5分
+                    thumbnail_image: null
+                    feature_images: []
+                    carousel_images: []
               schema:
                 allOf:
                   - $ref: '#/components/schemas/Office'
                   - type: object
                     properties:
                       thumbnail_image:
-                        $ref: '#/components/schemas/OfficeImage'
+                        anyOf:
+                          - $ref: '#/components/schemas/OfficeImage'
+                          - type: object
+                            nullable: true
+                            description: 未作成の場合はnullが返ってくる
                       feature_images:
                         anyOf:
-                          - type: array
-                            items:
+                          - items:
                               $ref: '#/components/schemas/OfficeImage'
-                          - type: array
-                            maxItems: 0
-                            items: {}
+                          - maxItems: 0
                             description: 未作成の場合は空配列が返ってくる
+                            items: {}
+                        type: array
                       carousel_images:
                         anyOf:
-                          - type: array
-                            items:
+                          - items:
                               $ref: '#/components/schemas/OfficeImage'
-                          - type: array
-                            maxItems: 0
-                            items: {}
+                          - maxItems: 0
                             description: 未作成の場合は空配列が返ってくる
+                            items: {}
+                        type: array
       operationId: getManagerOffice
       description: Manager自身の事務所詳細を取得する
       parameters:
