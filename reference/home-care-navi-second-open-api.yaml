@@ -880,32 +880,32 @@ paths:
                     thumbnail_image:
                       id: 1
                       role: thumbnail
-                      url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                      image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                     feature_images:
                       - id: 2
                         caption: 画像の特徴テキストが入ります1
                         role: feature
-                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                        image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                       - id: 3
                         caption: 画像の特徴テキストが入ります2
                         role: feature
-                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                        image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                     carousel_images:
                       - id: 4
                         role: carousel
-                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                        image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                       - id: 5
                         role: carousel
-                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                        image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                       - id: 6
                         role: carousel
-                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                        image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                       - id: 7
                         role: carousel
-                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                        image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                       - id: 8
                         role: carousel
-                        url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                        image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
               schema:
                 allOf:
                   - $ref: '#/components/schemas/Office'
@@ -914,13 +914,23 @@ paths:
                       thumbnail_image:
                         $ref: '#/components/schemas/OfficeImage'
                       feature_images:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/OfficeImage'
+                        oneOf:
+                          - type: array
+                            items:
+                              $ref: '#/components/schemas/OfficeImage'
+                          - type: array
+                            maxItems: 0
+                            items: {}
+                            description: 未作成の場合は空配列が返ってくる
                       carousel_images:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/OfficeImage'
+                        oneOf:
+                          - type: array
+                            items:
+                              $ref: '#/components/schemas/OfficeImage'
+                          - type: array
+                            maxItems: 0
+                            items: {}
+                            description: 未作成の場合は空配列が返ってくる
       operationId: getManagerOffice
       description: Manager自身の事務所詳細を取得する
       parameters:
@@ -1595,7 +1605,7 @@ components:
           id: 1
           caption: 画像の説明テキストが入ります
           role: thumbnail
-          url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+          image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
       properties:
         id:
           type: integer
@@ -1613,7 +1623,7 @@ components:
             - feature
           description: 画像の役割
           example: thumbnail
-        url:
+        image_url:
           type: string
           description: 画像URL
           format: uri
@@ -1621,7 +1631,7 @@ components:
       required:
         - id
         - role
-        - url
+        - image_url
     OfficeStaff:
       title: OfficeStaff
       x-stoplight:
