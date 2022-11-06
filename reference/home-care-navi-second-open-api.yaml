@@ -1691,10 +1691,16 @@ components:
                 readOnly: true
               data:
                 $ref: '#/components/schemas/User'
+              created_at:
+                type: string
+                format: date-time
+              updated_at:
+                type: string
+                format: date-time
             required:
               - data
           examples:
-            example-1:
+            Example 1:
               value:
                 status: success
                 data:
@@ -1708,6 +1714,8 @@ components:
                   provider: email
                   uid: test1@example.com
                   allow_password_change: false
+                created_at: '2019-08-24T14:15:22Z'
+                updated_at: '2019-08-24T14:15:22Z'
       headers:
         access-token:
           schema:
