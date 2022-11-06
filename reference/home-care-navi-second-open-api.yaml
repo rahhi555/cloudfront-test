@@ -1437,6 +1437,12 @@ components:
           type: boolean
           default: false
           description: パスワード変更中判定
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
       required:
         - id
         - name
@@ -1691,12 +1697,6 @@ components:
                 readOnly: true
               data:
                 $ref: '#/components/schemas/User'
-              created_at:
-                type: string
-                format: date-time
-              updated_at:
-                type: string
-                format: date-time
             required:
               - data
           examples:
