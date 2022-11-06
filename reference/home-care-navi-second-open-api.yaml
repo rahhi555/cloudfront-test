@@ -914,7 +914,7 @@ paths:
                       thumbnail_image:
                         $ref: '#/components/schemas/OfficeImage'
                       feature_images:
-                        oneOf:
+                        anyOf:
                           - type: array
                             items:
                               $ref: '#/components/schemas/OfficeImage'
@@ -923,7 +923,7 @@ paths:
                             items: {}
                             description: 未作成の場合は空配列が返ってくる
                       carousel_images:
-                        oneOf:
+                        anyOf:
                           - type: array
                             items:
                               $ref: '#/components/schemas/OfficeImage'
