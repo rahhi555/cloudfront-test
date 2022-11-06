@@ -145,7 +145,7 @@ paths:
                       allow_password_change: false
                       name: テスト　太郎
                       email: test@example.com
-                      tel: 000-1111-2222
+                      tel: 000-1111-2223
                       address: 東京都新宿区市ヶ谷本村町5番1号
                       postal: '1234567'
                       created_at: null
