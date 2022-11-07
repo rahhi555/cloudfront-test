@@ -1175,14 +1175,8 @@ paths:
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/expiry'
         - $ref: '#/components/parameters/uid'
-  '/api/v1/manager/office_images/{id}':
-    parameters:
-      - schema:
-          type: number
-        name: id
-        in: path
-        required: true
-        description: office_imageのid
+  /api/v1/manager/office_image:
+    parameters: []
     patch:
       summary: 事業所画像更新(ケアマネ)
       operationId: updateManagerOfficeImage
@@ -1216,6 +1210,10 @@ paths:
             schema:
               type: object
               properties:
+                id:
+                  type: integer
+                  example: 1
+                  description: idに値を入れていれば既存の画像の更新、入れていなければ画像の新規作成となる
                 image:
                   type: string
                   format: binary
