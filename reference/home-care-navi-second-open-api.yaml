@@ -991,6 +991,29 @@ paths:
       tags:
         - office
       description: Manager自身の事務所を更新する
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                feature_title:
+                  type: string
+                feature_detail:
+                  type: string
+                workday:
+                  type: string
+                workday_detail:
+                  type: string
+                fax:
+                  type: string
   /api/v1/manager/office_overview:
     parameters: []
     patch:
@@ -1115,6 +1138,67 @@ paths:
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/expiry'
         - $ref: '#/components/parameters/uid'
+  /api/v1/manager/office_image:
+    parameters: []
+    patch:
+      summary: 事業所画像更新(ケアマネ)
+      operationId: updateManagerOfficeImage
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfficeImage'
+              examples:
+                Example 1:
+                  value:
+                    id: 1
+                    caption: 画像の説明テキストが入ります
+                    role: thumbnail
+                    image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      description: Manager自身の事業所画像を更新する
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
+      tags:
+        - office_image
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                  description: 画像のバイナリデータ
+                caption:
+                  type: string
+                  description: キャプション
+                  example: 画像の説明テキストが入ります
+                role:
+                  type: string
+                  enum:
+                    - thumbnail
+                    - carousel
+                    - feature
+                  example: thumbnail
+                  description: 役割。thumbnailが一覧のサムネイル。carouselが5枚のカルーセル。featureが2枚の説明画像
+              required:
+                - image
+                - role
+            examples:
+              Example 1:
+                value:
+                  image: string
+                  caption: 画像の説明テキストが入ります
+                  role: thumbnail
+        description: ※画像はContentTypeがapplication/jsonでは送信出来ないため、multipart/form-dataかつformDataでラップして送信すること
   /api/v1/client/reserves:
     post:
       summary: 予約作成(事業所利用者)
@@ -1827,6 +1911,8 @@ tags:
     description: 事業所
   - name: office_client
     description: 事業所で管理しているクライアント
+  - name: office_image
+    description: 事業所画像
   - name: office_overview
     description: 施設概要
   - name: reserve
