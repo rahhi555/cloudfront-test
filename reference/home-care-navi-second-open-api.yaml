@@ -980,7 +980,7 @@ paths:
                     feature_title: 事業所紹介タイトル
                     feature_detail: ここに事業所の特徴テキストが入ります
                     workday:
-                      - mon
+                      - mon 
                     workday_detail: 営業日時についてのテキストが入ります
                     lat: '43.073211'
                     lng: '41.350427'
@@ -1004,16 +1004,51 @@ paths:
               properties:
                 name:
                   type: string
+                  description: 新事業所名
+                  example: ニューホームケア
                 feature_title:
                   type: string
+                  description: 新事業所タイトル
+                  example: 新しいタイトルです
                 feature_detail:
                   type: string
+                  description: 新事業所詳細
+                  example: 新しい詳細です
                 workday:
-                  type: string
+                  type: array
+                  description: 新事業所営業曜日
+                  items:
+                    type: string
+                    enum:
+                      - sun
+                      - mon
+                      - tue
+                      - wed
+                      - thu
+                      - fri
+                      - sat
                 workday_detail:
                   type: string
+                  example: 新営業日テキスト
+                  description: 新営業日テキスト
                 fax:
                   type: string
+                  description: 新FAX番号
+                  example: 111-1111-1111
+            examples:
+              Example 1:
+                value:
+                  name: ニューホームケア
+                  feature_title: 新しいタイトルです
+                  feature_detail: 新しい詳細です
+                  workday:
+                    - mon
+                    - tue
+                    - wed
+                    - thu
+                    - fri
+                  workday_detail: 新営業日テキスト
+                  fax: 111-1111-1111
   /api/v1/manager/office_overview:
     parameters: []
     patch:
