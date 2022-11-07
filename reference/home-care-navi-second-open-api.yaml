@@ -1175,8 +1175,14 @@ paths:
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/expiry'
         - $ref: '#/components/parameters/uid'
-  /api/v1/manager/office_image:
-    parameters: []
+  '/api/v1/manager/office_image/{id}':
+    parameters:
+      - schema:
+          type: number
+        name: id
+        in: path
+        required: true
+        description: office_imageのid
     patch:
       summary: 事業所画像更新(ケアマネ)
       operationId: updateManagerOfficeImage
