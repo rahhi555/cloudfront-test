@@ -1175,7 +1175,7 @@ paths:
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/expiry'
         - $ref: '#/components/parameters/uid'
-  '/api/v1/manager/office_image/{id}':
+  '/api/v1/manager/office_images/{id}':
     parameters:
       - schema:
           type: number
