@@ -980,7 +980,7 @@ paths:
                     feature_title: 事業所紹介タイトル
                     feature_detail: ここに事業所の特徴テキストが入ります
                     workday:
-                      - mon 
+                      - mon
                     workday_detail: 営業日時についてのテキストが入ります
                     lat: '43.073211'
                     lng: '41.350427'
@@ -988,6 +988,8 @@ paths:
                     nearest_station: 北12条駅 徒歩5分
                     created_at: string
                     updated_at: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
       tags:
         - office
       description: Manager自身の事務所を更新する
