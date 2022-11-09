@@ -1194,6 +1194,8 @@ paths:
                     caption: 画像の説明テキストが入ります
                     role: thumbnail
                     image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+        '400':
+          $ref: '#/components/responses/BadRequest'
       description: Manager自身の事業所画像を作成する
       tags:
         - office_image
