@@ -1430,6 +1430,11 @@ paths:
       tags:
         - staff
       description: スタッフ一覧を取得する
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
     post:
       summary: スタッフ作成(ケアマネ)
       operationId: createManagerStaff
