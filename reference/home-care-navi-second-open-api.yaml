@@ -1499,6 +1499,45 @@ paths:
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/expiry'
         - $ref: '#/components/parameters/uid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                office_id:
+                  type: integer
+                name:
+                  type: string
+                furigana:
+                  type: string
+                introduction:
+                  type: string
+                role:
+                  type: integer
+                  enum:
+                    - 'worker:0, care-manager:1'
+                  default: 0
+              required:
+                - office_id
+                - name
+                - furigana
+                - role
+            examples:
+              Example 1:
+                value:
+                  office_id: 1
+                  name: サンプル太郎
+                  furigana: さんぷるたろう
+                  introduction: ここにスタッフの説明がはいります
+                  role: 0
+              Example 2:
+                value:
+                  office_id: 2
+                  name: サンプル太郎2
+                  furigana: さんぷるたろうに
+                  introduction: ここにスタッフの説明がはいります
+                  role: 1
     post:
       summary: スタッフ作成(ケアマネ)
       operationId: createManagerStaff
