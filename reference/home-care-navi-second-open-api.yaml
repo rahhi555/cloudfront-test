@@ -1944,7 +1944,7 @@ components:
             required:
               - data
           examples:
-            Example 1:
+            example-1:
               value:
                 status: success
                 data:
