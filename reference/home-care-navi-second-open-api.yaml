@@ -939,18 +939,15 @@ paths:
                   - type: object
                     properties:
                       thumbnail_image:
-                        oneOf:
-                          - $ref: '#/components/schemas/OfficeImage'
+                        $ref: '#/components/schemas/OfficeImage'
                       feature_images:
-                        oneOf:
-                          - items:
-                              $ref: '#/components/schemas/OfficeImage'
                         type: array
+                        items:
+                          $ref: '#/components/schemas/OfficeImage'
                       carousel_images:
-                        oneOf:
-                          - items:
-                              $ref: '#/components/schemas/OfficeImage'
                         type: array
+                        items:
+                          $ref: '#/components/schemas/OfficeImage'
       operationId: getManagerOffice
       description: Manager自身の事務所詳細を取得する
       parameters:
