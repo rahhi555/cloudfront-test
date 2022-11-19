@@ -941,23 +941,15 @@ paths:
                       thumbnail_image:
                         oneOf:
                           - $ref: '#/components/schemas/OfficeImage'
-                          - type: object
-                            description: 未作成の場合はnullが返ってくる
                       feature_images:
                         oneOf:
                           - items:
                               $ref: '#/components/schemas/OfficeImage'
-                          - maxItems: 0
-                            description: 未作成の場合は空配列が返ってくる
-                            items: {}
                         type: array
                       carousel_images:
                         oneOf:
                           - items:
                               $ref: '#/components/schemas/OfficeImage'
-                          - maxItems: 0
-                            description: 未作成の場合は空配列が返ってくる
-                            items: {}
                         type: array
       operationId: getManagerOffice
       description: Manager自身の事務所詳細を取得する
