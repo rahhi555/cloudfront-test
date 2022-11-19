@@ -1938,6 +1938,14 @@ components:
       x-stoplight:
         id: bebxbyo6jawmb
       type: object
+      description: ページネーションのレスポンス
+      x-examples:
+        Example 1:
+          current_page: 2
+          prev_page: null
+          next_page: 2
+          total_page: 10
+      additionalProperties: false
       properties:
         current_page:
           type: integer
@@ -1962,13 +1970,6 @@ components:
         - prev_page
         - next_page
         - total_page
-      description: ページネーションのレスポンス
-      x-examples:
-        Example 1:
-          current_page: 2
-          prev_page: null
-          next_page: 2
-          total_page: 10
   responses:
     AuthSuccess:
       description: ''
@@ -2046,11 +2047,13 @@ components:
         application/json:
           schema:
             type: object
+            additionalProperties: false
             properties:
               offices:
                 type: array
                 items:
                   type: object
+                  additionalProperties: false
                   properties:
                     id:
                       type: integer
