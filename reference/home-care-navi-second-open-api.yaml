@@ -939,13 +939,13 @@ paths:
                   - type: object
                     properties:
                       thumbnail_image:
-                        anyOf:
+                        oneOf:
                           - $ref: '#/components/schemas/OfficeImage'
                           - type: object
-                            nullable: true
                             description: 未作成の場合はnullが返ってくる
+                            nullable: true
                       feature_images:
-                        anyOf:
+                        oneOf:
                           - items:
                               $ref: '#/components/schemas/OfficeImage'
                           - maxItems: 0
@@ -953,7 +953,7 @@ paths:
                             items: {}
                         type: array
                       carousel_images:
-                        anyOf:
+                        oneOf:
                           - items:
                               $ref: '#/components/schemas/OfficeImage'
                           - maxItems: 0
