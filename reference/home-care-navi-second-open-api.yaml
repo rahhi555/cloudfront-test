@@ -943,7 +943,6 @@ paths:
                           - $ref: '#/components/schemas/OfficeImage'
                           - type: object
                             description: 未作成の場合はnullが返ってくる
-                            nullable: true
                       feature_images:
                         oneOf:
                           - items:
