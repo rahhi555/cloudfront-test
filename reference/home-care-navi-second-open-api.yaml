@@ -1528,9 +1528,41 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                staff:
+                  value:
+                    office_id: 1
+                    name: サンプル太郎
+                    furigana: さんぷるたろう
+                    introduction: ここにスタッフの説明がはいります
+                    role: 0
       tags:
         - staff
       description: スタッフを追加する
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                furigana:
+                  type: string
+                introduction:
+                  type: string
+                rorle:
+                  type: integer
     parameters: []
   '/api/v1/manager/staff/{id}':
     parameters:
