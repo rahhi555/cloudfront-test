@@ -1532,7 +1532,21 @@ paths:
             application/json:
               schema:
                 type: object
-                properties: {}
+                properties:
+                  office_id:
+                    type: integer
+                  name:
+                    type: string
+                  furigana:
+                    type: string
+                  introduction:
+                    type: string
+                  role:
+                    type: integer
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
               examples:
                 staff:
                   value:
