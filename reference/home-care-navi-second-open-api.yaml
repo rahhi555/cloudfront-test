@@ -934,11 +934,6 @@ paths:
                       is_bookmark:
                         type: boolean
                         description: ブックマーク済み
-                  caroucel_images:
-                    type: array
-                    description: 最大5枚のカルーセル画像
-                    items:
-                      $ref: '#/components/schemas/OfficeImage'
                   staffs:
                     type: array
                     description: スタッフ一覧
@@ -958,6 +953,11 @@ paths:
                                 type: string
                           required:
                             - user_comments
+                  caroucel_images:
+                    type: array
+                    description: 最大5枚のカルーセル画像
+                    items:
+                      $ref: '#/components/schemas/OfficeImage'
                   feature_images:
                     type: array
                     description: 最大2枚の特徴画像。画像の特徴テキストとしてcaptionカラムが付与されている。
@@ -967,8 +967,8 @@ paths:
                     $ref: '#/components/schemas/OfficeOverview'
                 required:
                   - office
-                  - caroucel_images
                   - staffs
+                  - caroucel_images
                   - feature_images
                   - office_overview
               examples:
