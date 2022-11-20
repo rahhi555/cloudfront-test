@@ -1575,7 +1575,7 @@ paths:
                   type: string
                 introduction:
                   type: string
-                rorle:
+                role:
                   type: integer
             examples:
               Example 1:
@@ -1583,7 +1583,7 @@ paths:
                   name: サンプル太郎
                   furigana: さんぷるたろう
                   introduction: ここにスタッフの説明がはいります
-                  rorle: 0
+                  role: 0
     parameters: []
   '/api/v1/manager/staff/{id}':
     parameters:
