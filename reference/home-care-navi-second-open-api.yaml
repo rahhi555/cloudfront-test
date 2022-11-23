@@ -1795,9 +1795,84 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  furigana:
+                    type: string
+                  introduction:
+                    type: string
+                  role:
+                    type: string
+              examples:
+                Example 1:
+                  value:
+                    office_id: 1
+                    name: サンプル花子
+                    furigana: さんぷるたろう
+                    introduction: ここにスタッフの説明がはいります
+                    role: 0
+                Example 2:
+                  value:
+                    office_id: 1
+                    name: サンプル太郎
+                    furigana: さんぷるはなこ
+                    introduction: ここにスタッフの説明がはいります
+                    role: 0
+                Example 3:
+                  value:
+                    office_id: 1
+                    name: サンプル太郎
+                    furigana: さんぷるたろう
+                    introduction: ここに花子の説明がはいります
+                    role: 0
+                Example 4:
+                  value:
+                    office_id: 1
+                    name: サンプル太郎
+                    furigana: さんぷるたろう
+                    introduction: ここにスタッフの説明がはいります
+                    role: 1
       tags:
         - staff
       description: スタッフを更新する
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                furigana:
+                  type: string
+                introduction:
+                  type: string
+                role:
+                  type: string
+            examples:
+              Example 1:
+                value:
+                  name: サンプル花子
+              Example 2:
+                value:
+                  furigana: さんぷるはなこ
+              Example 3:
+                value:
+                  introduction: ここに花子の説明がはいります。
+              Example 4:
+                value:
+                  role: 1
+        description: ''
   /api/v1/manager/office_clients:
     get:
       summary: 事業所管理の事業所利用者一覧取得(ケアマネ)
