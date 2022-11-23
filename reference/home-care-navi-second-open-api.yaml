@@ -1844,7 +1844,7 @@ paths:
                   name: new name
                   furigana: new furigana
                   introduction: new introduction
-                  role: '0'
+                  role: 0
         description: ''
   /api/v1/manager/office_clients:
     get:
