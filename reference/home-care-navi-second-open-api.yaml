@@ -817,12 +817,20 @@ paths:
       parameters:
         - schema:
             type: number
+            format: float
+            minimum: -90
+            maximum: 90
+            example: 35.7402129
           in: query
           name: lat
           description: 緯度
           required: true
         - schema:
             type: number
+            format: float
+            minimum: -180
+            maximum: 180
+            example: 139.7030313
           in: query
           name: lng
           description: 経度
