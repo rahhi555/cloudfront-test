@@ -1812,31 +1812,10 @@ paths:
                 Example 1:
                   value:
                     office_id: 1
-                    name: サンプル花子
-                    furigana: さんぷるたろう
-                    introduction: ここにスタッフの説明がはいります
+                    name: new name
+                    furigana: new furigana
+                    introduction: new introduction
                     role: 0
-                Example 2:
-                  value:
-                    office_id: 1
-                    name: サンプル太郎
-                    furigana: さんぷるはなこ
-                    introduction: ここにスタッフの説明がはいります
-                    role: 0
-                Example 3:
-                  value:
-                    office_id: 1
-                    name: サンプル太郎
-                    furigana: さんぷるたろう
-                    introduction: ここに花子の説明がはいります
-                    role: 0
-                Example 4:
-                  value:
-                    office_id: 1
-                    name: サンプル太郎
-                    furigana: さんぷるたろう
-                    introduction: ここにスタッフの説明がはいります
-                    role: 1
       tags:
         - staff
       description: スタッフを更新する
@@ -1862,16 +1841,10 @@ paths:
             examples:
               Example 1:
                 value:
-                  name: サンプル花子
-              Example 2:
-                value:
-                  furigana: さんぷるはなこ
-              Example 3:
-                value:
-                  introduction: ここに花子の説明がはいります。
-              Example 4:
-                value:
-                  role: 1
+                  name: new name
+                  furigana: new furigana
+                  introduction: new introduction
+                  role: '0'
         description: ''
   /api/v1/manager/office_clients:
     get:
