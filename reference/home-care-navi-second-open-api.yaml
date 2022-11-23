@@ -1770,7 +1770,7 @@ paths:
                   introduction: ここにスタッフの説明がはいります
                   role: 0
     parameters: []
-  '/api/v1/manager/staff/{id}':
+  '/api/v1/manager/staffs/{id}':
     parameters:
       - name: id
         in: path
