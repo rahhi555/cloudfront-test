@@ -1789,6 +1789,11 @@ paths:
       tags:
         - staff
       description: スタッフを削除する
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
     patch:
       summary: スタッフ更新(ケアマネ)
       operationId: updateManagerStaff
