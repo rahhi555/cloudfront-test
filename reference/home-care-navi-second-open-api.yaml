@@ -1784,8 +1784,8 @@ paths:
       summary: スタッフ削除(ケアマネ)
       operationId: deleteManagerStaff
       responses:
-        '200':
-          description: OK
+        '204':
+          description: No Content
       tags:
         - staff
       description: スタッフを削除する
