@@ -961,7 +961,7 @@ paths:
                                 type: string
                           required:
                             - user_comments
-                  caroucel_images:
+                  carousel_images:
                     type: array
                     description: 最大5枚のカルーセル画像
                     items:
@@ -976,7 +976,7 @@ paths:
                 required:
                   - office
                   - staffs
-                  - caroucel_images
+                  - carousel_images
                   - feature_images
                   - office_overview
               examples:
