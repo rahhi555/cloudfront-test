@@ -845,7 +845,7 @@ paths:
         '200':
           $ref: '#/components/responses/SearchResult'
     parameters: []
-  '/api/v1/client/office/{id}':
+  '/api/v1/client/offices/{id}':
     get:
       summary: 事業所詳細取得(事業所利用者)
       tags:
@@ -1001,7 +1001,7 @@ paths:
                       feature_title: 事業所紹介タイトル
                       feature_detail: ここに事業所の特徴テキストが入ります
                       is_bookmark: true
-                    caroucel_images:
+                    carousel_images:
                       - id: 1
                         caption: 画像の説明テキストが入ります
                         role: thumbnail
