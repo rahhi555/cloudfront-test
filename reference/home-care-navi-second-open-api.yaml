@@ -1857,10 +1857,48 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  clients:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: '#/components/schemas/OfficeClient'
+                        - type: object
+                          properties:
+                            staff_name:
+                              type: string
+                              example: 山田　一郎
+                              description: 担当スタッフ名
+                          required:
+                            - staff_name
+                required:
+                  - clients
+              examples:
+                Example 1:
+                  value:
+                    clients:
+                      - id: 1
+                        name: 田中　太郎
+                        furigana: たなか　たろう
+                        postal: 162-0014
+                        address: 東京都新宿区市ヶ谷本村町5-1
+                        family: 娘
+                        age: 40
+                        staff_name: 山田　一郎
       operationId: getManagerOfficeClients
       tags:
         - office_client
       description: 事業所で管理している事業所利用者一覧を取得する
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
+      x-extension-1: null
     parameters: []
     post:
       summary: 事業所管理の事業所利用者作成(ケアマネ)
@@ -2249,6 +2287,62 @@ components:
         - prev_page
         - next_page
         - total_page
+    OfficeClient:
+      title: OfficeClient
+      x-stoplight:
+        id: xeh695uf8zavx
+      type: object
+      description: 事業所管理のクライアント
+      x-examples:
+        Example 1:
+          id: 1
+          name: 田中　太郎
+          furigana: たなか　たろう
+          postal: 162-0014
+          address: 東京都新宿区市ヶ谷本村町5-1
+          family: 娘
+          age: 40
+      properties:
+        id:
+          type: integer
+          example: 1
+          description: 主キー
+        name:
+          type: string
+          description: 事業所利用者名
+          example: 田中　太郎
+        furigana:
+          type: string
+          example: たなか　たろう
+          description: ふりがな
+        postal:
+          type: string
+          description: 郵便番号
+          example: 162-0014
+        address:
+          type: string
+          example: 東京都新宿区市ヶ谷本村町5-1
+          description: 住所
+        family:
+          type: string
+          example: 娘
+          description: 家族情報
+        age:
+          type: integer
+          example: 40
+          exclusiveMaximum: true
+          exclusiveMinimum: true
+          description: 年齢
+          minimum: 0
+          maximum: 120
+      required:
+        - id
+        - name
+        - furigana
+        - postal
+        - address
+        - family
+        - age
   responses:
     AuthSuccess:
       description: ''
