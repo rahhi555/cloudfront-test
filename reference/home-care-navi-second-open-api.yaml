@@ -1960,7 +1960,7 @@ paths:
                   age: 40
                   avatar: string
         description: ※画像はContentTypeがapplication/jsonでは送信出来ないため、multipart/form-dataかつformDataでラップして送信すること
-  '/api/v1/manager/office_client/{id}':
+  '/api/v1/manager/office_clients/{id}':
     patch:
       summary: 事業所管理の事業所利用者更新(ケアマネ)
       operationId: updateManagerOfficeClient
