@@ -1948,8 +1948,13 @@ paths:
                       type: string
                       format: binary
                       description: 画像のバイナリデータ
+                    staff_id:
+                      type: integer
+                      example: 1
+                      description: 担当スタッフのid
                   required:
                     - avatar
+                    - staff_id
             examples:
               Example 1:
                 value:
@@ -1960,6 +1965,7 @@ paths:
                   family: 娘
                   age: 40
                   avatar: string
+                  staff_id: 1
         description: ※画像はContentTypeがapplication/jsonでは送信出来ないため、multipart/form-dataかつformDataでラップして送信すること
   '/api/v1/manager/office_clients/{id}':
     patch:
