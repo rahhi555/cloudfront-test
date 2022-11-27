@@ -1961,6 +1961,36 @@ paths:
       tags:
         - office_client
       description: 事業所で管理している事業所利用者を更新する
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/OfficeClient'
+                - type: object
+                  properties:
+                    avatar:
+                      type: string
+                      format: binary
+                      description: 画像のバイナリデータ
+                  required:
+                    - avatar
+            examples:
+              Example 1:
+                value:
+                  name: 田中　太郎
+                  furigana: たなか　たろう
+                  postal: 162-0014
+                  address: 東京都新宿区市ヶ谷本村町5-1
+                  family: 娘
+                  age: 40
+                  avatar: string
+        description: ※画像はContentTypeがapplication/jsonでは送信出来ないため、multipart/form-dataかつformDataでラップして送信すること
     parameters:
       - name: id
         in: path
@@ -1979,6 +2009,11 @@ paths:
       tags:
         - office_client
       description: 事業所で管理している事業所利用者を削除する
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
     get:
       summary: 事業所管理の事業所利用者取得(ケアマネ)
       operationId: getManagerOfficeClient
