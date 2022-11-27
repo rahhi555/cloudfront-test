@@ -2059,9 +2059,9 @@ paths:
                           type: object
                           properties:
                             id:
-                              type: string
-                              example: '1'
+                              type: integer
                               description: スタッフの主キー
+                              example: 1
                             name:
                               type: string
                               example: 山田　太郎
@@ -2080,7 +2080,7 @@ paths:
                     id: 1
                     avatar_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                     staffs:
-                      - id: '1'
+                      - id: 1
                         name: 山田　太郎
                     name: 田中　太郎
                     furigana: たなか　たろう
