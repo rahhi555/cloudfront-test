@@ -1862,7 +1862,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  clients:
+                  office_clients:
                     type: array
                     items:
                       allOf:
@@ -1887,11 +1887,11 @@ paths:
                             - avatar_url
                         - $ref: '#/components/schemas/OfficeClient'
                 required:
-                  - clients
+                  - office_clients
               examples:
                 Example 1:
                   value:
-                    clients:
+                    office_clients:
                       - id: 1
                         staff_name: 山田　一郎
                         avatar_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
@@ -1901,6 +1901,15 @@ paths:
                         address: 東京都新宿区市ヶ谷本村町5-1
                         family: 娘
                         age: 40
+                      - id: 2
+                        staff_name: 山田　二郎
+                        avatar_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                        name: 田中　二郎
+                        furigana: たなか　じろう
+                        postal: 134-3245
+                        address: 埼玉県比企郡川島町大字下八ツ林870番地
+                        family: 息子
+                        age: 50
       operationId: getManagerOfficeClients
       tags:
         - office_client
@@ -1980,7 +1989,7 @@ paths:
                       description: 画像のバイナリデータ
                     staff_id:
                       type: integer
-                      example: '1'
+                      example: 1
                       description: 担当スタッフのid
                   required:
                     - avatar
@@ -1995,6 +2004,7 @@ paths:
                   family: 娘
                   age: 40
                   avatar: string
+                  staff_id: 1
         description: ※画像はContentTypeがapplication/jsonでは送信出来ないため、multipart/form-dataかつformDataでラップして送信すること
     parameters:
       - name: id
@@ -2067,6 +2077,9 @@ paths:
                   value:
                     id: 1
                     avatar_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                    staffs:
+                      - id: '1'
+                        name: 山田　太郎
                     name: 田中　太郎
                     furigana: たなか　たろう
                     postal: 162-0014
