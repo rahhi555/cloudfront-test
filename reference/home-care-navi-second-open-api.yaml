@@ -1866,15 +1866,26 @@ paths:
                     type: array
                     items:
                       allOf:
-                        - $ref: '#/components/schemas/OfficeClient'
                         - type: object
                           properties:
+                            id:
+                              type: integer
+                              example: 1
+                              description: 利用者の主キー
                             staff_name:
                               type: string
                               example: 山田　一郎
                               description: 担当スタッフ名
+                            avatar_url:
+                              type: string
+                              format: uri
+                              example: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+                              description: アバター画像のurl
                           required:
+                            - id
                             - staff_name
+                            - avatar_url
+                        - $ref: '#/components/schemas/OfficeClient'
                 required:
                   - clients
               examples:
@@ -1882,13 +1893,14 @@ paths:
                   value:
                     clients:
                       - id: 1
+                        staff_name: 山田　一郎
+                        avatar_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                         name: 田中　太郎
                         furigana: たなか　たろう
                         postal: 162-0014
                         address: 東京都新宿区市ヶ谷本村町5-1
                         family: 娘
                         age: 40
-                        staff_name: 山田　一郎
       operationId: getManagerOfficeClients
       tags:
         - office_client
@@ -1909,6 +1921,36 @@ paths:
       tags:
         - office_client
       description: 事業所で管理している事業所利用者を作成する
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/OfficeClient'
+                - type: object
+                  properties:
+                    avatar:
+                      type: string
+                      format: binary
+                      description: 画像のバイナリデータ
+                  required:
+                    - avatar
+            examples:
+              Example 1:
+                value:
+                  name: 田中　太郎
+                  furigana: たなか　たろう
+                  postal: 162-0014
+                  address: 東京都新宿区市ヶ谷本村町5-1
+                  family: 娘
+                  age: 40
+                  avatar: string
+        description: ※画像はContentTypeがapplication/jsonでは送信出来ないため、multipart/form-dataかつformDataでラップして送信すること
   '/api/v1/manager/office_client/{id}':
     patch:
       summary: 事業所管理の事業所利用者更新(ケアマネ)
@@ -2295,7 +2337,6 @@ components:
       description: 事業所管理のクライアント
       x-examples:
         Example 1:
-          id: 1
           name: 田中　太郎
           furigana: たなか　たろう
           postal: 162-0014
@@ -2303,10 +2344,6 @@ components:
           family: 娘
           age: 40
       properties:
-        id:
-          type: integer
-          example: 1
-          description: 主キー
         name:
           type: string
           description: 事業所利用者名
@@ -2336,7 +2373,6 @@ components:
           minimum: 0
           maximum: 120
       required:
-        - id
         - name
         - furigana
         - postal
