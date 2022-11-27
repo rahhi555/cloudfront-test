@@ -1978,8 +1978,13 @@ paths:
                       type: string
                       format: binary
                       description: 画像のバイナリデータ
+                    staff_id:
+                      type: integer
+                      example: '1'
+                      description: 担当スタッフのid
                   required:
                     - avatar
+                    - staff_id
             examples:
               Example 1:
                 value:
@@ -2035,9 +2040,27 @@ paths:
                         format: uri
                         example: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                         description: アバター画像のurl
+                      staffs:
+                        type: array
+                        description: 紐付け対象のスタッフ一覧
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: '1'
+                              description: スタッフの主キー
+                            name:
+                              type: string
+                              example: 山田　太郎
+                              description: スタッフの名前
+                          required:
+                            - id
+                            - name
                     required:
                       - id
                       - avatar_url
+                      - staffs
                   - $ref: '#/components/schemas/OfficeClient'
               examples:
                 Example 1:
