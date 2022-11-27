@@ -1881,6 +1881,7 @@ paths:
                               format: uri
                               example: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                               description: アバター画像のurl
+                              nullable: true
                           required:
                             - id
                             - staff_name
@@ -2050,6 +2051,7 @@ paths:
                         format: uri
                         example: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                         description: アバター画像のurl
+                        nullable: true
                       staffs:
                         type: array
                         description: 紐付け対象のスタッフ一覧
