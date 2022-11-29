@@ -766,11 +766,13 @@ paths:
       description: 事業所一覧をエリア検索する
       parameters:
         - schema:
-            type: string
-            example: 札幌市北区北十条西
+            type: array
+            example: 
+              - 札幌市北区北十条西
+              - 東京都市谷本村町
           in: query
           name: q
-          description: エリアの文字列
+          description: エリアの文字列配列
           required: true
         - schema:
             type: integer
