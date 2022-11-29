@@ -767,13 +767,15 @@ paths:
       parameters:
         - schema:
             type: array
-            example: 
+            example:
               - 札幌市北区北十条西
               - 東京都市谷本村町
           in: query
           name: q
           description: エリアの文字列配列
           required: true
+          style: form
+          explode: true
         - schema:
             type: integer
             example: 2
