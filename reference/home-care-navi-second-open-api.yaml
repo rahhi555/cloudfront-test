@@ -767,12 +767,11 @@ paths:
       parameters:
         - schema:
             type: string
-            example: 'q[]=札幌市北区北十条西&q[]=東京都新宿区市谷本村町'
+            example: '札幌市北区北十条西,東京都新宿区市谷本村町'
           in: query
-          name: 'q[]'
-          description: エリアの文字列配列
+          name: q
+          description: エリアの文字列。カンマで区切る。
           required: true
-          style: form
           explode: true
         - schema:
             type: integer
