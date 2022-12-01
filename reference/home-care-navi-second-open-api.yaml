@@ -2503,6 +2503,94 @@ components:
         - address
         - family
         - age
+    ResponseSearchOffice:
+      title: ResponseSearchOffice
+      x-stoplight:
+        id: v63lkfb1fpxj3
+      type: object
+      additionalProperties: false
+      description: 検索の事業所結果
+      properties:
+        id:
+          type: integer
+          description: 事業所のid
+          example: 1
+        name:
+          type: string
+          example: 祖師谷ホームケアそよ風
+          description: 事業所名
+        nearest_station:
+          type: string
+          example: 札幌市南北線 北12条駅
+          description: 最寄り駅
+        stuff_count:
+          type: integer
+          example: 30
+          description: 事業所に所属しているスタッフの総人数
+        is_bookmark:
+          type: boolean
+          default: false
+          description: 現在のユーザーがこの事務所をブックマークしているかどうか
+        tel:
+          type: string
+          example: 事業所の電話番号
+          description: 080-2916-9802
+        feature_title:
+          type: string
+          example: 事業所紹介タイトル
+          description: 事業所紹介タイトル
+        workday:
+          type: array
+          example:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+          description: 営業曜日
+          items:
+            type: string
+            enum:
+              - sun
+              - mon
+              - tue
+              - wed
+              - thu
+              - fri
+              - sat
+        thumbnail_image:
+          type: string
+          format: uri
+          example: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+          description: サムネイルのイメージ画像
+          nullable: true
+      required:
+        - id
+        - name
+        - nearest_station
+        - stuff_count
+        - is_bookmark
+        - tel
+        - feature_title
+        - workday
+        - thumbnail_image
+  x-examples:
+    Example 1:
+      offices:
+        - id: 1
+          name: 祖師谷ホームケアそよ風
+          nearest_station: 札幌市南北線 北12条駅
+          stuff_count: 30
+          is_bookmark: false
+          tel: 事業所の電話番号
+          feature_title: 事業所紹介タイトル
+          workday:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+          thumbnail_image: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
   responses:
     AuthSuccess:
       description: ''
@@ -2585,72 +2673,7 @@ components:
               offices:
                 type: array
                 items:
-                  type: object
-                  additionalProperties: false
-                  properties:
-                    id:
-                      type: integer
-                      description: 事業所のid
-                      example: 1
-                    name:
-                      type: string
-                      example: 祖師谷ホームケアそよ風
-                      description: 事業所名
-                    nearest_station:
-                      type: string
-                      example: 札幌市南北線 北12条駅
-                      description: 最寄り駅
-                    stuff_count:
-                      type: integer
-                      example: 30
-                      description: 事業所に所属しているスタッフの総人数
-                    is_bookmark:
-                      type: boolean
-                      default: false
-                      description: 現在のユーザーがこの事務所をブックマークしているかどうか
-                    tel:
-                      type: string
-                      example: 事業所の電話番号
-                      description: 080-2916-9802
-                    feature_title:
-                      type: string
-                      example: 事業所紹介タイトル
-                      description: 事業所紹介タイトル
-                    workday:
-                      type: array
-                      example:
-                        - mon
-                        - tue
-                        - wed
-                        - thu
-                        - fri
-                      description: 営業曜日
-                      items:
-                        type: string
-                        enum:
-                          - sun
-                          - mon
-                          - tue
-                          - wed
-                          - thu
-                          - fri
-                          - sat
-                    thumbnail_image:
-                      type: string
-                      format: uri
-                      example: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
-                      description: サムネイルのイメージ画像
-                      nullable: true
-                  required:
-                    - id
-                    - name
-                    - nearest_station
-                    - stuff_count
-                    - is_bookmark
-                    - tel
-                    - feature_title
-                    - workday
-                    - thumbnail_image
+                  $ref: '#/components/schemas/ResponseSearchOffice'
               paginate:
                 $ref: '#/components/schemas/Paginate'
             required:
