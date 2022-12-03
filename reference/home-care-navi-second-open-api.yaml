@@ -769,7 +769,7 @@ paths:
             type: string
             example: '札幌市北区北十条西,東京都新宿区市谷本村町'
           in: query
-          name: q
+          name: areas
           description: エリアの文字列。カンマで区切る。
           required: true
           explode: true
@@ -795,7 +795,7 @@ paths:
             type: string
             example: 祖師谷ケアパーク
           in: query
-          name: q
+          name: words
           description: 検索単語
           required: true
         - schema:
@@ -2428,6 +2428,7 @@ components:
           prev_page: null
           next_page: 2
           total_page: 10
+          total_count: 100
       additionalProperties: false
       properties:
         current_page:
@@ -2448,11 +2449,16 @@ components:
           type: integer
           example: 10
           description: 総ページ数
+        total_count:
+          type: integer
+          description: 対象モデルの総レコード数
+          example: 100
       required:
         - current_page
         - prev_page
         - next_page
         - total_page
+        - total_count
     OfficeClient:
       title: OfficeClient
       x-stoplight:
@@ -2702,6 +2708,7 @@ components:
                   prev_page: null
                   next_page: 2
                   total_page: 10
+                  total_count: 100
   requestBodies: {}
   parameters:
     access-token:
