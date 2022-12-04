@@ -2580,10 +2580,9 @@ components:
         - feature_title
         - workday
         - thumbnail_image
-  x-examples:
-    Example 1:
-      offices:
-        - id: 1
+      x-examples:
+        Example 1:
+          id: 1
           name: 祖師谷ホームケアそよ風
           nearest_station: 札幌市南北線 北12条駅
           stuff_count: 30
