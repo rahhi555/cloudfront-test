@@ -1501,9 +1501,51 @@ paths:
       responses:
         '200':
           description: OK
-      description: 予約一覧を取得する
+          content:
+            application/json:
+              schema:
+                type: object
+      description: 事業所利用者が予約一覧を取得する
       tags:
         - reserve
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                office_id:
+                  type: integer
+                client_id:
+                  type: integer
+                interview_begin_at:
+                  type: string
+                interview_end_at:
+                  type: string
+                user_name:
+                  type: string
+                user_age:
+                  type: integer
+                contact_tel:
+                  type: string
+                note:
+                  type: string
+                is_contacted:
+                  type: boolean
+              required:
+                - office_id
+                - client_id
+                - interview_begin_at
+                - interview_end_at
+                - user_name
+                - user_age
+                - contact_tel
+                - is_contacted
     parameters: []
   /api/v1/manager/reserves:
     get:
