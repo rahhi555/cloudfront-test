@@ -1505,6 +1505,37 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  office_id:
+                    type: integer
+                  client_id:
+                    type: integer
+                  interview_begin_at:
+                    type: string
+                  interview_end_at:
+                    type: string
+                  user_name:
+                    type: string
+                  user_age:
+                    type: integer
+                  contact_tel:
+                    type: string
+                  note:
+                    type: string
+                  is_contacted:
+                    type: boolean
+              examples:
+                Example 1:
+                  value:
+                    office_id: 0
+                    client_id: 0
+                    interview_begin_at: string
+                    interview_end_at: string
+                    user_name: string
+                    user_age: 0
+                    contact_tel: string
+                    note: string
+                    is_contacted: true
       description: 事業所利用者が予約一覧を取得する
       tags:
         - reserve
@@ -1518,34 +1549,6 @@ paths:
           application/json:
             schema:
               type: object
-              properties:
-                office_id:
-                  type: integer
-                client_id:
-                  type: integer
-                interview_begin_at:
-                  type: string
-                interview_end_at:
-                  type: string
-                user_name:
-                  type: string
-                user_age:
-                  type: integer
-                contact_tel:
-                  type: string
-                note:
-                  type: string
-                is_contacted:
-                  type: boolean
-              required:
-                - office_id
-                - client_id
-                - interview_begin_at
-                - interview_end_at
-                - user_name
-                - user_age
-                - contact_tel
-                - is_contacted
     parameters: []
   /api/v1/manager/reserves:
     get:
