@@ -1524,6 +1524,15 @@ paths:
                     type: string
                   is_contacted:
                     type: boolean
+                required:
+                  - office_id
+                  - client_id
+                  - interview_begin_at
+                  - interview_end_at
+                  - user_name
+                  - user_age
+                  - contact_tel
+                  - is_contacted
               examples:
                 Example 1:
                   value:
@@ -1544,11 +1553,6 @@ paths:
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/expiry'
         - $ref: '#/components/parameters/uid'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
     parameters: []
   /api/v1/manager/reserves:
     get:
