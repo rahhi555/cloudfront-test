@@ -1545,6 +1545,44 @@ paths:
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/expiry'
         - $ref: '#/components/parameters/uid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                office_id:
+                  type: integer
+                interview_begin_at:
+                  type: string
+                interview_end_at:
+                  type: string
+                user_name:
+                  type: string
+                user_age:
+                  type: integer
+                contact_tel:
+                  type: string
+                note:
+                  type: string
+              required:
+                - office_id
+                - interview_begin_at
+                - interview_end_at
+                - user_name
+                - user_age
+                - contact_tel
+                - note
+            examples:
+              Example 1:
+                value:
+                  office_id: 1
+                  interview_begin_at: 'Sun, 22 Jan 2023 12:43:45.053459000 JST +09:00'
+                  interview_end_at: 'Sat, 17 Dec 2022 19:10:42.053173000 JST +09:00'
+                  user_name: サンプル太郎
+                  user_age: 50
+                  contact_tel: 000-0000-0000
+                  note: 予約の概要がはいります。
     get:
       summary: 予約一覧取得(事業所利用者)
       operationId: getClientReserves
