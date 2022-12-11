@@ -1649,9 +1649,58 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  office_id:
+                    type: integer
+                  client_id:
+                    type: integer
+                  interview_begin_at:
+                    type: string
+                  interview_end_at:
+                    type: string
+                  user_name:
+                    type: string
+                  user_age:
+                    type: integer
+                  contact_tel:
+                    type: string
+                  note:
+                    type: string
+                  is_contacted:
+                    type: boolean
+              examples:
+                Example 1:
+                  value:
+                    - office_id: 0
+                      client_id: 0
+                      interview_begin_at: 'Sun, 22 Jan 2023 12:43:45.053459000 JST +09:00'
+                      interview_end_at: 'Sun, 22 Jan 2023 12:43:45.053459000 JST +09:00'
+                      user_name: サンプル太郎
+                      user_age: 50
+                      contact_tel: 000-0000-0000
+                      note: 予約の概要が入ります。
+                      is_contacted: false
+                    - office_id: 1
+                      client_id: 1
+                      interview_begin_at: 'Sun, 22 Jan 2023 12:43:45.053459000 JST +09:00'
+                      interview_end_at: 'Sun, 22 Jan 2023 12:43:45.053459000 JST +09:00'
+                      user_name: サンプル花子
+                      user_age: 100
+                      contact_tel: 111-1111-1111
+                      note: 予約の概要が入ります。
+                      is_contacted: true
       description: 予約一覧を取得する
       tags:
         - reserve
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
     parameters: []
   '/api/v1/manager/reserve/{id}':
     parameters:
