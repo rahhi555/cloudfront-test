@@ -1718,9 +1718,49 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  is_contacted:
+                    type: integer
+              examples:
+                Example 1:
+                  value:
+                    is_contacted: true
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  is_contacted:
+                    type: boolean
+              examples:
+                Example 1:
+                  value: |-
+                    {
+                      is_contacted: true
+                    }
       description: 予約を更新する
       tags:
         - reserve
+      parameters:
+        - $ref: '#/components/parameters/access-token'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/expiry'
+        - $ref: '#/components/parameters/uid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ' id':
+                  type: integer
+                is_contacted:
+                  type: boolean
+              required:
+                - ' id'
   /api/v1/client/thanks:
     post:
       summary: お礼投稿(事業所利用者)
