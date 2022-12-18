@@ -1002,21 +1002,22 @@ paths:
                       feature_title: 事業所紹介タイトル
                       feature_detail: ここに事業所の特徴テキストが入ります
                       is_bookmark: true
-                    carousel_images:
-                      - id: 1
-                        caption: 画像の説明テキストが入ります
-                        role: thumbnail
-                        image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                     staffs:
                       - id: 1
                         name: 田中　太郎
                         furigana: たなか　たろう
                         introduction: スタッフ紹介テキストが入ります
                         role: worker
-                        user_comments:
+                        avatar_url: 'https://gravatar.com/avatar/3f01516b4a15256a7499653db6b9f27e?s=400&d=robohash&r=x'
+                        thanks_messages:
                           - リハビリのノウハウがあり、足の悪い父のお世話も安心して任せられました。
                           - とても親切な対応で、またお世話にさせていただこうと思いました！
                           - 感謝感激です。毎回お世話になってます。
+                    carousel_images:
+                      - id: 1
+                        caption: 画像の説明テキストが入ります
+                        role: thumbnail
+                        image_url: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
                     feature_images:
                       - id: 1
                         caption: 画像の説明テキストが入ります
