@@ -951,7 +951,7 @@ paths:
                         - $ref: '#/components/schemas/OfficeStaff'
                         - type: object
                           properties:
-                            user_comments:
+                            thanks_messages:
                               type: array
                               description: ユーザーからのお礼コメント一覧
                               example:
@@ -961,7 +961,7 @@ paths:
                               items:
                                 type: string
                           required:
-                            - user_comments
+                            - thanks_messages
                   carousel_images:
                     type: array
                     description: 最大5枚のカルーセル画像
@@ -2611,6 +2611,7 @@ components:
           furigana: たなか　たろう
           introduction: スタッフ紹介テキストが入ります
           role: worker
+          avatar_url: 'https://gravatar.com/avatar/3f01516b4a15256a7499653db6b9f27e?s=400&d=robohash&r=x'
       properties:
         id:
           type: integer
@@ -2636,6 +2637,11 @@ components:
             - worker
             - care_manager
           description: スタッフロール
+        avatar_url:
+          type: string
+          description: 事業所スタッフの画像url
+          example: 'https://gravatar.com/avatar/3f01516b4a15256a7499653db6b9f27e?s=400&d=robohash&r=x'
+          nullable: true
       required:
         - id
         - name
