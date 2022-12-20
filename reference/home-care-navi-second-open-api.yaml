@@ -1750,11 +1750,6 @@ paths:
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/expiry'
         - $ref: '#/components/parameters/uid'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
   /api/v1/client/thanks:
     post:
       summary: お礼投稿(事業所利用者)
