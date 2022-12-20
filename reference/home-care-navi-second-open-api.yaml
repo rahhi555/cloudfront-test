@@ -1755,11 +1755,6 @@ paths:
           application/json:
             schema:
               type: object
-              properties:
-                ' id':
-                  type: integer
-              required:
-                - ' id'
   /api/v1/client/thanks:
     post:
       summary: お礼投稿(事業所利用者)
