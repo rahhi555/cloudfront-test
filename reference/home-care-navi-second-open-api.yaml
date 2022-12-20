@@ -1758,8 +1758,6 @@ paths:
               properties:
                 ' id':
                   type: integer
-                is_contacted:
-                  type: boolean
               required:
                 - ' id'
   /api/v1/client/thanks:
