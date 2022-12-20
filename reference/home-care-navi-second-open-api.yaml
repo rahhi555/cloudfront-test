@@ -1703,7 +1703,7 @@ paths:
         - $ref: '#/components/parameters/expiry'
         - $ref: '#/components/parameters/uid'
     parameters: []
-  '/api/v1/manager/reserve/{id}':
+  '/api/v1/manager/reserves/{id}':
     parameters:
       - name: id
         in: path
