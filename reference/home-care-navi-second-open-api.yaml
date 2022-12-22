@@ -1653,47 +1653,39 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  office_id:
-                    type: integer
-                  client_id:
-                    type: integer
-                  interview_begin_at:
-                    type: string
-                  interview_end_at:
-                    type: string
-                  user_name:
-                    type: string
-                  user_age:
-                    type: integer
-                  contact_tel:
-                    type: string
-                  note:
-                    type: string
-                  is_contacted:
-                    type: boolean
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reserve'
               examples:
                 Example 1:
                   value:
-                    - office_id: 0
-                      client_id: 0
-                      interview_begin_at: 'Sun, 22 Jan 2023 12:43:45.053459000 JST +09:00'
-                      interview_end_at: 'Sun, 22 Jan 2023 12:43:45.053459000 JST +09:00'
-                      user_name: サンプル太郎
-                      user_age: 50
-                      contact_tel: 000-0000-0000
-                      note: 予約の概要が入ります。
-                      is_contacted: false
                     - office_id: 1
                       client_id: 1
-                      interview_begin_at: 'Sun, 22 Jan 2023 12:43:45.053459000 JST +09:00'
-                      interview_end_at: 'Sun, 22 Jan 2023 12:43:45.053459000 JST +09:00'
-                      user_name: サンプル花子
-                      user_age: 100
+                      interview_begin_at: '2022-12-22T10:04:35.956+09:00'
+                      interview_end_at: '2022-12-22T10:04:35.956+09:00'
+                      user_name: 田中　太郎
+                      user_age: 60
                       contact_tel: 111-1111-1111
-                      note: 予約の概要が入ります。
+                      note: ""
                       is_contacted: true
+                    - office_id: 1
+                      client_id: 2
+                      interview_begin_at: '2022-12-23T10:04:35.956+09:00'
+                      interview_end_at: '2022-12-23T10:04:35.956+09:00'
+                      user_name: 田中　次郎
+                      user_age: 70
+                      contact_tel: 222-2222-2222
+                      note: "足が痛いので歩行時にサポートしていただけると助かります。"
+                      is_contacted: false
+                    - office_id: 1
+                      client_id: 3
+                      interview_begin_at: '2022-12-24T10:04:35.956+09:00'
+                      interview_end_at: '2022-12-24T10:04:35.956+09:00'
+                      user_name: 田中　三郎
+                      user_age: 80
+                      contact_tel: 333-3333-3333
+                      note: ""
+                      is_contacted: false
       description: 予約一覧を取得する
       tags:
         - reserve
@@ -2817,6 +2809,59 @@ components:
             - thu
             - fri
           thumbnail_image: 'http://localhost:3000/rails/active_storage/disk/eyJfcmF/test_image.jpg'
+    Reserve:
+      title: Reserve
+      x-stoplight:
+        id: rj3fz9shn2foq
+      type: object
+      x-examples: {}
+      properties:
+        office_id:
+          type: integer
+          description: 予約を受けた事業所のid
+          example: 1
+        client_id:
+          type: integer
+          description: 予約したクライアントのid
+          example: 1
+        interview_begin_at:
+          type: string
+          description: 開始時間
+          format: date-time
+          example: '2022-12-22T10:04:35.956+09:00'
+        interview_end_at:
+          type: string
+          description: 終了時間
+          format: date-time
+          example: '2022-12-22T10:04:35.956+09:00'
+        user_name:
+          type: string
+          description: 予約したクライアント名
+          example: 田中　太郎
+        user_age:
+          type: integer
+          description: 予約したクライアントの年齢
+          example: 60
+        contact_tel:
+          type: string
+          description: クライアントの電話番号
+          example: 111-1111-1111
+        note:
+          type: string
+          description: お困りごと
+        is_contacted:
+          type: boolean
+          description: 事業所がクライアントに連絡済みかどうか
+      required:
+        - office_id
+        - client_id
+        - interview_begin_at
+        - interview_end_at
+        - user_name
+        - user_age
+        - contact_tel
+        - note
+        - is_contacted
   responses:
     AuthSuccess:
       description: ''
