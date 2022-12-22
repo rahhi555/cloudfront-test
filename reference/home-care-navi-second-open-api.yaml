@@ -1666,7 +1666,7 @@ paths:
                       user_name: 田中　太郎
                       user_age: 60
                       contact_tel: 111-1111-1111
-                      note: ""
+                      note: ''
                       is_contacted: true
                     - office_id: 1
                       client_id: 2
@@ -1675,7 +1675,7 @@ paths:
                       user_name: 田中　次郎
                       user_age: 70
                       contact_tel: 222-2222-2222
-                      note: "足が痛いので歩行時にサポートしていただけると助かります。"
+                      note: 足が痛いので歩行時にサポートしていただけると助かります。
                       is_contacted: false
                     - office_id: 1
                       client_id: 3
@@ -1684,7 +1684,7 @@ paths:
                       user_name: 田中　三郎
                       user_age: 80
                       contact_tel: 333-3333-3333
-                      note: ""
+                      note: ''
                       is_contacted: false
       description: 予約一覧を取得する
       tags:
@@ -2816,6 +2816,10 @@ components:
       type: object
       x-examples: {}
       properties:
+        id:
+          type: integer
+          example: 1
+          description: 主キー
         office_id:
           type: integer
           description: 予約を受けた事業所のid
