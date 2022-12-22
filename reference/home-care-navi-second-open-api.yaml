@@ -1659,7 +1659,8 @@ paths:
               examples:
                 Example 1:
                   value:
-                    - office_id: 1
+                    - id: 1
+                      office_id: 1
                       client_id: 1
                       interview_begin_at: '2022-12-22T10:04:35.956+09:00'
                       interview_end_at: '2022-12-22T10:04:35.956+09:00'
@@ -1668,7 +1669,8 @@ paths:
                       contact_tel: 111-1111-1111
                       note: ''
                       is_contacted: true
-                    - office_id: 1
+                    - id: 2
+                      office_id: 1
                       client_id: 2
                       interview_begin_at: '2022-12-23T10:04:35.956+09:00'
                       interview_end_at: '2022-12-23T10:04:35.956+09:00'
@@ -1677,7 +1679,8 @@ paths:
                       contact_tel: 222-2222-2222
                       note: 足が痛いので歩行時にサポートしていただけると助かります。
                       is_contacted: false
-                    - office_id: 1
+                    - id: 3
+                      office_id: 1
                       client_id: 3
                       interview_begin_at: '2022-12-24T10:04:35.956+09:00'
                       interview_end_at: '2022-12-24T10:04:35.956+09:00'
@@ -2814,7 +2817,18 @@ components:
       x-stoplight:
         id: rj3fz9shn2foq
       type: object
-      x-examples: {}
+      x-examples:
+        Example 1:
+          id: 1
+          office_id: 1
+          client_id: 1
+          interview_begin_at: '2022-12-22T10:04:35.956+09:00'
+          interview_end_at: '2022-12-22T10:04:35.956+09:00'
+          user_name: 田中　太郎
+          user_age: 60
+          contact_tel: 111-1111-1111
+          note: string
+          is_contacted: true
       properties:
         id:
           type: integer
